@@ -20,6 +20,7 @@ const servicios_module_1 = require("./servicios/servicios.module");
 const conductores_module_1 = require("./conductores/conductores.module");
 const facturas_module_1 = require("./facturas/facturas.module");
 const pagos_module_1 = require("./pagos/pagos.module");
+const dashboard_module_1 = require("./dashboard/dashboard.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -40,6 +41,7 @@ exports.AppModule = AppModule = __decorate([
             conductores_module_1.ConductoresModule,
             facturas_module_1.FacturasModule,
             pagos_module_1.PagosModule,
+            dashboard_module_1.DashboardModule,
         ],
         controllers: [],
         providers: [],

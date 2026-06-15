@@ -7,9 +7,20 @@ export class PagosService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreatePagoDto) {
-    return this.prisma.pago.create({
+    const pago = await this.prisma.pago.create({
       data: dto,
     });
+
+    await this.prisma.factura.update({
+      where: {
+        id: dto.facturaId,
+      },
+      data: {
+        estadoPago: 'PAGADA',
+      },
+    });
+
+    return pago;
   }
 
   async findAll() {

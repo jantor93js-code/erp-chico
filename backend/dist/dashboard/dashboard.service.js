@@ -9,38 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PagosService = void 0;
+exports.DashboardService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
-let PagosService = class PagosService {
+let DashboardService = class DashboardService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(dto) {
-        const pago = await this.prisma.pago.create({
-            data: dto,
-        });
-        await this.prisma.factura.update({
-            where: {
-                id: dto.facturaId,
-            },
-            data: {
-                estadoPago: 'PAGADA',
-            },
-        });
-        return pago;
-    }
-    async findAll() {
-        return this.prisma.pago.findMany({
-            include: {
-                factura: true,
+    async getResumen() {
+        const clientes = await this.prisma.cliente.count();
+        const pedidos = await this.prisma.pedido.count();
+        const servicios = await this.prisma.servicio.count();
+        const conductores = await this.prisma.conductor.count();
+        const facturas = await this.prisma.factura.count();
+        const pagos = await this.prisma.pago.aggregate({
+            _sum: {
+                valor: true,
             },
         });
+        return {
+            clientes,
+            pedidos,
+            servicios,
+            conductores,
+            facturas,
+            totalPagado: pagos._sum.valor || 0,
+        };
     }
 };
-exports.PagosService = PagosService;
-exports.PagosService = PagosService = __decorate([
+exports.DashboardService = DashboardService;
+exports.DashboardService = DashboardService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
-], PagosService);
-//# sourceMappingURL=pagos.service.js.map
+], DashboardService);
+//# sourceMappingURL=dashboard.service.js.map

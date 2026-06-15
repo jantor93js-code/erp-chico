@@ -11,6 +11,7 @@ import { ServiciosModule } from './servicios/servicios.module';
 import { ConductoresModule } from './conductores/conductores.module';
 import { FacturasModule } from './facturas/facturas.module';
 import { PagosModule } from './pagos/pagos.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PagosModule } from './pagos/pagos.module';
     ConductoresModule,
     FacturasModule,
     PagosModule,
+    DashboardModule,
   ],
   controllers: [],
   providers: [],
