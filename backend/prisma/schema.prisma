@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id     String  @id @default(uuid()) @db.Uuid
+  nombre String
+  nit    String  @unique
+  activo Boolean @default(true)
+
+  users     User[]
+  clientes  Cliente[]
+  servicios Servicio[]
+
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  vehiculos Vehiculo[]
+  pedidos   Pedido[]
+
+  @@map("tenants")
+}
+
+model Role {
+  id       String @id @default(uuid()) @db.Uuid
+  nombre   String
+  slug     String @unique
+  permisos Json
+  users    User[]
+
+  @@map("roles")
+}
+
+model User {
+  id       String @id @default(uuid()) @db.Uuid
+  email    String @unique
+  password String
+  roleId   String @map("role_id") @db.Uuid
+  tenantId String @map("tenant_id") @db.Uuid
+
+  role   Role   @relation(fields: [roleId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  pedidos   Pedido[]
+
+  @@map("users")
+}
+
+model Cliente {
+  id       String @id @default(uuid()) @db.Uuid
+  tenantId String @map("tenant_id") @db.Uuid
+
+  identificacion    String
+  razonSocial       String  @map("razon_social")
+  tipoCliente       String? @map("tipo_cliente")
+  contactoPrincipal String? @map("contacto_principal")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  pedidos   Pedido[]
+
+  @@map("clientes")
+}
+
+model Vehiculo {
+  id       String @id @default(uuid()) @db.Uuid
+  tenantId String @map("tenant_id") @db.Uuid
+
+  placa        String  @unique
+  tipoVehiculo String? @map("tipo_vehiculo")
+  capacidadKg  Int?    @map("capacidad_kg")
+  esPropio     Boolean @default(true) @map("es_propio")
+
+  tenant    Tenant     @relation(fields: [tenantId], references: [id])
+  servicios Servicio[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("vehiculos")
+}
+
+model Pedido {
+  id       String @id @default(uuid()) @db.Uuid
+  tenantId String @map("tenant_id") @db.Uuid
+
+  clienteId   String @map("cliente_id") @db.Uuid
+  ejecutivoId String @map("ejecutivo_id") @db.Uuid
+
+  fechaSolicitud DateTime @default(now()) @map("fecha_solicitud")
+  descripcion    String?
+
+  valorTotalPactado Float? @map("valor_total_pactado")
+
+  estado String @default("BORRADOR")
+
+  tenant    Tenant     @relation(fields: [tenantId], references: [id])
+  cliente   Cliente    @relation(fields: [clienteId], references: [id])
+  ejecutivo User       @relation(fields: [ejecutivoId], references: [id])
+  servicios Servicio[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("pedidos")
+}
+
+model Servicio {
+  id String @id @default(uuid()) @db.Uuid
+
+  tenantId String @map("tenant_id") @db.Uuid
+  pedidoId String @map("pedido_id") @db.Uuid
+
+  vehiculoId String? @map("vehiculo_id") @db.Uuid
+
+  origen  String
+  destino String
+
+  estado String @default("PROGRAMADO")
+
+  fechaProgramada DateTime @map("fecha_programada")
+
+  fechaEntregaReal DateTime? @map("fecha_entrega_real")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  pedido Pedido @relation(fields: [pedidoId], references: [id])
+
+  vehiculo Vehiculo? @relation(fields: [vehiculoId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("servicios")
+}
