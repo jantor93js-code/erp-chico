@@ -8,6 +8,9 @@ import { VehiculosModule } from './vehiculos/vehiculos.module';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { ClientesModule } from './clientes/clientes.module';
 import { ServiciosModule } from './servicios/servicios.module';
+import { ConductoresModule } from './conductores/conductores.module';
+import { FacturasModule } from './facturas/facturas.module';
+import { PagosModule } from './pagos/pagos.module';
 
 @Module({
   imports: [
@@ -22,6 +25,9 @@ import { ServiciosModule } from './servicios/servicios.module';
     PedidosModule,
     ClientesModule,
     ServiciosModule,
+    ConductoresModule,
+    FacturasModule,
+    PagosModule,
   ],
   controllers: [],
   providers: [],

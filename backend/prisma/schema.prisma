@@ -13,14 +13,16 @@ model Tenant {
   nit    String  @unique
   activo Boolean @default(true)
 
-  users     User[]
-  clientes  Cliente[]
-  servicios Servicio[]
+  users       User[]
+  clientes    Cliente[]
+  servicios   Servicio[]
+  conductores Conductor[]
 
   createdAt DateTime   @default(now()) @map("created_at")
   updatedAt DateTime   @updatedAt @map("updated_at")
   vehiculos Vehiculo[]
   pedidos   Pedido[]
+  facturas  Factura[]
 
   @@map("tenants")
 }
@@ -106,6 +108,7 @@ model Pedido {
   cliente   Cliente    @relation(fields: [clienteId], references: [id])
   ejecutivo User       @relation(fields: [ejecutivoId], references: [id])
   servicios Servicio[]
+  facturas  Factura[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -134,10 +137,81 @@ model Servicio {
 
   pedido Pedido @relation(fields: [pedidoId], references: [id])
 
-  vehiculo Vehiculo? @relation(fields: [vehiculoId], references: [id])
+  vehiculo    Vehiculo?  @relation(fields: [vehiculoId], references: [id])
+  conductorId String?    @map("conductor_id") @db.Uuid
+  conductor   Conductor? @relation(fields: [conductorId], references: [id])
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("servicios")
+}
+
+model Conductor {
+  id String @id @default(uuid()) @db.Uuid
+
+  tenantId String @map("tenant_id") @db.Uuid
+
+  nombre String
+  cedula String @unique
+
+  telefono String?
+
+  activo Boolean @default(true)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  servicios Servicio[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("conductores")
+}
+
+model Factura {
+  id String @id @default(uuid()) @db.Uuid
+
+  tenantId String @map("tenant_id") @db.Uuid
+  pedidoId String @map("pedido_id") @db.Uuid
+
+  numeroFactura String @unique @map("numero_factura")
+
+  valor Float
+
+  estadoPago String @default("PENDIENTE") @map("estado_pago")
+
+  fechaEmision DateTime @default(now()) @map("fecha_emision")
+
+  fechaVencimiento DateTime @map("fecha_vencimiento")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  pedido Pedido @relation(fields: [pedidoId], references: [id])
+
+  pagos Pago[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("facturas")
+}
+
+model Pago {
+  id String @id @default(uuid()) @db.Uuid
+
+  facturaId String @map("factura_id") @db.Uuid
+
+  valor Float
+
+  metodoPago String @map("metodo_pago")
+
+  fechaPago DateTime @default(now()) @map("fecha_pago")
+
+  factura Factura @relation(fields: [facturaId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("pagos")
 }

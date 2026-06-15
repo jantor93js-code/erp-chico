@@ -18,8 +18,8 @@ export declare class UsersService {
             createdAt: Date;
             updatedAt: Date;
             nombre: string;
-            nit: string;
             activo: boolean;
+            nit: string;
         };
         role: {
             id: string;
