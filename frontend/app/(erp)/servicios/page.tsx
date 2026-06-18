@@ -105,13 +105,14 @@ async function crearServicio() {
     await cargarServicios();
 
     setForm({
-      pedidoId: "",
-      vehiculoId: "",
-      conductorId: "",
-      origen: "",
-      destino: "",
-      fechaProgramada: "",
-    });
+  pedidoId: "",
+  tipoServicio: "",
+  vehiculoId: "",
+  conductorId: "",
+  origen: "",
+  destino: "",
+  fechaProgramada: "",
+});
   } catch (error) {
     console.error(error);
     alert("Error creando servicio");
