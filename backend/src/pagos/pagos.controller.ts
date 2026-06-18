@@ -1,4 +1,10 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+} from '@nestjs/common';
 import { PagosService } from './pagos.service';
 import { CreatePagoDto } from './dto/create-pago.dto';
 
@@ -17,4 +23,13 @@ export class PagosController {
   findAll() {
     return this.pagosService.findAll();
   }
+  @Get('factura/:facturaId')
+findByFactura(
+  @Param('facturaId')
+  facturaId: string,
+) {
+  return this.pagosService.findByFactura(
+    facturaId,
+  );
+}
 }

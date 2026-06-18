@@ -21,6 +21,14 @@ let UsersService = class UsersService {
             data: createUserDto,
         });
     }
+    async findAll() {
+        return this.prisma.user.findMany({
+            include: {
+                role: true,
+                tenant: true,
+            },
+        });
+    }
     async findByEmail(email) {
         return this.prisma.user.findUnique({
             where: { email },

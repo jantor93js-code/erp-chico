@@ -3,19 +3,39 @@ import { CreateServicioDto } from './dto/create-servicio.dto';
 export declare class ServiciosService {
     private prisma;
     constructor(prisma: PrismaService);
+    rentabilidad(id: string): Promise<{
+        servicioId: string;
+        ingresos: number;
+        gastos: number;
+        utilidad: number;
+        porcentajeRentabilidad: number;
+    }>;
+    reporteRentabilidad(): Promise<{
+        servicioId: string;
+        cliente: string;
+        ingresos: number;
+        gastos: number;
+        utilidad: number;
+        rentabilidad: number;
+        estado: string;
+        origen: string | null;
+        destino: string | null;
+    }[]>;
     create(dto: CreateServicioDto): Promise<{
         tenantId: string;
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        tipoServicio: string;
+        origen: string | null;
+        destino: string | null;
+        fechaProgramada: Date | null;
+        vehiculoId: string | null;
+        conductorId: string | null;
         estado: string;
         pedidoId: string;
-        vehiculoId: string | null;
-        origen: string;
-        destino: string;
-        fechaProgramada: Date;
-        fechaEntregaReal: Date | null;
-        conductorId: string | null;
+        fechaInicio: Date | null;
+        fechaFin: Date | null;
     }>;
     findAll(): Promise<({
         vehiculo: {
@@ -38,6 +58,81 @@ export declare class ServiciosService {
             descripcion: string | null;
             valorTotalPactado: number | null;
             fechaSolicitud: Date;
+            tipoServicio: string | null;
+            numeroPedido: string | null;
+            origen: string | null;
+            destino: string | null;
+            origenPedido: string | null;
+            cotizacionId: string | null;
+            fechaProgramada: Date | null;
+            vehiculoId: string | null;
+            conductorId: string | null;
+            lineaNegocio: string;
+            estado: string;
+        };
+        conductor: {
+            tenantId: string;
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            nombre: string;
+            cedula: string;
+            telefono: string | null;
+            activo: boolean;
+        } | null;
+    } & {
+        tenantId: string;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        tipoServicio: string;
+        origen: string | null;
+        destino: string | null;
+        fechaProgramada: Date | null;
+        vehiculoId: string | null;
+        conductorId: string | null;
+        estado: string;
+        pedidoId: string;
+        fechaInicio: Date | null;
+        fechaFin: Date | null;
+    })[]>;
+    iniciar(id: string): Promise<{
+        tenantId: string;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        tipoServicio: string;
+        origen: string | null;
+        destino: string | null;
+        fechaProgramada: Date | null;
+        vehiculoId: string | null;
+        conductorId: string | null;
+        estado: string;
+        pedidoId: string;
+        fechaInicio: Date | null;
+        fechaFin: Date | null;
+    }>;
+    entregar(id: string): Promise<{
+        pedido: {
+            tenantId: string;
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            clienteId: string;
+            ejecutivoId: string;
+            descripcion: string | null;
+            valorTotalPactado: number | null;
+            fechaSolicitud: Date;
+            tipoServicio: string | null;
+            numeroPedido: string | null;
+            origen: string | null;
+            destino: string | null;
+            origenPedido: string | null;
+            cotizacionId: string | null;
+            fechaProgramada: Date | null;
+            vehiculoId: string | null;
+            conductorId: string | null;
+            lineaNegocio: string;
             estado: string;
         };
     } & {
@@ -45,13 +140,15 @@ export declare class ServiciosService {
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        tipoServicio: string;
+        origen: string | null;
+        destino: string | null;
+        fechaProgramada: Date | null;
+        vehiculoId: string | null;
+        conductorId: string | null;
         estado: string;
         pedidoId: string;
-        vehiculoId: string | null;
-        origen: string;
-        destino: string;
-        fechaProgramada: Date;
-        fechaEntregaReal: Date | null;
-        conductorId: string | null;
-    })[]>;
+        fechaInicio: Date | null;
+        fechaFin: Date | null;
+    }>;
 }

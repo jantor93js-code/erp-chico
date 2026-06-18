@@ -22,10 +22,24 @@ let FacturasService = class FacturasService {
         });
     }
     async findAll() {
-        return this.prisma.factura.findMany({
+        const facturas = await this.prisma.factura.findMany({
             include: {
-                pedido: true,
+                pedido: {
+                    include: {
+                        cliente: true,
+                        cotizacion: true,
+                    },
+                },
+                pagos: true,
             },
+        });
+        return facturas.map((factura) => {
+            const totalPagado = factura.pagos.reduce((total, pago) => total + pago.valor, 0);
+            return {
+                ...factura,
+                totalPagado,
+                saldoPendiente: factura.valor - totalPagado,
+            };
         });
     }
 };

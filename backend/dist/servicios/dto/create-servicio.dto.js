@@ -14,7 +14,7 @@ const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateServicioDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { tenantId: { required: true, type: () => String }, pedidoId: { required: true, type: () => String }, vehiculoId: { required: false, type: () => String }, origen: { required: true, type: () => String }, destino: { required: true, type: () => String }, fechaProgramada: { required: true, type: () => String } };
+        return { tenantId: { required: true, type: () => String }, pedidoId: { required: true, type: () => String }, tipoServicio: { required: true, type: () => String }, vehiculoId: { required: false, type: () => String }, conductorId: { required: false, type: () => String }, origen: { required: true, type: () => String }, destino: { required: true, type: () => String }, fechaProgramada: { required: true, type: () => String } };
     }
 }
 exports.CreateServicioDto = CreateServicioDto;
@@ -27,10 +27,19 @@ __decorate([
     __metadata("design:type", String)
 ], CreateServicioDto.prototype, "pedidoId", void 0);
 __decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateServicioDto.prototype, "tipoServicio", void 0);
+__decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateServicioDto.prototype, "vehiculoId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateServicioDto.prototype, "conductorId", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

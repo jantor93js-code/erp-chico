@@ -12,6 +12,30 @@ export declare class UsersService {
         createdAt: Date;
         updatedAt: Date;
     }>;
+    findAll(): Promise<({
+        tenant: {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            nombre: string;
+            activo: boolean;
+            nit: string;
+        };
+        role: {
+            id: string;
+            nombre: string;
+            slug: string;
+            permisos: import("@prisma/client/runtime/library").JsonValue;
+        };
+    } & {
+        email: string;
+        password: string;
+        roleId: string;
+        tenantId: string;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+    })[]>;
     findByEmail(email: string): Promise<({
         tenant: {
             id: string;

@@ -21,6 +21,12 @@ const conductores_module_1 = require("./conductores/conductores.module");
 const facturas_module_1 = require("./facturas/facturas.module");
 const pagos_module_1 = require("./pagos/pagos.module");
 const dashboard_module_1 = require("./dashboard/dashboard.module");
+const cotizaciones_module_1 = require("./cotizaciones/cotizaciones.module");
+const detalle_servicios_module_1 = require("./detalle-servicios/detalle-servicios.module");
+const evidencias_module_1 = require("./evidencias/evidencias.module");
+const cartera_module_1 = require("./cartera/cartera.module");
+const gastos_operativos_module_1 = require("./gastos-operativos/gastos-operativos.module");
+const reportes_module_1 = require("./reportes/reportes.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -42,6 +48,12 @@ exports.AppModule = AppModule = __decorate([
             facturas_module_1.FacturasModule,
             pagos_module_1.PagosModule,
             dashboard_module_1.DashboardModule,
+            cotizaciones_module_1.CotizacionesModule,
+            detalle_servicios_module_1.DetalleServiciosModule,
+            evidencias_module_1.EvidenciasModule,
+            cartera_module_1.CarteraModule,
+            gastos_operativos_module_1.GastosOperativosModule,
+            reportes_module_1.ReportesModule,
         ],
         controllers: [],
         providers: [],

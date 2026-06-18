@@ -27,6 +27,19 @@ let ServiciosController = class ServiciosController {
     findAll() {
         return this.serviciosService.findAll();
     }
+    reporteRentabilidad() {
+        return this.serviciosService
+            .reporteRentabilidad();
+    }
+    rentabilidad(id) {
+        return this.serviciosService.rentabilidad(id);
+    }
+    iniciar(id) {
+        return this.serviciosService.iniciar(id);
+    }
+    entregar(id) {
+        return this.serviciosService.entregar(id);
+    }
 };
 exports.ServiciosController = ServiciosController;
 __decorate([
@@ -44,6 +57,37 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ServiciosController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('rentabilidad'),
+    openapi.ApiResponse({ status: 200 }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ServiciosController.prototype, "reporteRentabilidad", null);
+__decorate([
+    (0, common_1.Get)(':id/rentabilidad'),
+    openapi.ApiResponse({ status: 200 }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ServiciosController.prototype, "rentabilidad", null);
+__decorate([
+    (0, common_1.Patch)(':id/iniciar'),
+    openapi.ApiResponse({ status: 200 }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ServiciosController.prototype, "iniciar", null);
+__decorate([
+    (0, common_1.Patch)(':id/entregar'),
+    openapi.ApiResponse({ status: 200, type: Object }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ServiciosController.prototype, "entregar", null);
 exports.ServiciosController = ServiciosController = __decorate([
     (0, common_1.Controller)('servicios'),
     __metadata("design:paramtypes", [servicios_service_1.ServiciosService])

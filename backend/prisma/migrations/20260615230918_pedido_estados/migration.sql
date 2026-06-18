@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "pedidos" ALTER COLUMN "estado" SET DEFAULT 'SOLICITADO';

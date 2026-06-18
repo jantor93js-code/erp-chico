@@ -1,26 +1,33 @@
 import {
-  IsString,
-  IsOptional,
-  IsDateString,
+IsString,
+IsOptional,
+IsDateString,
 } from 'class-validator';
 
 export class CreateServicioDto {
-  @IsString()
-  tenantId: string;
+@IsString()
+tenantId: string;
 
-  @IsString()
-  pedidoId: string;
+@IsString()
+pedidoId: string;
 
-  @IsOptional()
-  @IsString()
-  vehiculoId?: string;
+@IsString()
+tipoServicio: string;
 
-  @IsString()
-  origen: string;
+@IsOptional()
+@IsString()
+vehiculoId?: string;
 
-  @IsString()
-  destino: string;
+@IsOptional()
+@IsString()
+conductorId?: string;
 
-  @IsDateString()
-  fechaProgramada: string;
+@IsString()
+origen: string;
+
+@IsString()
+destino: string;
+
+@IsDateString()
+fechaProgramada: string;
 }

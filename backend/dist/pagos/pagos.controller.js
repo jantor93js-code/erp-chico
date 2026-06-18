@@ -27,6 +27,9 @@ let PagosController = class PagosController {
     findAll() {
         return this.pagosService.findAll();
     }
+    findByFactura(facturaId) {
+        return this.pagosService.findByFactura(facturaId);
+    }
 };
 exports.PagosController = PagosController;
 __decorate([
@@ -44,6 +47,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], PagosController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('factura/:facturaId'),
+    openapi.ApiResponse({ status: 200 }),
+    __param(0, (0, common_1.Param)('facturaId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PagosController.prototype, "findByFactura", null);
 exports.PagosController = PagosController = __decorate([
     (0, common_1.Controller)('pagos'),
     __metadata("design:paramtypes", [pagos_service_1.PagosService])

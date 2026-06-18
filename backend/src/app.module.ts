@@ -12,6 +12,12 @@ import { ConductoresModule } from './conductores/conductores.module';
 import { FacturasModule } from './facturas/facturas.module';
 import { PagosModule } from './pagos/pagos.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
+import { DetalleServiciosModule } from './detalle-servicios/detalle-servicios.module';
+import { EvidenciasModule } from './evidencias/evidencias.module';
+import { CarteraModule } from './cartera/cartera.module';
+import { GastosOperativosModule } from './gastos-operativos/gastos-operativos.module';
+import { ReportesModule } from './reportes/reportes.module';
 
 @Module({
   imports: [
@@ -30,6 +36,12 @@ import { DashboardModule } from './dashboard/dashboard.module';
     FacturasModule,
     PagosModule,
     DashboardModule,
+    CotizacionesModule,
+    DetalleServiciosModule,
+    EvidenciasModule,
+    CarteraModule,
+    GastosOperativosModule,
+    ReportesModule,
   ],
   controllers: [],
   providers: [],

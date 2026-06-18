@@ -16,16 +16,115 @@ let PedidosService = class PedidosService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async generarNumeroPedido() {
+        const ultimo = await this.prisma.pedido.findFirst({
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
+        if (!ultimo?.numeroPedido) {
+            return 'PED-00001';
+        }
+        const numero = parseInt(ultimo.numeroPedido.replace('PED-', '')) + 1;
+        return `PED-${numero
+            .toString()
+            .padStart(5, '0')}`;
+    }
     async create(createPedidoDto) {
+        const numeroPedido = await this.generarNumeroPedido();
         return this.prisma.pedido.create({
-            data: createPedidoDto,
+            data: {
+                ...createPedidoDto,
+                numeroPedido,
+                estado: 'SOLICITADO',
+            },
         });
     }
     async findAll() {
-        return this.prisma.pedido.findMany({
+        const pedidos = await this.prisma.pedido.findMany({
             include: {
                 cliente: true,
                 ejecutivo: true,
+                vehiculo: true,
+                conductor: true,
+                cotizacion: true,
+                detallesServicio: true,
+            },
+        });
+        return pedidos.map((pedido) => ({
+            ...pedido,
+            valorCalculado: pedido.detallesServicio.reduce((total, item) => total + item.valorTotal, 0),
+        }));
+    }
+    async findDisponibles() {
+        return this.prisma.pedido.findMany({
+            where: {
+                estado: 'SOLICITADO',
+            },
+            include: {
+                cliente: true,
+                ejecutivo: true,
+            },
+        });
+    }
+    async asignarVehiculo(pedidoId, vehiculoId) {
+        return this.prisma.pedido.update({
+            where: {
+                id: pedidoId,
+            },
+            data: {
+                vehiculoId,
+            },
+        });
+    }
+    async asignarConductor(pedidoId, conductorId) {
+        return this.prisma.pedido.update({
+            where: {
+                id: pedidoId,
+            },
+            data: {
+                conductorId,
+            },
+        });
+    }
+    async programar(pedidoId, fechaProgramada) {
+        return this.prisma.pedido.update({
+            where: {
+                id: pedidoId,
+            },
+            data: {
+                fechaProgramada,
+                estado: 'PROGRAMADO',
+            },
+        });
+    }
+    async marcarEnRuta(id) {
+        return this.prisma.pedido.update({
+            where: {
+                id,
+            },
+            data: {
+                estado: 'EN_RUTA',
+            },
+        });
+    }
+    async marcarEnEjecucion(id) {
+        return this.prisma.pedido.update({
+            where: {
+                id,
+            },
+            data: {
+                estado: 'EN_EJECUCION',
+            },
+        });
+    }
+    async finalizar(id) {
+        return this.prisma.pedido.update({
+            where: {
+                id,
+            },
+            data: {
+                estado: 'FINALIZADO',
             },
         });
     }
