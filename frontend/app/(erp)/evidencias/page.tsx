@@ -120,7 +120,7 @@ export default function EvidenciasPage() {
         <div className="grid md:grid-cols-4 gap-4">
 
           <select
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             value={form.servicioId}
             onChange={(e) =>
               setForm({
@@ -148,7 +148,7 @@ export default function EvidenciasPage() {
           </select>
 
           <select
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             value={form.tipo}
             onChange={(e) =>
               setForm({
@@ -184,7 +184,7 @@ export default function EvidenciasPage() {
           </select>
 
           <input
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             placeholder="URL archivo"
             value={form.urlArchivo}
             onChange={(e) =>
@@ -196,7 +196,7 @@ export default function EvidenciasPage() {
           />
 
           <input
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             placeholder="Observación"
             value={form.observacion}
             onChange={(e) =>

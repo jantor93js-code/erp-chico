@@ -138,7 +138,7 @@ if (
       <div className="bg-white rounded-xl shadow p-6 mb-8">
 
         <select
-          className="border p-2 rounded"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 rounded"
           value={form.facturaId}
           onChange={(e) => {
   const factura = facturas.find(
@@ -218,6 +218,7 @@ setForm({
   <label className="mr-4">
     <input
       type="radio"
+      className="border-gray-300 bg-white text-zinc-900"
       name="tipoPago"
       value="ANTICIPO"
       checked={
@@ -240,6 +241,7 @@ setForm({
   <label>
     <input
       type="radio"
+      className="border-gray-300 bg-white text-zinc-900"
       name="tipoPago"
       value="TOTAL"
       checked={
@@ -265,7 +267,7 @@ setForm({
 
 </div>
         <input
-          className="border p-2 rounded ml-2"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 rounded ml-2"
           placeholder="Valor"
           value={form.valor}
           disabled={form.tipoPago === "TOTAL"}
@@ -289,7 +291,7 @@ setForm({
         />
 
         <select
-  className="border rounded-lg p-3"
+  className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
   value={form.metodoPago}
   onChange={(e) =>
     setForm({

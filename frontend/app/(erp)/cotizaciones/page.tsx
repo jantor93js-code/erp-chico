@@ -201,7 +201,7 @@ async function rechazarCotizacion(id: string) {
         <div className="grid md:grid-cols-3 gap-4">
 
           <select
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             value={form.clienteId}
             onChange={(e) =>
               setForm({
@@ -225,7 +225,7 @@ async function rechazarCotizacion(id: string) {
           </select>
 
           <select
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             value={form.ejecutivoId}
             onChange={(e) =>
               setForm({
@@ -248,7 +248,7 @@ async function rechazarCotizacion(id: string) {
             ))}
           </select>
 <select
-  className="border rounded-lg p-3"
+  className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
   value={form.tipoServicio}
   onChange={(e) =>
     setForm({
@@ -275,7 +275,7 @@ async function rechazarCotizacion(id: string) {
 </select>
       
 <textarea
-  className="border rounded-lg p-3 md:col-span-3"
+  className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3 md:col-span-3"
   placeholder="Descripción del servicio"
   value={form.descripcion}
   onChange={(e) =>
@@ -286,7 +286,7 @@ async function rechazarCotizacion(id: string) {
   }
 />
           <input
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             placeholder="Origen"
             value={form.origen}
             onChange={(e) =>
@@ -298,7 +298,7 @@ async function rechazarCotizacion(id: string) {
           />
 
           <input
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             placeholder="Destino"
             value={form.destino}
             onChange={(e) =>
@@ -311,7 +311,7 @@ async function rechazarCotizacion(id: string) {
 
           <input
             type="text"
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             placeholder="Valor Cotizado"
             value={
   form.valorCotizado

@@ -183,7 +183,7 @@ async function entregarServicio(id: string) {
   </h2>
 
         <select
-          className="border border-gray-400 bg-white text-black p-2 mr-2 rounded"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
           value={form.pedidoId}
           onChange={(e) => {
 
@@ -222,7 +222,7 @@ async function entregarServicio(id: string) {
 ))}
         </select>
 <select
-  className="border border-gray-400 bg-white text-black p-2 mr-2 rounded"
+  className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
   value={form.tipoServicio}
   onChange={(e) =>
     setForm({
@@ -248,7 +248,7 @@ async function entregarServicio(id: string) {
   </option>
 </select>
         <select
-          className="border border-gray-400 bg-white text-black p-2 mr-2 rounded"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
           value={form.vehiculoId}
           onChange={(e) =>
             setForm({
@@ -274,7 +274,7 @@ async function entregarServicio(id: string) {
         </select>
 
         <select
-          className="border border-gray-400 bg-white text-black p-2 mr-2 rounded"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
           value={form.conductorId}
           onChange={(e) =>
             setForm({
@@ -298,7 +298,7 @@ async function entregarServicio(id: string) {
         </select>
 
         <input
-          className="border border-gray-400 p-2 mr-2 rounded"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
           placeholder="Origen"
           value={form.origen}
           onChange={(e) =>
@@ -310,7 +310,7 @@ async function entregarServicio(id: string) {
         />
 
         <input
-          className="border border-gray-400 p-2 mr-2 rounded"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
           placeholder="Destino"
           value={form.destino}
           onChange={(e) =>
@@ -323,7 +323,7 @@ async function entregarServicio(id: string) {
 
         <input
           type="datetime-local"
-          className="border border-gray-400 p-2 mr-2 rounded"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
           value={form.fechaProgramada}
           onChange={(e) =>
             setForm({

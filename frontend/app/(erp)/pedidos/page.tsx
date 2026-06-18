@@ -141,7 +141,7 @@ export default function PedidosPage() {
   Nuevo Pedido
 </h2>
         <select
-  className="border border-gray-300 bg-white text-black p-2 mr-2 rounded"
+  className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
   value={form.clienteId}
   onChange={(e) =>
     setForm({
@@ -165,7 +165,7 @@ export default function PedidosPage() {
 </select>
 
 <select
-  className="border border-gray-300 bg-white text-black p-2 mr-2 rounded"
+  className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
   value={form.ejecutivoId}
   onChange={(e) =>
     setForm({
@@ -189,7 +189,7 @@ export default function PedidosPage() {
 </select>
 
         <input
-          className="border rounded-lg p-3"
+          className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
           placeholder="Descripción"
           value={form.descripcion}
           onChange={(e) =>
@@ -202,7 +202,7 @@ export default function PedidosPage() {
 
         <input
   type="text"
-  className="border rounded-lg p-3"
+  className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
   placeholder="Valor"
   value={
     form.valorTotalPactado

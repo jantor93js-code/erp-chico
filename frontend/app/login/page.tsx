@@ -76,7 +76,7 @@ const response = await fetch(
       </h1>
 
       <input
-        className="border p-2 w-full mb-3"
+        className="border border-gray-300 bg-white text-zinc-900 p-2 w-full mb-3"
         placeholder="Correo"
         value={email}
         onChange={(e) =>
@@ -88,7 +88,7 @@ const response = await fetch(
 
       <input
         type="password"
-        className="border p-2 w-full mb-3"
+        className="border border-gray-300 bg-white text-zinc-900 p-2 w-full mb-3"
         placeholder="Contraseña"
         value={password}
         onChange={(e) =>

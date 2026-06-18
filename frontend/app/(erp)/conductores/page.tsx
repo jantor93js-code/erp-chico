@@ -137,7 +137,7 @@ export default function ConductoresPage() {
         <div className="grid md:grid-cols-3 gap-4">
 
           <input
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             placeholder="Nombre"
             value={form.nombre}
             onChange={(e) =>
@@ -149,7 +149,7 @@ export default function ConductoresPage() {
           />
 
           <input
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             placeholder="Cédula"
             value={form.cedula}
             onChange={(e) =>
@@ -161,7 +161,7 @@ export default function ConductoresPage() {
           />
 
           <input
-            className="border rounded-lg p-3"
+            className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
             placeholder="Teléfono"
             value={form.telefono}
             onChange={(e) =>

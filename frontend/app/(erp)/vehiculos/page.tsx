@@ -121,7 +121,7 @@ export default function VehiculosPage() {
   </h2>
 
         <input
-          className="border border-gray-400 p-2 mr-2 rounded"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
           placeholder="Placa"
           value={form.placa}
           onChange={(e) =>
@@ -133,7 +133,7 @@ export default function VehiculosPage() {
         />
 
         <input
-          className="border border-gray-400 p-2 mr-2 rounded"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
           placeholder="Tipo Vehículo"
           value={form.tipoVehiculo}
           onChange={(e) =>
@@ -146,7 +146,7 @@ export default function VehiculosPage() {
 
         <input
           type="number"
-          className="border border-gray-400 p-2 mr-2 rounded"
+          className="border border-gray-300 bg-white text-zinc-900 p-2 mr-2 rounded"
           placeholder="Capacidad Kg"
           value={form.capacidadKg}
           onChange={(e) =>
@@ -160,6 +160,7 @@ export default function VehiculosPage() {
         <label className="block">
           <input
             type="checkbox"
+            className="border-gray-300 bg-white text-zinc-900"
             checked={form.esPropio}
             onChange={(e) =>
               setForm({

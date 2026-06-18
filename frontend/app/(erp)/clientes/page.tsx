@@ -112,7 +112,7 @@ return ( <div>
     <div className="grid md:grid-cols-4 gap-4">
 
       <input
-        className="border rounded-lg p-3"
+        className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
         placeholder="Identificación"
         value={form.identificacion}
         onChange={(e) =>
@@ -125,7 +125,7 @@ return ( <div>
       />
 
       <input
-        className="border rounded-lg p-3"
+        className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
         placeholder="Razón Social"
         value={form.razonSocial}
         onChange={(e) =>
@@ -138,7 +138,7 @@ return ( <div>
       />
 
       <select
-  className="border rounded-lg p-3"
+  className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
   value={form.tipoCliente}
   onChange={(e) =>
     setForm({
@@ -161,7 +161,7 @@ return ( <div>
 </select>
 
       <input
-        className="border rounded-lg p-3"
+        className="border border-gray-300 bg-white text-zinc-900 rounded-lg p-3"
         placeholder="Contacto"
         value={form.contactoPrincipal}
         onChange={(e) =>
