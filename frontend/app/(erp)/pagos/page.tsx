@@ -92,10 +92,11 @@ if (
       await cargarFacturas();
 
       setForm({
-        facturaId: "",
-        valor: "",
-        metodoPago: "",
-      });
+  facturaId: "",
+  valor: "",
+  metodoPago: "",
+  tipoPago: "ANTICIPO",
+});
 
     } catch (error) {
       console.error(error);
