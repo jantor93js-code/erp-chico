@@ -89,7 +89,7 @@ export default function VehiculosPage() {
   </div>
 <div className="grid md:grid-cols-2 gap-4 mb-8">
 
-  <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+  <div className="bg-white rounded-xl shadow p-4">
     <h3 className="text-sm text-gray-500">
       Total Vehículos
     </h3>
@@ -99,7 +99,7 @@ export default function VehiculosPage() {
     </p>
   </div>
 
-  <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+  <div className="bg-white rounded-xl shadow p-4">
     <h3 className="text-sm text-gray-500">
       Vehículos Propios
     </h3>
@@ -114,7 +114,7 @@ export default function VehiculosPage() {
   </div>
 
 </div>
-      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-6 mb-8">
+      <div className="bg-white rounded-xl shadow p-6 mb-8">
 
   <h2 className="font-semibold mb-4">
     Nuevo Vehículo

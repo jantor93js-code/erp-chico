@@ -114,7 +114,7 @@ if (
 </p>
 <div className="grid md:grid-cols-3 gap-4 mb-8">
 
-  <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+  <div className="bg-white rounded-xl shadow p-4">
     <h3 className="text-sm text-gray-500">
       Pagos registrados
     </h3>
@@ -124,7 +124,7 @@ if (
     </p>
   </div>
 
-  <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+  <div className="bg-white rounded-xl shadow p-4">
     <h3 className="text-sm text-gray-500">
       Facturas pendientes
     </h3>
@@ -135,7 +135,7 @@ if (
   </div>
 
 </div>
-      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-6 mb-8">
+      <div className="bg-white rounded-xl shadow p-6 mb-8">
 
         <select
           className="border p-2 rounded"

@@ -55,7 +55,7 @@ export default function ReportesPage() {
 
       <div className="grid md:grid-cols-4 gap-4 mb-8">
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Ingresos
           </h3>
@@ -66,7 +66,7 @@ export default function ReportesPage() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Gastos
           </h3>
@@ -77,7 +77,7 @@ export default function ReportesPage() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Utilidad
           </h3>
@@ -88,7 +88,7 @@ export default function ReportesPage() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Rentabilidad
           </h3>
@@ -102,7 +102,7 @@ export default function ReportesPage() {
 
       <div className="grid lg:grid-cols-2 gap-6">
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow overflow-hidden">
+        <div className="bg-white rounded-xl shadow overflow-hidden">
 
           <div className="p-4 border-b">
             <h2 className="font-semibold">
@@ -146,7 +146,7 @@ export default function ReportesPage() {
 
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow overflow-hidden">
+        <div className="bg-white rounded-xl shadow overflow-hidden">
 
           <div className="p-4 border-b">
             <h2 className="font-semibold">

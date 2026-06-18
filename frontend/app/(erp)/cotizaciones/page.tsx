@@ -159,7 +159,7 @@ async function rechazarCotizacion(id: string) {
 
       <div className="grid md:grid-cols-3 gap-4 mb-8">
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Total Cotizaciones
           </h3>
@@ -169,7 +169,7 @@ async function rechazarCotizacion(id: string) {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Valor Cotizado
           </h3>
@@ -180,7 +180,7 @@ async function rechazarCotizacion(id: string) {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Aceptadas
           </h3>
@@ -192,7 +192,7 @@ async function rechazarCotizacion(id: string) {
 
       </div>
 
-      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-6 mb-8">
+      <div className="bg-white rounded-xl shadow p-6 mb-8">
 
         <h2 className="font-semibold mb-4">
           Nueva Cotización
@@ -342,7 +342,7 @@ async function rechazarCotizacion(id: string) {
 
       </div>
 
-      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow overflow-hidden">
+      <div className="bg-white rounded-xl shadow overflow-hidden">
 
         <div className="overflow-x-auto">
   <table className="w-full">

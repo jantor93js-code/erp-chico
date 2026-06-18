@@ -89,7 +89,7 @@ export default function EvidenciasPage() {
 
       <div className="grid md:grid-cols-3 gap-4 mb-8">
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Total Evidencias
           </h3>
@@ -99,7 +99,7 @@ export default function EvidenciasPage() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Servicios
           </h3>
@@ -111,7 +111,7 @@ export default function EvidenciasPage() {
 
       </div>
 
-      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-6 mb-8">
+      <div className="bg-white rounded-xl shadow p-6 mb-8">
 
         <h2 className="font-semibold mb-4">
           Nueva Evidencia
@@ -218,7 +218,7 @@ export default function EvidenciasPage() {
 
       </div>
 
-      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow overflow-hidden">
+      <div className="bg-white rounded-xl shadow overflow-hidden">
 
         <div className="overflow-x-auto">
   <table className="w-full">

@@ -176,7 +176,7 @@ async function entregarServicio(id: string) {
   </p>
 
 </div>
-<div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-6 mb-8">
+<div className="bg-white rounded-xl shadow p-6 mb-8">
 
   <h2 className="font-semibold mb-4">
     Nuevo Servicio

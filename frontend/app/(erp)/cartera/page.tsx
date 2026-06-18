@@ -43,7 +43,7 @@ export default function CarteraPage() {
 
       <div className="grid md:grid-cols-3 gap-4 mb-8">
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Total Cartera
           </h3>
@@ -54,7 +54,7 @@ export default function CarteraPage() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Facturas Pendientes
           </h3>
@@ -64,7 +64,7 @@ export default function CarteraPage() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Facturas Vencidas
           </h3>
@@ -76,7 +76,7 @@ export default function CarteraPage() {
 
       </div>
 
-      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow overflow-hidden">
+      <div className="bg-white rounded-xl shadow overflow-hidden">
 
         <table className="w-full">
 

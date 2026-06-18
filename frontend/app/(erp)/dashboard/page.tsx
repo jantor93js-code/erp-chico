@@ -34,7 +34,7 @@ export default function DashboardPage() {
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Clientes
               </p>
@@ -44,7 +44,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Pedidos
               </p>
@@ -54,7 +54,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Servicios
               </p>
@@ -64,7 +64,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Facturas
               </p>
@@ -74,7 +74,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Saldo por Cobrar
               </p>
@@ -85,7 +85,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Total Pagado
               </p>
@@ -96,7 +96,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Programados
               </p>
@@ -106,7 +106,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 En Ruta
               </p>
@@ -116,7 +116,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Entregados
               </p>
@@ -126,7 +126,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Facturado Mes
               </p>
@@ -137,7 +137,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Gastos Mes
               </p>
@@ -148,7 +148,7 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+            <div className="rounded-xl border bg-white p-5 shadow-sm">
               <p className="text-sm text-gray-500">
                 Utilidad Mes
               </p>
@@ -166,7 +166,7 @@ export default function DashboardPage() {
 
 <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Facturado Histórico
     </p>
@@ -177,7 +177,7 @@ export default function DashboardPage() {
     </p>
   </div>
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Gastos Operativos
     </p>
@@ -188,7 +188,7 @@ export default function DashboardPage() {
     </p>
   </div>
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Utilidad Operativa
     </p>
@@ -199,7 +199,7 @@ export default function DashboardPage() {
     </p>
   </div>
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Rentabilidad
     </p>
@@ -216,7 +216,7 @@ export default function DashboardPage() {
 
 <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Facturas Pendientes
     </p>
@@ -226,7 +226,7 @@ export default function DashboardPage() {
     </p>
   </div>
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Facturas Pagadas
     </p>
@@ -236,7 +236,7 @@ export default function DashboardPage() {
     </p>
   </div>
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Pagos Registrados
     </p>
@@ -246,7 +246,7 @@ export default function DashboardPage() {
     </p>
   </div>
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Saldo por Cobrar
     </p>
@@ -264,7 +264,7 @@ export default function DashboardPage() {
 
 <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Pedidos Mes
     </p>
@@ -274,7 +274,7 @@ export default function DashboardPage() {
     </p>
   </div>
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Servicios Mes
     </p>
@@ -284,7 +284,7 @@ export default function DashboardPage() {
     </p>
   </div>
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Facturado Mes
     </p>
@@ -295,7 +295,7 @@ export default function DashboardPage() {
     </p>
   </div>
 
-  <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 shadow-sm">
+  <div className="rounded-xl border bg-white p-5 shadow-sm">
     <p className="text-sm text-gray-500">
       Utilidad Mes
     </p>

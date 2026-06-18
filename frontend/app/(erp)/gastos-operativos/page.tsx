@@ -106,7 +106,7 @@ export default function GastosOperativosPage() {
 
       <div className="grid md:grid-cols-3 gap-4 mb-8">
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Total Gastos
           </h3>
@@ -117,7 +117,7 @@ export default function GastosOperativosPage() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Cantidad Gastos
           </h3>
@@ -127,7 +127,7 @@ export default function GastosOperativosPage() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-4">
+        <div className="bg-white rounded-xl shadow p-4">
           <h3 className="text-sm text-gray-500">
             Promedio
           </h3>
@@ -140,7 +140,7 @@ export default function GastosOperativosPage() {
 
       </div>
 
-      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow p-6 mb-8">
+      <div className="bg-white rounded-xl shadow p-6 mb-8">
 
         <h2 className="font-semibold mb-4">
           Nuevo Gasto
@@ -260,7 +260,7 @@ export default function GastosOperativosPage() {
 
       </div>
 
-      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow overflow-hidden">
+      <div className="bg-white rounded-xl shadow overflow-hidden">
 
         <div className="overflow-x-auto">
   <table className="w-full">
