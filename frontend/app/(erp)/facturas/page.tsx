@@ -34,7 +34,8 @@ export default function FacturasPage() {
 
       <div className="bg-white dark:bg-zinc-900 rounded-xl shadow overflow-hidden">
 
-        <table className="w-full">
+        <div className="overflow-x-auto">
+  <table className="w-full">
 
           <thead className="border-b">
   <tr>
@@ -134,6 +135,7 @@ export default function FacturasPage() {
 </tbody>
 
         </table>
+</div>
 
       </div>
 

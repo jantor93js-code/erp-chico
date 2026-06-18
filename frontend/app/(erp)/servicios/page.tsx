@@ -343,7 +343,8 @@ async function entregarServicio(id: string) {
         </div>
       </div>
 
-      <table className="w-full">
+      <div className="overflow-x-auto">
+  <table className="w-full">
        <thead>
   <tr className="border-b">
     <th className="p-3 text-left">
@@ -460,6 +461,7 @@ async function entregarServicio(id: string) {
   ))}
 </tbody>
       </table>
+</div>
     </div>
   );
 }

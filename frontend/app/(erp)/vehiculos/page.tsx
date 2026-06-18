@@ -181,7 +181,8 @@ export default function VehiculosPage() {
         </button>
       </div>
 
-      <table className="w-full">
+      <div className="overflow-x-auto">
+  <table className="w-full">
         <thead>
           <tr className="border-b">
             <th className="p-3 text-left">
@@ -239,6 +240,7 @@ export default function VehiculosPage() {
           ))}
         </tbody>
       </table>
+</div>
     </div>
   );
 }

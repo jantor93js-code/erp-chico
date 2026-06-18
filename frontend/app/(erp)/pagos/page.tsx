@@ -332,7 +332,8 @@ setForm({
 
       </div>
 
-      <table className="w-full">
+      <div className="overflow-x-auto">
+  <table className="w-full">
 
         <thead>
   <tr className="border-b">
@@ -414,6 +415,7 @@ setForm({
         </tbody>
 
       </table>
+</div>
 
     </div>
   );

@@ -344,7 +344,8 @@ async function rechazarCotizacion(id: string) {
 
       <div className="bg-white dark:bg-zinc-900 rounded-xl shadow overflow-hidden">
 
-        <table className="w-full">
+        <div className="overflow-x-auto">
+  <table className="w-full">
 
           <thead className="border-b">
   <tr>
@@ -486,6 +487,7 @@ async function rechazarCotizacion(id: string) {
           </tbody>
 
         </table>
+</div>
 
       </div>
 

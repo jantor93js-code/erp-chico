@@ -232,7 +232,8 @@ export default function PedidosPage() {
         </div>
       </div>
 
-      <table className="w-full">
+      <div className="overflow-x-auto">
+  <table className="w-full">
  <thead>
   <tr className="border-b">
 
@@ -340,6 +341,7 @@ export default function PedidosPage() {
   ))}
 </tbody>
 </table>
+</div>
     </div>
   );
 }

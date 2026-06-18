@@ -187,6 +187,7 @@ export default function ConductoresPage() {
 
         <table className="w-full">
 
+
           <thead className="border-b">
             <tr>
 

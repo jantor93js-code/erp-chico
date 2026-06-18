@@ -110,7 +110,8 @@ export default function ReportesPage() {
             </h2>
           </div>
 
-          <table className="w-full">
+          <div className="overflow-x-auto">
+  <table className="w-full">
 
             <thead className="border-b">
               <tr>
@@ -153,7 +154,8 @@ export default function ReportesPage() {
             </h2>
           </div>
 
-          <table className="w-full">
+          <div className="overflow-x-auto">
+  <table className="w-full">
 
             <thead className="border-b">
               <tr>
@@ -190,7 +192,8 @@ export default function ReportesPage() {
             </tbody>
 
           </table>
-
+</div>
+</div>
         </div>
 
       </div>
