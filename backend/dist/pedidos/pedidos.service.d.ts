@@ -54,9 +54,9 @@ export declare class PedidosService {
             createdAt: Date;
             updatedAt: Date;
             nombre: string;
+            activo: boolean;
             cedula: string;
             telefono: string | null;
-            activo: boolean;
         } | null;
         cotizacion: {
             tenantId: string;

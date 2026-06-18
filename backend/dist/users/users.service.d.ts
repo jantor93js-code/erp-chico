@@ -18,8 +18,8 @@ export declare class UsersService {
             createdAt: Date;
             updatedAt: Date;
             nombre: string;
-            activo: boolean;
             nit: string;
+            activo: boolean;
         };
         role: {
             id: string;
@@ -42,8 +42,8 @@ export declare class UsersService {
             createdAt: Date;
             updatedAt: Date;
             nombre: string;
-            activo: boolean;
             nit: string;
+            activo: boolean;
         };
         role: {
             id: string;

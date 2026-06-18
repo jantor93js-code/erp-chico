@@ -18,8 +18,8 @@ export declare class UsersController {
             createdAt: Date;
             updatedAt: Date;
             nombre: string;
-            activo: boolean;
             nit: string;
+            activo: boolean;
         };
         role: {
             id: string;

@@ -76,9 +76,9 @@ export declare class ServiciosService {
             createdAt: Date;
             updatedAt: Date;
             nombre: string;
+            activo: boolean;
             cedula: string;
             telefono: string | null;
-            activo: boolean;
         } | null;
     } & {
         tenantId: string;

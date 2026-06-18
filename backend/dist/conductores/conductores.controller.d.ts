@@ -9,9 +9,9 @@ export declare class ConductoresController {
         createdAt: Date;
         updatedAt: Date;
         nombre: string;
+        activo: boolean;
         cedula: string;
         telefono: string | null;
-        activo: boolean;
     }>;
     findAll(): Promise<{
         tenantId: string;
@@ -19,8 +19,8 @@ export declare class ConductoresController {
         createdAt: Date;
         updatedAt: Date;
         nombre: string;
+        activo: boolean;
         cedula: string;
         telefono: string | null;
-        activo: boolean;
     }[]>;
 }

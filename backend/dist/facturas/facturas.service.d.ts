@@ -4,36 +4,36 @@ export declare class FacturasService {
     private prisma;
     constructor(prisma: PrismaService);
     create(dto: CreateFacturaDto): Promise<{
+        tenantId: string;
         id: string;
-        numeroFactura: string;
+        createdAt: Date;
+        updatedAt: Date;
+        pedidoId: string;
         valor: number;
+        numeroFactura: string;
         estadoPago: string;
         fechaEmision: Date;
         fechaVencimiento: Date;
-        createdAt: Date;
-        updatedAt: Date;
-        tenantId: string;
-        pedidoId: string;
     }>;
     findAll(): Promise<{
         totalPagado: number;
         saldoPendiente: number;
         pedido: {
             cliente: {
+                tenantId: string;
                 id: string;
                 createdAt: Date;
                 updatedAt: Date;
-                tenantId: string;
                 identificacion: string;
                 razonSocial: string;
                 tipoCliente: string | null;
                 contactoPrincipal: string | null;
             };
             cotizacion: {
+                tenantId: string;
                 id: string;
                 createdAt: Date;
                 updatedAt: Date;
-                tenantId: string;
                 clienteId: string;
                 ejecutivoId: string;
                 descripcion: string | null;
@@ -46,19 +46,19 @@ export declare class FacturasService {
                 fechaCreacion: Date;
             } | null;
         } & {
+            tenantId: string;
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            tenantId: string;
             clienteId: string;
             ejecutivoId: string;
-            fechaSolicitud: Date;
             descripcion: string | null;
+            valorTotalPactado: number | null;
+            fechaSolicitud: Date;
             tipoServicio: string | null;
             numeroPedido: string | null;
             origen: string | null;
             destino: string | null;
-            valorTotalPactado: number | null;
             origenPedido: string | null;
             cotizacionId: string | null;
             fechaProgramada: Date | null;
@@ -69,22 +69,22 @@ export declare class FacturasService {
         };
         pagos: {
             id: string;
-            valor: number;
             createdAt: Date;
             updatedAt: Date;
+            valor: number;
             facturaId: string;
             metodoPago: string;
             fechaPago: Date;
         }[];
+        tenantId: string;
         id: string;
-        numeroFactura: string;
+        createdAt: Date;
+        updatedAt: Date;
+        pedidoId: string;
         valor: number;
+        numeroFactura: string;
         estadoPago: string;
         fechaEmision: Date;
         fechaVencimiento: Date;
-        createdAt: Date;
-        updatedAt: Date;
-        tenantId: string;
-        pedidoId: string;
     }[]>;
 }
