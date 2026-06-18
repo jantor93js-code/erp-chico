@@ -104,7 +104,7 @@ if (
   }
 
   return (
-    <div className="p-10">
+    <div className="p-4 sm:p-6 lg:p-10">
 
       <h1 className="text-3xl font-bold mb-8">
         Pagos
@@ -382,7 +382,7 @@ setForm({
           {pagos.map((pago) => (
             <tr
   key={pago.id}
-  className="hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+  className="hover:bg-gray-50 transition"
 >
 
   <td className="p-3">

@@ -385,7 +385,7 @@ async function entregarServicio(id: string) {
   {servicios.map((servicio) => (
     <tr
   key={servicio.id}
-  className="hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+  className="hover:bg-gray-50 transition"
 >
       <td className="p-3">
   {servicio.pedido?.numeroPedido}

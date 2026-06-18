@@ -183,7 +183,7 @@ export default function ConductoresPage() {
 
       </div>
 
-      <div className="bg-white rounded-xl shadow overflow-hidden">
+      <div className="bg-white rounded-xl shadow overflow-x-auto">
 
         <table className="w-full">
 
@@ -215,7 +215,7 @@ export default function ConductoresPage() {
             {conductores.map((conductor) => (
               <tr
                 key={conductor.id}
-                className="hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+                className="hover:bg-gray-50 transition"
               >
 
                 <td className="p-4">

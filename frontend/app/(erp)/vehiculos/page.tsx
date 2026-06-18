@@ -208,7 +208,7 @@ export default function VehiculosPage() {
           {vehiculos.map((vehiculo) => (
             <tr
   key={vehiculo.id}
-  className="hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+  className="hover:bg-gray-50 transition"
 >
               <td className="p-3">
                 {vehiculo.placa}

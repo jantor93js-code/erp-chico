@@ -305,7 +305,7 @@ export default function GastosOperativosPage() {
             {gastos.map((gasto) => (
               <tr
                 key={gasto.id}
-                className="hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+                className="hover:bg-gray-50 transition"
               >
                 <td className="p-4">
                   {gasto.servicio?.tipoServicio}

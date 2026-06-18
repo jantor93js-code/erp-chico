@@ -11,7 +11,7 @@ export default function ERPLayout({
 }) {
   return (
     <AuthGuard>
-      <div className="flex flex-col md:flex-row min-h-screen bg-zinc-100">
+      <div className="flex min-h-screen min-w-0 flex-col bg-zinc-100 md:flex-row">
 
         {/* Sidebar */}
         <aside
@@ -20,7 +20,8 @@ export default function ERPLayout({
             md:w-64
             bg-gray-900
             text-white
-            p-6
+            p-4
+            sm:p-6
             md:min-h-screen
             overflow-y-auto
           "
@@ -33,102 +34,102 @@ export default function ERPLayout({
             Gestión Operativa y Administrativa
           </p>
 
-          <nav className="space-y-3">
+          <nav className="flex gap-4 overflow-x-auto pb-2 md:block md:space-y-3 md:overflow-visible md:pb-0">
 
             <Link
               href="/dashboard"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Dashboard
             </Link>
 
             <Link
               href="/clientes"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Clientes
             </Link>
 
             <Link
               href="/cotizaciones"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Cotizaciones
             </Link>
 
             <Link
               href="/pedidos"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Pedidos
             </Link>
 
             <Link
               href="/servicios"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Servicios
             </Link>
 
             <Link
               href="/gastos-operativos"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Gastos Operativos
             </Link>
 
             <Link
               href="/evidencias"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Evidencias
             </Link>
 
             <Link
               href="/facturas"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Facturas
             </Link>
 
             <Link
               href="/pagos"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Pagos
             </Link>
 
             <Link
               href="/cartera"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Cartera
             </Link>
 
             <Link
               href="/vehiculos"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Vehículos
             </Link>
 
             <Link
               href="/conductores"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Conductores
             </Link>
 
             <Link
               href="/reportes"
-              className="block hover:text-blue-400 transition"
+              className="block shrink-0 hover:text-blue-400 transition"
             >
               Reportes
             </Link>
 
           </nav>
 
-          <div className="mt-10">
+          <div className="mt-6 md:mt-10">
             <LogoutButton />
           </div>
         </aside>
@@ -137,6 +138,7 @@ export default function ERPLayout({
         <main
           className="
             flex-1
+            min-w-0
             bg-zinc-100
             text-zinc-900
             p-4

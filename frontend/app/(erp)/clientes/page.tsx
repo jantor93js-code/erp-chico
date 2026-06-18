@@ -227,7 +227,7 @@ return ( <div>
         {clientes.map((cliente) => (
           <tr
   key={cliente.id}
-  className="hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+  className="hover:bg-gray-50 transition"
 >
             <td className="p-4">
               {cliente.identificacion}

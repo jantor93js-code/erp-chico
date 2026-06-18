@@ -91,7 +91,7 @@ export default function PedidosPage() {
   }
 
   return (
-    <div className="p-10">
+    <div className="p-4 sm:p-6 lg:p-10">
       <div className="mb-8">
 
   <h1 className="text-3xl font-bold">
@@ -285,7 +285,7 @@ export default function PedidosPage() {
   {pedidos.map((pedido) => (
     <tr
       key={pedido.id}
-      className="hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+      className="hover:bg-gray-50 transition"
     >
       <td className="p-3 font-medium">
         {pedido.numeroPedido}

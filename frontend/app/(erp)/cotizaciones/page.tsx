@@ -403,7 +403,7 @@ async function rechazarCotizacion(id: string) {
             {cotizaciones.map((cotizacion) => (
               <tr
                 key={cotizacion.id}
-                className="hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+                className="hover:bg-gray-50 transition"
               >
 
                 <td className="p-4">

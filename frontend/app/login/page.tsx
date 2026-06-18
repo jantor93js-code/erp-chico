@@ -69,7 +69,7 @@ const response = await fetch(
   }
 
   return (
-    <div className="p-10 max-w-md mx-auto">
+    <div className="w-full max-w-md mx-auto p-4 sm:p-6 lg:p-10">
 
       <h1 className="text-3xl font-bold mb-6">
         ERP CHICO

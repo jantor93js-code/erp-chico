@@ -259,7 +259,7 @@ export default function EvidenciasPage() {
             {evidencias.map((evidencia) => (
               <tr
                 key={evidencia.id}
-                className="hover:bg-gray-50 dark:hover:bg-zinc-800"
+                className="hover:bg-gray-50"
               >
                 <td className="p-4">
   {evidencia.servicio?.origen}

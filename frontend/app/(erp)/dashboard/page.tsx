@@ -16,7 +16,7 @@ export default function DashboardPage() {
   return (
     <AuthGuard>
       {!data ? (
-        <div className="p-10">
+        <div className="p-4 sm:p-6 lg:p-10">
           Cargando dashboard...
         </div>
       ) : (
