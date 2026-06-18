@@ -1,6 +1,10 @@
 {
   "name": "erp-chico-backend",
   "version": "1.0.0",
+
+  "engines": {
+    "node": "22.x"
+  },
   "description": "Backend ERP Transportadores y Mudanzas Chicó",
   "author": "Chicó Org",
   "private": true,
