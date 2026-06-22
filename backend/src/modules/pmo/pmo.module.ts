@@ -14,25 +14,40 @@ import { InitiativesController } from './initiatives/initiatives.controller';
 import { ProjectsService } from './projects/projects.service';
 import { ProjectsController } from './projects/projects.controller';
 
+import { ClientsController } from './clients/clients.controller';
+import { ClientsService } from './clients/clients.service';
+
+import { ProgramsController } from './programs/programs.controller';
+import { ProgramsService } from './programs/programs.service';
+
 @Module({
   imports: [PrismaModule, AuthModule],
+
   controllers: [
     TasksController,
     CommentsController,
     InitiativesController,
     ProjectsController,
+    ClientsController,
+    ProgramsController,
   ],
+
   providers: [
     TasksService,
     CommentsService,
     InitiativesService,
     ProjectsService,
+    ClientsService,
+    ProgramsService,
   ],
+
   exports: [
     TasksService,
     CommentsService,
     InitiativesService,
     ProjectsService,
+    ClientsService,
+    ProgramsService,
   ],
 })
 export class PmoModule {}

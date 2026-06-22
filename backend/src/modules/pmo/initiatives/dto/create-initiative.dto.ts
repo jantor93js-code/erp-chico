@@ -1,6 +1,18 @@
-import { IsString, IsNotEmpty, IsOptional, IsInt, Min, Max } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsInt,
+  Min,
+  Max,
+} from 'class-validator';
 
 export class CreateInitiativeDto {
+
+  @IsString()
+  @IsNotEmpty()
+  programId: string;
+
   @IsString()
   @IsNotEmpty()
   nombre: string;
