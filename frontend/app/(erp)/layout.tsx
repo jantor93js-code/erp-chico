@@ -72,6 +72,13 @@ export default function ERPLayout({
             </Link>
 
             <Link
+              href="/pmo"
+              className="block shrink-0 hover:text-blue-400 transition"
+            >
+              PMO
+            </Link>
+
+            <Link
               href="/gastos-operativos"
               className="block shrink-0 hover:text-blue-400 transition"
             >
