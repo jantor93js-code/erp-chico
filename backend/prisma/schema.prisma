@@ -375,11 +375,13 @@ model Task {
   fechaLimite  DateTime?     @map("fecha_limite")
   responsableId String?       @map("responsable_id") @db.Uuid
   creadorId    String?       @map("creador_id") @db.Uuid
+  projectId String? @map("project_id") @db.Uuid
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
   responsable User? @relation("TaskResponsable", fields: [responsableId], references: [id])
   creador     User? @relation("TaskCreador", fields: [creadorId], references: [id])
+  proyecto PmoProject? @relation(fields:[projectId], references:[id])
 
   comentarios TaskComment[]
 
@@ -401,4 +403,80 @@ model TaskComment {
   createdAt DateTime @default(now()) @map("created_at")
 
   @@map("pmo_task_comments")
+}
+model PmoClient {
+  id           String   @id @default(uuid()) @db.Uuid
+  nombre       String
+  razonSocial  String?
+  estado       String   @default("ACTIVO")
+  logoUrl      String?
+
+  programas    PmoProgram[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("pmo_clients")
+}
+model PmoProgram {
+  id          String   @id @default(uuid()) @db.Uuid
+  clientId    String   @db.Uuid
+
+  nombre      String
+  descripcion String?
+
+  estado      String @default("ACTIVO")
+
+  cliente      PmoClient @relation(fields:[clientId], references:[id])
+
+  iniciativas PmoInitiative[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pmo_programs")
+}
+model PmoInitiative {
+  id           String @id @default(uuid()) @db.Uuid
+  programId    String @db.Uuid
+
+  nombre       String
+  descripcion  String?
+
+  estado       String @default("ACTIVO")
+
+  avance       Int @default(0)
+
+  programa     PmoProgram @relation(fields:[programId], references:[id])
+
+  proyectos    PmoProject[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pmo_initiatives")
+}
+model PmoProject {
+  id           String @id @default(uuid()) @db.Uuid
+
+  initiativeId String @db.Uuid
+
+  nombre       String
+  descripcion  String?
+
+  estado       String @default("ACTIVO")
+
+  avance       Int @default(0)
+
+  fechaInicio  DateTime?
+  fechaFin     DateTime?
+
+  iniciativa   PmoInitiative @relation(fields:[initiativeId], references:[id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tasks Task[]
+
+  @@map("pmo_projects")
 }
