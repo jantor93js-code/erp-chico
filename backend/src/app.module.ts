@@ -18,6 +18,7 @@ import { EvidenciasModule } from './evidencias/evidencias.module';
 import { CarteraModule } from './cartera/cartera.module';
 import { GastosOperativosModule } from './gastos-operativos/gastos-operativos.module';
 import { ReportesModule } from './reportes/reportes.module';
+import { PmoModule } from './modules/pmo/pmo.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { ReportesModule } from './reportes/reportes.module';
     CarteraModule,
     GastosOperativosModule,
     ReportesModule,
+    PmoModule,
   ],
   controllers: [],
   providers: [],

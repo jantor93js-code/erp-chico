@@ -23,6 +23,7 @@ model Tenant {
   vehiculos Vehiculo[]
   pedidos   Pedido[]
   facturas  Factura[]
+  tasks     Task[]
 
   @@map("tenants")
 }
@@ -51,6 +52,9 @@ model User {
   updatedAt    DateTime     @updatedAt @map("updated_at")
   pedidos      Pedido[]
   cotizaciones Cotizacion[]
+  tasksResponsable Task[] @relation("TaskResponsable")
+  tasksCreador Task[] @relation("TaskCreador")
+  taskComments TaskComment[]
 
   @@map("users")
 }
@@ -343,4 +347,58 @@ tamanoArchivo Int? @map("tamano_archivo")
   pedidoId  String?  @db.Uuid
 
   @@map("evidencias_servicio")
+}
+
+enum TaskEstado {
+  PENDIENTE
+  EN_CURSO
+  BLOQUEADO
+  FINALIZADO
+  CANCELADO
+}
+
+enum TaskPrioridad {
+  BAJA
+  MEDIA
+  ALTA
+  CRITICA
+}
+
+model Task {
+  id           String        @id @default(uuid()) @db.Uuid
+  codigo       String        @unique
+  tenantId     String        @map("tenant_id") @db.Uuid
+  titulo       String
+  descripcion  String?
+  estado       TaskEstado    @default(PENDIENTE)
+  prioridad    TaskPrioridad @default(MEDIA)
+  fechaLimite  DateTime?     @map("fecha_limite")
+  responsableId String?       @map("responsable_id") @db.Uuid
+  creadorId    String?       @map("creador_id") @db.Uuid
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  responsable User? @relation("TaskResponsable", fields: [responsableId], references: [id])
+  creador     User? @relation("TaskCreador", fields: [creadorId], references: [id])
+
+  comentarios TaskComment[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("pmo_tasks")
+}
+
+model TaskComment {
+  id        String   @id @default(uuid()) @db.Uuid
+  taskId    String   @map("task_id") @db.Uuid
+  usuarioId String   @map("usuario_id") @db.Uuid
+  comentario String
+
+  tarea Task  @relation(fields: [taskId], references: [id])
+  usuario User @relation(fields: [usuarioId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("pmo_task_comments")
 }
