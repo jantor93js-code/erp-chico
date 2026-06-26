@@ -1,35 +1,47 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Body,
+  Param,
+} from '@nestjs/common';
+
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
-import { JwtAuthGuard } from '../../../auth/jwt-auth.guard';
 
 @Controller('pmo/projects')
-@UseGuards(JwtAuthGuard)
 export class ProjectsController {
-  constructor(private readonly service: ProjectsService) {}
+  constructor(
+    private readonly service: ProjectsService,
+  ) {}
 
   @Post()
-  create(@Body() dto: CreateProjectDto, @Req() req: any) {
-    return this.service.create(dto, req.user);
+  create(@Body() dto: CreateProjectDto) {
+    return this.service.create(dto);
   }
 
   @Get()
-  findAll(@Req() req: any) {
-    return this.service.findAll(req.user);
+  findAll() {
+    return this.service.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Req() req: any) {
-    return this.service.findOne(id, req.user);
+  findOne(@Param('id') id: string) {
+    return this.service.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: Partial<CreateProjectDto>, @Req() req: any) {
-    return this.service.update(id, dto, req.user);
+  update(
+    @Param('id') id: string,
+    @Body() dto: Partial<CreateProjectDto>,
+  ) {
+    return this.service.update(id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string, @Req() req: any) {
-    return this.service.remove(id, req.user);
+  remove(@Param('id') id: string) {
+    return this.service.remove(id);
   }
 }

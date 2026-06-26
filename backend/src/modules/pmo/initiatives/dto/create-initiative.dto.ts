@@ -5,13 +5,17 @@ import {
   IsInt,
   Min,
   Max,
-} from 'class-validator';
+} from "class-validator";
 
 export class CreateInitiativeDto {
 
   @IsString()
   @IsNotEmpty()
   programId: string;
+
+  @IsString()
+  @IsOptional()
+  responsableId?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -23,10 +27,6 @@ export class CreateInitiativeDto {
 
   @IsString()
   @IsOptional()
-  responsable?: string;
-
-  @IsString()
-  @IsOptional()
   estado?: string;
 
   @IsInt()
@@ -34,4 +34,5 @@ export class CreateInitiativeDto {
   @Max(100)
   @IsOptional()
   avance?: number;
+
 }

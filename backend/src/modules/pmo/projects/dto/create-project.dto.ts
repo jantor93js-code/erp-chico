@@ -1,6 +1,20 @@
-import { IsString, IsNotEmpty, IsOptional, IsInt, Min, Max, IsDateString } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsInt,
+  Min,
+  Max,
+  IsDateString,
+  IsBoolean,
+} from 'class-validator';
 
 export class CreateProjectDto {
+
+  @IsString()
+  @IsNotEmpty()
+  initiativeId: string;
+
   @IsString()
   @IsNotEmpty()
   nombre: string;
@@ -12,10 +26,6 @@ export class CreateProjectDto {
   @IsString()
   @IsOptional()
   responsable?: string;
-
-  @IsString()
-  @IsOptional()
-  iniciativaId?: string;
 
   @IsDateString()
   @IsOptional()
@@ -34,4 +44,32 @@ export class CreateProjectDto {
   @IsString()
   @IsOptional()
   estado?: string;
+
+  @IsString()
+  @IsOptional()
+  codigo?: string;
+
+  @IsString()
+  @IsOptional()
+  area?: string;
+
+  @IsString()
+  @IsOptional()
+  objetivo?: string;
+
+  @IsString()
+  @IsOptional()
+  observaciones?: string;
+
+  @IsString()
+  @IsOptional()
+  estadoDocumental?: string;
+
+  @IsString()
+  @IsOptional()
+  fuente?: string;
+
+  @IsString()
+  @IsOptional()
+  liderId?: string;
 }

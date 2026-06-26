@@ -1,47 +1,140 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../../../prisma/prisma.service';
 import { CreateProjectDto } from './dto/create-project.dto';
-
-// STUB: datos en memoria hasta migración aprobada de tabla pmo_projects
 
 @Injectable()
 export class ProjectsService {
-  private store: any[] = [];
-  private seq = 1;
+  constructor(
+    private prisma: PrismaService,
+  ) {}
 
-  async create(dto: CreateProjectDto, user: any) {
-    const record = {
-      id: `proj-${this.seq++}`,
-      tenantId: user.tenant_id,
-      avance: 0,
-      estado: 'PLANIFICADO',
-      ...dto,
-      createdAt: new Date().toISOString(),
-    };
-    this.store.push(record);
-    return record;
+  async create(dto: CreateProjectDto) {
+    return this.prisma.pmoProject.create({
+      data: {
+        initiativeId: dto.initiativeId,
+        nombre: dto.nombre,
+        descripcion: dto.descripcion,
+        codigo: dto.codigo,
+        area: dto.area,
+        objetivo: dto.objetivo,
+        observaciones: dto.observaciones,
+        estadoDocumental: dto.estadoDocumental,
+        fuente: dto.fuente,
+        liderId: dto.liderId,
+        estado: dto.estado ?? 'ACTIVO',
+        avance: dto.avance ?? 0,
+        fechaInicio: dto.fechaInicio
+          ? new Date(dto.fechaInicio)
+          : undefined,
+        fechaFin: dto.fechaFin
+          ? new Date(dto.fechaFin)
+          : undefined,
+      },
+     include: {
+  iniciativa: {
+    include: {
+      programa: {
+        include: {
+          cliente: true,
+        },
+      },
+    },
+  },
+},
+    });
   }
 
-  async findAll(user: any) {
-    return this.store.filter(r => r.tenantId === user.tenant_id);
-  }
+  async findAll() {
+  return this.prisma.pmoProject.findMany({
+   include: {
+  iniciativa: {
+    include: {
+      programa: {
+        include: {
+          cliente: true,
+        },
+      },
+    },
+  },
 
-  async findOne(id: string, user: any) {
-    const item = this.store.find(r => r.id === id && r.tenantId === user.tenant_id);
-    if (!item) throw new NotFoundException('Proyecto no encontrado');
+  tasks: {
+    select: {
+      id: true,
+      estado: true,
+    },
+  },
+},
+
+      
+
+    orderBy: {
+      nombre: 'asc',
+    },
+  });
+}
+  async findOne(id: string) {
+    const item = await this.prisma.pmoProject.findUnique({
+      where: { id },
+     include: {
+  iniciativa: {
+    include: {
+      programa: {
+        include: {
+          cliente: true,
+        },
+      },
+    },
+  },
+},
+    });
+
+    if (!item) {
+      throw new NotFoundException('Proyecto no encontrado');
+    }
+
     return item;
   }
 
-  async update(id: string, dto: Partial<CreateProjectDto>, user: any) {
-    const idx = this.store.findIndex(r => r.id === id && r.tenantId === user.tenant_id);
-    if (idx === -1) throw new NotFoundException('Proyecto no encontrado');
-    this.store[idx] = { ...this.store[idx], ...dto };
-    return this.store[idx];
+  async update(
+    id: string,
+    dto: Partial<CreateProjectDto>,
+  ) {
+    const { initiativeId, ...rest } = dto;
+    return this.prisma.pmoProject.update({
+      where: { id },
+      data: {
+        ...rest,
+        ...(initiativeId && {
+          iniciativa: {
+            connect: {
+              id: initiativeId,
+            },
+          },
+        }),
+      },
+      include: {
+        iniciativa: {
+          include: {
+            programa: {
+              include: {
+                cliente: true,
+              },
+            },
+          },
+        },
+        tasks: {
+          select: {
+            id: true,
+            estado: true,
+          },
+        },
+      },
+    });
   }
 
-  async remove(id: string, user: any) {
-    const idx = this.store.findIndex(r => r.id === id && r.tenantId === user.tenant_id);
-    if (idx === -1) throw new NotFoundException('Proyecto no encontrado');
-    const [deleted] = this.store.splice(idx, 1);
-    return deleted;
+  async remove(id: string) {
+    return this.prisma.pmoProject.delete({
+      where: { id },
+    });
   }
 }

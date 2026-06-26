@@ -22,9 +22,7 @@ export class RolesGuard
   ): boolean {
 
     const roles =
-      this.reflector.getAllAndOverride<
-        string[]
-      >(
+      this.reflector.getAllAndOverride<string[]>(
         ROLES_KEY,
         [
           context.getHandler(),
@@ -32,18 +30,44 @@ export class RolesGuard
         ],
       );
 
-    if (!roles) {
-      return true;
-    }
-
     const request =
       context.switchToHttp().getRequest();
 
     const user =
       request.user;
 
-    return roles.includes(
-      user.role,
+    console.log(
+      'ROLES REQUERIDOS:',
+      roles,
     );
+
+    console.log(
+      'USER:',
+      user,
+    );
+
+    if (!roles) {
+      return true;
+    }
+
+    const normalizedUserRole = String(user?.role ?? '')
+      .trim()
+      .toLowerCase();
+    const normalizedRoles = roles.map((role) =>
+      String(role ?? '')
+        .trim()
+        .toLowerCase(),
+    );
+
+    const match = normalizedRoles.includes(
+      normalizedUserRole,
+    );
+
+    console.log(
+      'ROLE MATCH:',
+      match,
+    );
+
+    return match;
   }
 }

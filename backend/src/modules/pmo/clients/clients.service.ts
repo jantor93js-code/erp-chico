@@ -11,13 +11,14 @@ export class ClientsService {
 
   async create(dto: CreateClientDto) {
     return this.prisma.pmoClient.create({
-      data: {
-        nombre: dto.nombre,
-        razonSocial: dto.razonSocial,
-        logoUrl: dto.logoUrl,
-        estado: dto.estado ?? 'ACTIVO',
-      },
-    });
+  data: {
+    nombre: dto.nombre,
+    nit: dto.nit,
+    contacto: dto.contacto,
+    email: dto.email,
+    estado: dto.estado,
+  },
+});
   }
 
   async findAll() {

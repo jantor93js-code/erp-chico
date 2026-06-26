@@ -1,35 +1,38 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { InitiativesService } from './initiatives.service';
 import { CreateInitiativeDto } from './dto/create-initiative.dto';
 import { JwtAuthGuard } from '../../../auth/jwt-auth.guard';
 
 @Controller('pmo/initiatives')
-@UseGuards(JwtAuthGuard)
+@Controller('pmo/initiatives')
 export class InitiativesController {
   constructor(private readonly service: InitiativesService) {}
 
   @Post()
-  create(@Body() dto: CreateInitiativeDto, @Req() req: any) {
-    return this.service.create(dto, req.user);
+  create(@Body() dto: CreateInitiativeDto) {
+    return this.service.create(dto);
   }
 
   @Get()
-  findAll(@Req() req: any) {
-    return this.service.findAll(req.user);
+  findAll() {
+    return this.service.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Req() req: any) {
-    return this.service.findOne(id, req.user);
+  findOne(@Param('id') id: string) {
+    return this.service.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: Partial<CreateInitiativeDto>, @Req() req: any) {
-    return this.service.update(id, dto, req.user);
+  update(
+    @Param('id') id: string,
+    @Body() dto: Partial<CreateInitiativeDto>,
+  ) {
+    return this.service.update(id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string, @Req() req: any) {
-    return this.service.remove(id, req.user);
+  remove(@Param('id') id: string) {
+    return this.service.remove(id);
   }
 }

@@ -20,11 +20,20 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('ERP CHICO API')
-    .setDescription('Backend para Transportadores y Mudanzas Chicó')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
+  .setTitle('ERP CHICO API')
+  .setDescription('Backend para Transportadores y Mudanzas Chicó')
+  .setVersion('1.0')
+  .addBearerAuth(
+    {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      name: 'Authorization',
+      in: 'header',
+    },
+    'JWT-auth',
+  )
+  .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 

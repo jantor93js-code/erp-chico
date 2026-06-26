@@ -4,6 +4,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
+import { ConfigurationModule } from './configuration/configuration.module';
 import { VehiculosModule } from './vehiculos/vehiculos.module';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { ClientesModule } from './clientes/clientes.module';
@@ -20,6 +21,7 @@ import { GastosOperativosModule } from './gastos-operativos/gastos-operativos.mo
 import { ReportesModule } from './reportes/reportes.module';
 import { PmoModule } from './modules/pmo/pmo.module';
 
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -29,6 +31,7 @@ import { PmoModule } from './modules/pmo/pmo.module';
     AuthModule,
     UsersModule,
     RolesModule,
+    ConfigurationModule,
     VehiculosModule,
     PedidosModule,
     ClientesModule,

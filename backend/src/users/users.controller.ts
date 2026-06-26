@@ -1,4 +1,14 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Query,
+  Patch,
+  Delete,
+  Param,
+} from '@nestjs/common';
+
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -11,12 +21,44 @@ export class UsersController {
   ) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(
+    @Body()
+    createUserDto: CreateUserDto,
+  ) {
+    return this.usersService.create(
+      createUserDto,
+    );
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  findAll(
+    @Query('scope')
+    scope?: string,
+  ) {
+    return this.usersService.findAll(
+      scope,
+    );
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id')
+    id: string,
+
+    @Body()
+    dto: Partial<CreateUserDto>,
+  ) {
+    return this.usersService.update(
+      id,
+      dto,
+    );
+  }
+
+  @Delete(':id')
+  remove(
+    @Param('id')
+    id: string,
+  ) {
+    return this.usersService.remove(id);
   }
 }

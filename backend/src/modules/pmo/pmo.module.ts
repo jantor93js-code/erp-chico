@@ -19,9 +19,10 @@ import { ClientsService } from './clients/clients.service';
 
 import { ProgramsController } from './programs/programs.controller';
 import { ProgramsService } from './programs/programs.service';
+import { DocumentsModule } from './documents/documents.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule],
+  imports: [PrismaModule, AuthModule, DocumentsModule],
 
   controllers: [
     TasksController,

@@ -2,62 +2,70 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 function getToken() {
   if (typeof window === "undefined") return null;
-
   return localStorage.getItem("token");
 }
 
-export async function apiGet(endpoint: string) {
+function headers(json = false) {
   const token = getToken();
-
-  const response = await fetch(
-    `${API_URL}${endpoint}`,
-    {
-      headers: {
-        Authorization: token
-          ? `Bearer ${token}`
-          : "",
-      },
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `Error ${response.status}`
-    );
-  }
-
-  return response.json();
+  const h: Record<string, string> = {};
+  if (token) h["Authorization"] = `Bearer ${token}`;
+  if (json) h["Content-Type"] = "application/json";
+  return h;
 }
 
-export async function apiPost(
-  endpoint: string,
-  body: any
-) {
-  const token = getToken();
+function parseBody(text: string) {
+  if (!text) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
+}
 
-  const response = await fetch(
-    `${API_URL}${endpoint}`,
-    {
-      method: "POST",
+async function handle(res: Response) {
+  const text = await res.text();
+  const body = parseBody(text);
 
-      headers: {
-        "Content-Type":
-          "application/json",
-
-        Authorization: token
-          ? `Bearer ${token}`
-          : "",
-      },
-
-      body: JSON.stringify(body),
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `Error ${response.status}`
+  if (!res.ok) {
+    const error = new Error(
+      body?.message || (typeof body === 'string' ? body : `Error ${res.status}`),
     );
+    Object.assign(error, { status: res.status, body });
+    throw error;
   }
 
-  return response.json();
+  return body;
+}
+
+export async function apiGet(endpoint: string) {
+  return handle(await fetch(`${API_URL}${endpoint}`, { headers: headers() }));
+}
+
+export async function apiPost(endpoint: string, body: unknown) {
+  return handle(
+    await fetch(`${API_URL}${endpoint}`, {
+      method: "POST",
+      headers: headers(true),
+      body: JSON.stringify(body),
+    }),
+  );
+}
+
+export async function apiPatch(endpoint: string, body: unknown) {
+  return handle(
+    await fetch(`${API_URL}${endpoint}`, {
+      method: "PATCH",
+      headers: headers(true),
+      body: JSON.stringify(body),
+    }),
+  );
+}
+
+export async function apiDelete(endpoint: string) {
+  return handle(
+    await fetch(`${API_URL}${endpoint}`, {
+      method: "DELETE",
+      headers: headers(),
+    }),
+  );
 }

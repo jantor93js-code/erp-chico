@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f4f5;
-  --foreground: #18181b;
+  --background: #eff3f7;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --border: #d6d3d1;
+  --brand: #c89b2a;
+  --brand-dark: #a16207;
+  --text-muted: #6b7280;
 }
 
 html {
@@ -19,7 +25,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   min-width: 0;
   overflow-x: hidden;
 }
@@ -32,20 +38,55 @@ canvas {
   height: auto;
 }
 
-/* Formularios */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
 
 input,
 select,
 textarea {
-  background-color: white;
-  color: #18181b;
-  border: 1px solid #d1d5db;
+  background-color: var(--surface-muted);
+  color: var(--foreground);
+  border: 1px solid var(--border);
   max-width: 100%;
+  border-radius: 1rem;
+}
+
+button {
+  border: none;
+  cursor: pointer;
 }
 
 option {
-  background-color: white;
-  color: #18181b;
+  background-color: var(--surface);
+  color: var(--foreground);
+}
+
+.pmo-shell input,
+.pmo-shell select,
+.pmo-shell textarea {
+  background-color: var(--surface-muted);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+
+.pmo-shell option {
+  background-color: var(--surface);
+  color: var(--foreground);
+}
+
+.pmo-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+}
+
+.pmo-shadow-soft {
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
 }
 
 /* Tablas */
@@ -101,13 +142,13 @@ h6 {
   input,
   select,
   textarea {
-    background-color: white;
-    color: #18181b;
-    border: 1px solid #d1d5db;
+    background-color: var(--surface);
+    color: var(--foreground);
+    border: 1px solid var(--border);
   }
 
   option {
-    background-color: white;
-    color: #18181b;
+    background-color: var(--surface);
+    color: var(--foreground);
   }
 }

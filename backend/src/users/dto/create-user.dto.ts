@@ -20,4 +20,14 @@ export class CreateUserDto {
   @IsUUID()
   @IsNotEmpty()
   tenantId: string;
+  @ApiProperty()
+  
+@IsString()
+@IsNotEmpty()
+nombre: string;
+
+@ApiProperty()
+@IsString()
+@IsNotEmpty()
+scope: string;
 }

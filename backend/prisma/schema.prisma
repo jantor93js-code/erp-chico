@@ -39,25 +39,124 @@ model Role {
 }
 
 model User {
-  id       String @id @default(uuid()) @db.Uuid
+  id String @id @default(uuid()) @db.Uuid
+
+  nombre String
+
   email    String @unique
   password String
+
   roleId   String @map("role_id") @db.Uuid
   tenantId String @map("tenant_id") @db.Uuid
+
+  scope String @default("ERP")
 
   role   Role   @relation(fields: [roleId], references: [id])
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
-  createdAt    DateTime     @default(now()) @map("created_at")
-  updatedAt    DateTime     @updatedAt @map("updated_at")
-  pedidos      Pedido[]
-  cotizaciones Cotizacion[]
-  tasksResponsable Task[] @relation("TaskResponsable")
-  tasksCreador Task[] @relation("TaskCreador")
-  taskComments TaskComment[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  pedidos                Pedido[]
+  cotizaciones           Cotizacion[]
+  tasksResponsable       Task[]          @relation("TaskResponsable")
+  tasksCreador           Task[]          @relation("TaskCreador")
+  iniciativasResponsable PmoInitiative[] @relation("InitiativeResponsable")
+  taskComments           TaskComment[]
+  areasResponsable       Area[]          @relation("AreaResponsable")
+  processesResponsable   Process[]       @relation("ProcessResponsable")
 
   @@map("users")
 }
+
+// ==================== CONFIGURACIÓN & CATÁLOGOS ====================
+
+model Area {
+  id            String  @id @default(uuid()) @db.Uuid
+  nombre        String
+  codigo        String  @unique
+  descripcion   String?
+  responsableId String? @map("responsable_id") @db.Uuid
+  estado        String  @default("ACTIVO")
+  activo        Boolean @default(true)
+
+  responsable User?      @relation("AreaResponsable", fields: [responsableId], references: [id])
+  procesos    Process[]
+  documentos  Document[] @relation("DocumentArea")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("areas")
+}
+
+model Process {
+  id            String  @id @default(uuid()) @db.Uuid
+  nombre        String
+  codigo        String  @unique
+  descripcion   String?
+  areaId        String? @map("area_id") @db.Uuid
+  responsableId String? @map("responsable_id") @db.Uuid
+  estado        String  @default("ACTIVO")
+  activo        Boolean @default(true)
+
+  area        Area?      @relation(fields: [areaId], references: [id])
+  responsable User?      @relation("ProcessResponsable", fields: [responsableId], references: [id])
+  documentos  Document[] @relation("DocumentProcess")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([areaId])
+  @@index([responsableId])
+  @@map("processes")
+}
+
+model DocumentTypeRef {
+  id          String  @id @default(uuid()) @db.Uuid
+  nombre      String  @unique
+  codigo      String  @unique
+  descripcion String?
+  activo      Boolean @default(true)
+
+  documentos Document[] @relation("DocumentTipo")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("document_types")
+}
+
+model DocumentStatusRef {
+  id          String  @id @default(uuid()) @db.Uuid
+  nombre      String  @unique
+  codigo      String  @unique
+  descripcion String?
+  color       String?
+  activo      Boolean @default(true)
+
+  documentos Document[] @relation("DocumentEstado")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("document_statuses")
+}
+
+model TaskStatusRef {
+  id          String  @id @default(uuid()) @db.Uuid
+  nombre      String  @unique
+  codigo      String  @unique
+  descripcion String?
+  activo      Boolean @default(true)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("task_statuses")
+}
+
+// ==================== FIN CONFIGURACIÓN ====================
 
 model Cliente {
   id       String @id @default(uuid()) @db.Uuid
@@ -105,14 +204,14 @@ model Pedido {
   clienteId   String @map("cliente_id") @db.Uuid
   ejecutivoId String @map("ejecutivo_id") @db.Uuid
 
-  fechaSolicitud DateTime @default(now()) @map("fecha_solicitud")
-  descripcion    String?
-  tipoServicio String? @map("tipo_servicio")
-numeroPedido String? @unique @map("numero_pedido")
-origen String?
-destino String?
-  valorTotalPactado Float?  @map("valor_total_pactado")
-  origenPedido      String? @map("origen_pedido")
+  fechaSolicitud    DateTime @default(now()) @map("fecha_solicitud")
+  descripcion       String?
+  tipoServicio      String?  @map("tipo_servicio")
+  numeroPedido      String?  @unique @map("numero_pedido")
+  origen            String?
+  destino           String?
+  valorTotalPactado Float?   @map("valor_total_pactado")
+  origenPedido      String?  @map("origen_pedido")
 
   cotizacionId String? @map("cotizacion_id") @db.Uuid
 
@@ -299,14 +398,14 @@ model Cotizacion {
 
   tenantId String @db.Uuid
 
-  clienteId   String  @db.Uuid
-  cliente     Cliente @relation(fields: [clienteId], references: [id])
-  ejecutivoId String  @db.Uuid
-  ejecutivo   User    @relation(fields: [ejecutivoId], references: [id])
-tipoServicio String? @map("tipo_servicio")
+  clienteId    String  @db.Uuid
+  cliente      Cliente @relation(fields: [clienteId], references: [id])
+  ejecutivoId  String  @db.Uuid
+  ejecutivo    User    @relation(fields: [ejecutivoId], references: [id])
+  tipoServicio String? @map("tipo_servicio")
 
-descripcion String?
-  numeroCotizacion String @unique
+  descripcion      String?
+  numeroCotizacion String  @unique
 
   origen  String
   destino String
@@ -327,11 +426,11 @@ model EvidenciaServicio {
 
   servicioId String @map("servicio_id") @db.Uuid
 
-nombreArchivo String? @map("nombre_archivo")
+  nombreArchivo String? @map("nombre_archivo")
 
-mimeType String? @map("mime_type")
+  mimeType String? @map("mime_type")
 
-tamanoArchivo Int? @map("tamano_archivo")
+  tamanoArchivo Int? @map("tamano_archivo")
 
   tipo String
 
@@ -364,24 +463,108 @@ enum TaskPrioridad {
   CRITICA
 }
 
+enum TaskTipo {
+  PROCEDIMIENTO
+  INSTRUCTIVO
+  MANUAL
+  FORMATO
+  MATRIZ
+  ACTIVIDAD
+  OTRO
+}
+
+enum DocumentType {
+  MANUAL
+  PROCEDIMIENTO
+  FORMATO
+  POLITICA
+  CONTRATO
+  MATRIZ
+  ACTIVIDAD
+  OTRO
+}
+
+enum DocumentEstado {
+  VIGENTE
+  EN_REVISION
+  PENDIENTE_APROBACION
+  OBSOLETO
+  ARCHIVADO
+}
+
+model Document {
+  id                         String         @id @default(uuid()) @db.Uuid
+  codigo                     String?        @unique
+  nombre                     String
+  descripcion                String?
+  tipo                       DocumentType   @default(OTRO)
+  proceso                    String?
+  area                       String?
+  version                    String?
+  responsableActualizacion   String?        @map("responsable_actualizacion")
+  responsableRevision        String?        @map("responsable_revision")
+  estadoDocumental           DocumentEstado @default(VIGENTE)
+
+  areaId             String? @map("area_id_ref") @db.Uuid
+  processId          String? @map("process_id") @db.Uuid
+  tipoId             String? @map("tipo_id") @db.Uuid
+  estadoDocumentalId String? @map("estado_documental_id") @db.Uuid
+
+  areaRef             Area?              @relation("DocumentArea", fields: [areaId], references: [id])
+  processRef          Process?           @relation("DocumentProcess", fields: [processId], references: [id])
+  tipoRef             DocumentTypeRef?   @relation("DocumentTipo", fields: [tipoId], references: [id])
+  estadoDocumentalRef DocumentStatusRef? @relation("DocumentEstado", fields: [estadoDocumentalId], references: [id])
+  fechaCreacion       DateTime?
+  fechaRevision       DateTime?
+  observaciones       String?
+  enlace              String?
+  fuente              String?            @default("MANUAL")
+  origenImportacion   Boolean            @default(false)
+  activo              Boolean            @default(true)
+
+  clienteId    String? @map("cliente_id") @db.Uuid
+  programId    String? @map("program_id") @db.Uuid
+  initiativeId String? @map("initiative_id") @db.Uuid
+  projectId    String? @map("project_id") @db.Uuid
+
+  cliente    PmoClient?     @relation(fields: [clienteId], references: [id])
+  programa   PmoProgram?    @relation(fields: [programId], references: [id])
+  iniciativa PmoInitiative? @relation(fields: [initiativeId], references: [id])
+  proyecto   PmoProject?    @relation(fields: [projectId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([clienteId])
+  @@index([programId])
+  @@index([initiativeId])
+  @@index([projectId])
+  @@map("documents")
+}
+
 model Task {
-  id           String        @id @default(uuid()) @db.Uuid
-  codigo       String        @unique
-  tenantId     String        @map("tenant_id") @db.Uuid
-  titulo       String
-  descripcion  String?
-  estado       TaskEstado    @default(PENDIENTE)
-  prioridad    TaskPrioridad @default(MEDIA)
-  fechaLimite  DateTime?     @map("fecha_limite")
-  responsableId String?       @map("responsable_id") @db.Uuid
-  creadorId    String?       @map("creador_id") @db.Uuid
-  projectId String? @map("project_id") @db.Uuid
+  id                String        @id @default(uuid()) @db.Uuid
+  codigo            String        @unique
+  tenantId          String        @map("tenant_id") @db.Uuid
+  titulo            String
+  descripcion       String?
+  estado            TaskEstado    @default(PENDIENTE)
+  prioridad         TaskPrioridad @default(MEDIA)
+  tipo              TaskTipo      @default(ACTIVIDAD)
+  codigoOrigen      String?
+  area              String?
+  origenImportacion Boolean       @default(false)
+  fuente            String?       @default("MANUAL")
+  fechaLimite       DateTime?     @map("fecha_limite")
+  responsableId     String?       @map("responsable_id") @db.Uuid
+  creadorId         String?       @map("creador_id") @db.Uuid
+  projectId         String?       @map("project_id") @db.Uuid
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
-  responsable User? @relation("TaskResponsable", fields: [responsableId], references: [id])
-  creador     User? @relation("TaskCreador", fields: [creadorId], references: [id])
-  proyecto PmoProject? @relation(fields:[projectId], references:[id])
+  responsable User?       @relation("TaskResponsable", fields: [responsableId], references: [id])
+  creador     User?       @relation("TaskCreador", fields: [creadorId], references: [id])
+  proyecto    PmoProject? @relation(fields: [projectId], references: [id])
 
   comentarios TaskComment[]
 
@@ -392,91 +575,128 @@ model Task {
 }
 
 model TaskComment {
-  id        String   @id @default(uuid()) @db.Uuid
-  taskId    String   @map("task_id") @db.Uuid
-  usuarioId String   @map("usuario_id") @db.Uuid
+  id         String @id @default(uuid()) @db.Uuid
+  taskId     String @map("task_id") @db.Uuid
+  usuarioId  String @map("usuario_id") @db.Uuid
   comentario String
 
-  tarea Task  @relation(fields: [taskId], references: [id])
+  tarea   Task @relation(fields: [taskId], references: [id])
   usuario User @relation(fields: [usuarioId], references: [id])
 
   createdAt DateTime @default(now()) @map("created_at")
 
   @@map("pmo_task_comments")
 }
+
 model PmoClient {
-  id           String   @id @default(uuid()) @db.Uuid
-  nombre       String
-  razonSocial  String?
-  estado       String   @default("ACTIVO")
-  logoUrl      String?
+  id String @id @default(uuid()) @db.Uuid
 
-  programas    PmoProgram[]
+  nombre String
 
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  nit String?
+
+  contacto String?
+
+  email String?
+
+  razonSocial String?
+
+  estado String @default("ACTIVO")
+
+  logoUrl String?
+
+  programas  PmoProgram[]
+  documentos Document[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("pmo_clients")
 }
-model PmoProgram {
-  id          String   @id @default(uuid()) @db.Uuid
-  clientId    String   @db.Uuid
+
+model PmoInitiative {
+  id String @id @default(uuid()) @db.Uuid
+
+  programId     String  @db.Uuid
+  responsableId String? @db.Uuid
 
   nombre      String
   descripcion String?
+  estado      String  @default("ACTIVO")
+  avance      Int     @default(0)
 
-  estado      String @default("ACTIVO")
+  programa PmoProgram @relation(fields: [programId], references: [id])
 
-  cliente      PmoClient @relation(fields:[clientId], references:[id])
+  responsable User? @relation("InitiativeResponsable", fields: [responsableId], references: [id])
 
-  iniciativas PmoInitiative[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("pmo_programs")
-}
-model PmoInitiative {
-  id           String @id @default(uuid()) @db.Uuid
-  programId    String @db.Uuid
-
-  nombre       String
-  descripcion  String?
-
-  estado       String @default("ACTIVO")
-
-  avance       Int @default(0)
-
-  programa     PmoProgram @relation(fields:[programId], references:[id])
-
-  proyectos    PmoProject[]
+  proyectos  PmoProject[]
+  documentos Document[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([programId])
+  @@index([responsableId])
   @@map("pmo_initiatives")
 }
+
 model PmoProject {
-  id           String @id @default(uuid()) @db.Uuid
+  id String @id @default(uuid()) @db.Uuid
 
   initiativeId String @db.Uuid
 
-  nombre       String
-  descripcion  String?
+  nombre               String
+  descripcion          String?
+  codigo               String?
+  area                 String?
+  objetivo             String?
+  observaciones        String?
+  estadoDocumental     String?
+  fuente               String? @default("MANUAL")
+  origenImportacion    Boolean @default(false)
+  liderId              String?
+  liderNombreImportado String?
 
-  estado       String @default("ACTIVO")
+  estado String @default("ACTIVO")
+  avance Int    @default(0)
 
-  avance       Int @default(0)
+  fechaInicio DateTime?
+  fechaFin    DateTime?
 
-  fechaInicio  DateTime?
-  fechaFin     DateTime?
+  iniciativa PmoInitiative @relation(fields: [initiativeId], references: [id])
 
-  iniciativa   PmoInitiative @relation(fields:[initiativeId], references:[id])
+  documentos Document[]
+  tasks      Task[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  tasks Task[]
-
+  @@index([initiativeId])
   @@map("pmo_projects")
+}
+
+model PmoProgram {
+  id       String @id @default(uuid()) @db.Uuid
+  clientId String @db.Uuid
+  nombre   String
+
+  descripcion String?
+
+  estado String @default("ACTIVO")
+
+  fechaInicio DateTime?
+  fechaFin    DateTime?
+
+  avance Int @default(0)
+
+  cliente PmoClient @relation(fields: [clientId], references: [id])
+
+  iniciativas PmoInitiative[]
+  documentos  Document[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([clientId])
+  @@map("pmo_programs")
 }
