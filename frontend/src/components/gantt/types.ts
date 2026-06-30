@@ -4,7 +4,7 @@
 
 export type GanttActivityType = 'ACTIVIDAD' | 'SUBACTIVIDAD' | 'ENTREGABLE' | 'HITO' | 'MILESTONE';
 
-export type GanttActivityState = 'PENDIENTE' | 'EN_CURSO' | 'COMPLETADO' | 'ATRASADO' | 'BLOQUEADO';
+export type GanttActivityState = 'PENDIENTE' | 'EN_CURSO' | 'COMPLETADO' | 'ATRASADO';
 
 export type GanttPriority = 'BAJA' | 'MEDIA' | 'ALTA' | 'CRITICA';
 
@@ -12,7 +12,7 @@ export type DependencyType = 'FS' | 'SS' | 'FF' | 'SF'; // Finish-Start, Start-S
 
 export type TimeScale = 'DIA' | 'SEMANA' | 'MES' | 'TRIMESTRE' | 'AÑO';
 
-export type ViewMode = 'TABLA' | 'GANTT' | 'DIVIDIDO' | 'TIMELINE';
+export type ViewMode = 'TABLA' | 'GANTT' | 'CALENDARIO' | 'KANBAN' | 'DIVIDIDO' | 'TIMELINE';
 
 export interface GanttDependency {
   id: string;
@@ -71,11 +71,16 @@ export interface GanttActivity {
   // Notas
   observaciones?: string;
   riesgos?: string;
+
+  // Executive surface metadata
+  documentos?: number;
+  comentarios?: number;
+  checklist?: number;
+  etiquetas?: string[];
 }
 
 export interface GanttFilter {
   cliente?: string;
-  programa?: string;
   iniciativa?: string;
   proyecto?: string;
   responsable?: string;

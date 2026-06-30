@@ -555,6 +555,8 @@ model Task {
   area              String?
   origenImportacion Boolean       @default(false)
   fuente            String?       @default("MANUAL")
+  fechaInicio       DateTime?     @map("fecha_inicio")
+  fechaFin          DateTime?     @map("fecha_fin")
   fechaLimite       DateTime?     @map("fecha_limite")
   responsableId     String?       @map("responsable_id") @db.Uuid
   creadorId         String?       @map("creador_id") @db.Uuid

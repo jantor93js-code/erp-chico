@@ -9,6 +9,7 @@ import PageHeader from "@/src/components/pmo/PageHeader";
 import { getClients } from "@/src/services/pmo/clients";
 import { getProjects } from "@/src/services/pmo/projects";
 import { getTasks } from "@/src/services/pmo/tasks";
+import { getTaskSummary } from "@/src/lib/pmo";
 
 export default function KpisPage() {
 
@@ -61,26 +62,11 @@ export default function KpisPage() {
       setTasks([]);
     }
   }
-    const pendientes =
-    tasks.filter(
-      (t) =>
-        t.estado ===
-        "PENDIENTE"
-    ).length;
-
-  const enCurso =
-    tasks.filter(
-      (t) =>
-        t.estado ===
-        "EN_CURSO"
-    ).length;
-
-  const finalizadas =
-    tasks.filter(
-      (t) =>
-        t.estado ===
-        "FINALIZADO"
-    ).length;
+  const summary = getTaskSummary(tasks);
+  const pendientes = summary.pendientes;
+  const enCurso = summary.enCurso;
+  const atrasadas = summary.atrasadas;
+  const finalizadas = summary.finalizadas;
 
   const cumplimiento =
     tasks.length
@@ -165,6 +151,12 @@ export default function KpisPage() {
             label="Finalizadas"
             value={String(finalizadas)}
             accent="green"
+          />
+
+          <ExecutiveCard
+            label="Atrasadas"
+            value={String(atrasadas)}
+            accent="red"
           />
 
         </div>

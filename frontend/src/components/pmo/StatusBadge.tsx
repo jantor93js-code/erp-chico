@@ -9,6 +9,9 @@ const variants: Record<string, { bg: string; text: string; dot: string }> = {
   Normal:         { bg: "#DCFCE7", text: "#15803D", dot: "#16A34A" },
   // Oro institucional
   Pendiente:      { bg: "#FEF3C7", text: "#92400E", dot: "#C89B2A" },
+  Atrasada:       { bg: "#FEE2E2", text: "#991B1B", dot: "#B91C1C" },
+  ATRASADO:       { bg: "#FEE2E2", text: "#991B1B", dot: "#B91C1C" },
+  BLOQUEADO:      { bg: "#FEE2E2", text: "#991B1B", dot: "#B91C1C" },
   "En riesgo":    { bg: "#FEF3C7", text: "#92400E", dot: "#C89B2A" },
   Monitoreo:      { bg: "#FEF3C7", text: "#92400E", dot: "#C89B2A" },
   Planificado:    { bg: "#F3F4F6", text: "#4B5563", dot: "#9CA3AF" },

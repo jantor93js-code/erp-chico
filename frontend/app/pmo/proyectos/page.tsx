@@ -386,7 +386,7 @@ async function handleCreateProject() {
         <button
           onClick={() =>
             window.location.href =
-              `/pmo/tareas?projectId=${p.id}`
+              `/pmo/plan-de-trabajo?projectId=${p.id}`
           }
           className="text-left hover:underline"
         >
@@ -486,7 +486,7 @@ async function handleCreateProject() {
           <button
             onClick={() =>
               window.location.href =
-                `/pmo/tareas?projectId=${p.id}`
+                `/pmo/plan-de-trabajo?projectId=${p.id}`
             }
           >
             📋 Tareas

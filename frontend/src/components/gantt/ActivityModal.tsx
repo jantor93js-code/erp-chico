@@ -9,6 +9,13 @@ import { GanttActivity, GanttActivityType, GanttActivityState, GanttPriority } f
 interface ActivityModalProps {
   isOpen: boolean;
   activity?: GanttActivity;
+  options?: {
+    clients?: Array<{ id: string; nombre: string }>;
+    programs?: Array<{ id: string; nombre: string; clientId?: string; cliente?: { id?: string } }>;
+    initiatives?: Array<{ id: string; nombre: string; programId?: string; programa?: { id?: string; cliente?: { id?: string } } }>;
+    projects?: Array<{ id: string; nombre: string; initiativeId?: string; iniciativa?: { id?: string } }>;
+    users?: Array<{ id: string; nombre?: string; email?: string }>;
+  };
   onClose: () => void;
   onSave: (activity: GanttActivity) => void;
 }
@@ -24,6 +31,7 @@ const defaultActivity: Partial<GanttActivity> = {
 export const ActivityModal: React.FC<ActivityModalProps> = ({
   isOpen,
   activity,
+  options,
   onClose,
   onSave,
 }) => {
@@ -36,6 +44,19 @@ export const ActivityModal: React.FC<ActivityModalProps> = ({
       setFormData(defaultActivity);
     }
   }, [activity, isOpen]);
+
+  const visibleInitiatives = (options?.initiatives || []).filter((item) => {
+    if (!formData.clienteId) return true;
+    const programId = item.programId || item.programa?.id;
+    const program = (options?.programs || []).find((p) => p.id === programId);
+    const clientId = program?.clientId || program?.cliente?.id;
+    return clientId === formData.clienteId;
+  });
+
+  const visibleProjects = (options?.projects || []).filter((item) => {
+    const initiativeId = item.initiativeId || item.iniciativa?.id;
+    return !formData.iniciativaId || initiativeId === formData.iniciativaId;
+  });
 
   if (!isOpen) return null;
 
@@ -54,6 +75,10 @@ export const ActivityModal: React.FC<ActivityModalProps> = ({
     // Validación mínima
     if (!formData.nombre) {
       alert('El nombre es obligatorio');
+      return;
+    }
+    if (!formData.proyectoId) {
+      alert('El proyecto es obligatorio');
       return;
     }
     if (!formData.fechaInicio || !formData.fechaFin) {
@@ -164,53 +189,69 @@ export const ActivityModal: React.FC<ActivityModalProps> = ({
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Proyecto</label>
-                  <input
-                    type="text"
-                    name="proyectoNombre"
-                    value={formData.proyectoNombre || ''}
-                    onChange={handleChange}
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
+                  <select
+                    name="clienteId"
+                    value={formData.clienteId || ''}
+                    onChange={(e) => {
+                      setFormData((prev) => ({ ...prev, clienteId: e.target.value || undefined, iniciativaId: undefined, proyectoId: undefined }));
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Seleccionar proyecto"
-                  />
+                  >
+                    <option value="">Seleccione un cliente</option>
+                    {(options?.clients || []).map((client) => (
+                      <option key={client.id} value={client.id}>{client.nombre}</option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Responsable</label>
-                  <input
-                    type="text"
-                    name="responsableNombre"
-                    value={formData.responsableNombre || ''}
-                    onChange={handleChange}
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Iniciativa</label>
+                  <select
+                    name="iniciativaId"
+                    value={formData.iniciativaId || ''}
+                    onChange={(e) => {
+                      setFormData((prev) => ({ ...prev, iniciativaId: e.target.value || undefined, proyectoId: undefined }));
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Responsable"
-                  />
+                  >
+                    <option value="">Seleccione una iniciativa</option>
+                    {visibleInitiatives.map((initiative) => (
+                      <option key={initiative.id} value={initiative.id}>{initiative.nombre}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Programa</label>
-                  <input
-                    type="text"
-                    name="programaNombre"
-                    value={formData.programaNombre || ''}
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Proyecto</label>
+                  <select
+                    name="proyectoId"
+                    value={formData.proyectoId || ''}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Programa asociado"
-                  />
+                  >
+                    <option value="">Seleccione un proyecto</option>
+                    {visibleProjects.map((project) => (
+                      <option key={project.id} value={project.id}>{project.nombre}</option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
-                  <input
-                    type="text"
-                    name="clienteNombre"
-                    value={formData.clienteNombre || ''}
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Responsable</label>
+                  <select
+                    name="responsableId"
+                    value={formData.responsableId || ''}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Cliente asociado"
-                  />
+                  >
+                    <option value="">Seleccione un responsable</option>
+                    {(options?.users || []).map((user) => (
+                      <option key={user.id} value={user.id}>{user.nombre || user.email || user.id}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </fieldset>
@@ -280,10 +321,9 @@ export const ActivityModal: React.FC<ActivityModalProps> = ({
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="PENDIENTE">Pendiente</option>
-                    <option value="EN_CURSO">En Curso</option>
-                    <option value="COMPLETADO">Completado</option>
-                    <option value="ATRASADO">Atrasado</option>
-                    <option value="BLOQUEADO">Bloqueado</option>
+                    <option value="EN_CURSO">En progreso</option>
+                    <option value="ATRASADO">Atrasada</option>
+                    <option value="COMPLETADO">Completada</option>
                   </select>
                 </div>
 

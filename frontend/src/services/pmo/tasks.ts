@@ -1,4 +1,45 @@
+import { normalizeTask, toBackendTaskEstado } from '@/src/lib/pmo';
+
 const API = process.env.NEXT_PUBLIC_API_URL;
+
+const BACKEND_TASK_TIPOS = ['PROCEDIMIENTO', 'INSTRUCTIVO', 'MANUAL', 'FORMATO', 'MATRIZ', 'ACTIVIDAD', 'OTRO'] as const;
+
+type BackendTaskTipo = (typeof BACKEND_TASK_TIPOS)[number];
+
+function toBackendTaskTipo(value: any): BackendTaskTipo | undefined {
+  if (!value) return undefined;
+  const normalized = String(value).toUpperCase();
+  if (BACKEND_TASK_TIPOS.includes(normalized as BackendTaskTipo)) {
+    return normalized as BackendTaskTipo;
+  }
+  return 'ACTIVIDAD';
+}
+
+function buildPayload(data: any) {
+  if (!data || typeof data !== 'object') return data;
+
+  const payload = { ...data };
+
+  if (payload.estado !== undefined) {
+    payload.estado = toBackendTaskEstado(payload.estado);
+  }
+
+  if (payload.tipo !== undefined) {
+    payload.tipo = toBackendTaskTipo(payload.tipo);
+  }
+
+  if (payload.fechaInicio instanceof Date) {
+    payload.fechaInicio = payload.fechaInicio.toISOString();
+  }
+  if (payload.fechaFin instanceof Date) {
+    payload.fechaFin = payload.fechaFin.toISOString();
+  }
+  if (payload.fechaLimite instanceof Date) {
+    payload.fechaLimite = payload.fechaLimite.toISOString();
+  }
+
+  return payload;
+}
 
 export async function getTasks() {
   if (!API) {
@@ -19,7 +60,8 @@ export async function getTasks() {
       return [];
     }
 
-    return res.json();
+    const data = await res.json();
+    return (data ?? []).map((task: any) => normalizeTask(task));
   } catch (err) {
     console.error('getTasks fetch failed', err);
     return [];
@@ -27,20 +69,16 @@ export async function getTasks() {
 }
 
 export async function createTask(data: any) {
-  const token =
-    localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
-  const res = await fetch(
-    `${API}/pmo/tasks`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    }
-  );
+  const res = await fetch(`${API}/pmo/tasks`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(buildPayload(data)),
+  });
 
   if (!res.ok) {
     const text = await res.text();
@@ -53,56 +91,38 @@ export async function createTask(data: any) {
       message = text;
     }
 
-    throw new Error(
-      message || `Error creando tarea (${res.status})`,
-    );
+    throw new Error(message || `Error creando tarea (${res.status})`);
   }
 
-  return res.json();
+  return normalizeTask(await res.json());
 }
-export async function deleteTask(
-  id: string,
-) {
-  const token =
-    localStorage.getItem("token");
 
-  const res = await fetch(
-    `${API}/pmo/tasks/${id}`,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+export async function deleteTask(id: string) {
+  const token = localStorage.getItem('token');
+
+  const res = await fetch(`${API}/pmo/tasks/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   if (!res.ok) {
-    throw new Error("Error eliminando tarea");
+    throw new Error('Error eliminando tarea');
   }
 
   return true;
 }
 
+export async function updateTask(id: string, data: any) {
+  const token = localStorage.getItem('token');
 
-
-export async function updateTask(
-  id: string,
-  data: any,
-) {
-  const token =
-    localStorage.getItem("token");
-
-  const res = await fetch(
-    `${API}/pmo/tasks/${id}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    }
-  );
+  const res = await fetch(`${API}/pmo/tasks/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(buildPayload(data)),
+  });
 
   if (!res.ok) {
     const text = await res.text();
@@ -115,11 +135,9 @@ export async function updateTask(
       message = text;
     }
 
-    throw new Error(
-      message || `Error actualizando tarea (${res.status})`,
-    );
+    throw new Error(message || `Error actualizando tarea (${res.status})`);
   }
 
-  return res.json();
+  return normalizeTask(await res.json());
 }
 

@@ -7,7 +7,11 @@ export async function getClients() {
   }
 
   try {
-    const res = await fetch(`${API}/pmo/clients`, { cache: 'no-store' });
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+    const res = await fetch(`${API}/pmo/clients`, { cache: 'no-store', headers });
 
     if (!res.ok) {
       console.error('getClients: non-ok response', res.status);

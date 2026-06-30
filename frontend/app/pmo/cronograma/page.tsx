@@ -3,7 +3,7 @@
  */
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import PmoShell from '@/src/components/layout/PmoShell';
 import PageHeader from '@/src/components/pmo/PageHeader';
 import {
@@ -16,15 +16,26 @@ import {
   GanttToolbar,
   GanttTable,
   GanttChart,
+  GanttCalendarView,
+  GanttKanbanView,
   ActivityModal,
 } from '@/src/components/gantt';
 import { getGanttActivities, calculateGanttKPIs, isActivityLate } from '@/src/services/pmo/gantt';
+import { getClients } from '@/src/services/pmo/clients';
+import { getInitiatives } from '@/src/services/pmo/initiatives';
+import { getProjects } from '@/src/services/pmo/projects';
+import { getPrograms } from '@/src/services/pmo/programs';
+import { getUsers } from '@/src/services/pmo/users';
+import { createTask, deleteTask, updateTask } from '@/src/services/pmo/tasks';
 
 export default function CronogramaPage() {
   const [activities, setActivities] = useState<GanttActivity[]>([]);
-  const [filteredActivities, setFilteredActivities] = useState<GanttActivity[]>([]);
   const [loading, setLoading] = useState(true);
-  const [kpi, setKpi] = useState<GanttKPI | null>(null);
+  const [clients, setClients] = useState<any[]>([]);
+  const [initiatives, setInitiatives] = useState<any[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [programs, setPrograms] = useState<any[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
 
   const [filters, setFilters] = useState<GanttFilter>({});
   const [searchTerm, setSearchTerm] = useState('');
@@ -34,76 +45,154 @@ export default function CronogramaPage() {
 
   const [timeScale, setTimeScale] = useState<TimeScale>('MES');
   const [viewMode, setViewMode] = useState<ViewMode>('DIVIDIDO');
+  const [groupBy, setGroupBy] = useState<'none' | 'cliente' | 'programa' | 'iniciativa' | 'proyecto' | 'responsable'>('none');
+  const [sortBy, setSortBy] = useState<'inicio' | 'fin' | 'nombre' | 'progreso'>('inicio');
+  const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>({
+    wbs: true,
+    actividad: true,
+    proyecto: true,
+    responsable: true,
+    estado: true,
+    prioridad: true,
+    inicio: true,
+    fin: true,
+    dias: true,
+    avance: true,
+    acciones: true,
+  });
 
   const [tableScrollTop, setTableScrollTop] = useState(0);
-  const chartRef = useRef<HTMLDivElement>(null);
 
-  // Cargar actividades
+  // Cargar actividades y opciones de jerarquía
   useEffect(() => {
-    loadActivities();
+    void loadActivities();
+    void loadOptions();
   }, []);
 
-  // Calcular KPI cuando cambian las actividades
-  useEffect(() => {
-    const kpiData = calculateGanttKPIs(filteredActivities);
-    setKpi(kpiData);
-  }, [filteredActivities]);
+  const activitiesWithLate = useMemo(
+    () =>
+      activities.map((activity) => ({
+        ...activity,
+        estado: isActivityLate(activity) ? 'ATRASADO' : activity.estado,
+      })),
+    [activities],
+  );
 
-  // Aplicar filtros
-  useEffect(() => {
-    let filtered = activities;
+  const filteredActivities = useMemo(() => {
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+    const getGroupValue = (activity: GanttActivity) => {
+      switch (groupBy) {
+        case 'cliente':
+          return activity.clienteNombre || '';
+        case 'programa':
+          return activity.programaNombre || '';
+        case 'iniciativa':
+          return activity.iniciativaNombre || '';
+        case 'proyecto':
+          return activity.proyectoNombre || '';
+        case 'responsable':
+          return activity.responsableNombre || '';
+        default:
+          return '';
+      }
+    };
 
-    if (filters.cliente) {
-      filtered = filtered.filter((a) => a.clienteId?.includes(filters.cliente || ''));
-    }
-    if (filters.programa) {
-      filtered = filtered.filter((a) => a.programaId?.includes(filters.programa || ''));
-    }
-    if (filters.iniciativa) {
-      filtered = filtered.filter((a) => a.iniciativaId?.includes(filters.iniciativa || ''));
-    }
-    if (filters.proyecto) {
-      filtered = filtered.filter((a) => a.proyectoId?.includes(filters.proyecto || ''));
-    }
-    if (filters.responsable) {
-      filtered = filtered.filter((a) => a.responsableId?.includes(filters.responsable || ''));
-    }
-    if (filters.estado) {
-      filtered = filtered.filter((a) => a.estado === filters.estado);
-    }
-    if (filters.prioridad) {
-      filtered = filtered.filter((a) => a.prioridad === filters.prioridad);
-    }
-    if (searchTerm.trim()) {
-      const normalized = searchTerm.toLowerCase();
-      filtered = filtered.filter((a) =>
-        `${a.nombre} ${a.proyectoNombre || ''} ${a.responsableNombre || ''} ${a.descripcion || ''}`
-          .toLowerCase()
-          .includes(normalized),
-      );
+    const baseSort = (a: GanttActivity, b: GanttActivity) => {
+      switch (sortBy) {
+        case 'fin':
+          return a.fechaFin.getTime() - b.fechaFin.getTime();
+        case 'nombre':
+          return a.nombre.localeCompare(b.nombre);
+        case 'progreso':
+          return b.avancePorc - a.avancePorc;
+        case 'inicio':
+        default:
+          return a.fechaInicio.getTime() - b.fechaInicio.getTime();
+      }
+    };
+
+    return activitiesWithLate
+      .filter((activity) => {
+        if (filters.cliente && activity.clienteId !== filters.cliente) return false;
+        if (filters.iniciativa && activity.iniciativaId !== filters.iniciativa) return false;
+        if (filters.proyecto && activity.proyectoId !== filters.proyecto) return false;
+        if (filters.responsable && activity.responsableId !== filters.responsable) return false;
+        if (filters.estado && activity.estado !== filters.estado) return false;
+        if (filters.prioridad && activity.prioridad !== filters.prioridad) return false;
+        if (normalizedSearch.length > 0) {
+          return `${activity.nombre} ${activity.proyectoNombre || ''} ${activity.responsableNombre || ''} ${activity.descripcion || ''}`
+            .toLowerCase()
+            .includes(normalizedSearch);
+        }
+        return true;
+      })
+      .slice()
+      .sort((a, b) => {
+        if (groupBy === 'none') return baseSort(a, b);
+
+        const groupResult = getGroupValue(a).localeCompare(getGroupValue(b));
+        return groupResult !== 0 ? groupResult : baseSort(a, b);
+      });
+  }, [activitiesWithLate, filters, searchTerm, groupBy, sortBy]);
+
+  const kpi = useMemo(() => calculateGanttKPIs(filteredActivities), [filteredActivities]);
+
+  function mapActivityToTaskPayload(activity: GanttActivity) {
+    const fallbackProjectId = activity.proyectoId || projects.find((project) => !!project?.id)?.id;
+    if (!fallbackProjectId) {
+      throw new Error('No project selected for the activity');
     }
 
-    setFilteredActivities(filtered);
-  }, [activities, filters, searchTerm]);
+    const tipo = activity.tipo && ['HITO', 'MILESTONE'].includes(activity.tipo) ? 'ACTIVIDAD' : activity.tipo || 'ACTIVIDAD';
 
-  // Detectar actividades atrasadas
-  useEffect(() => {
-    const updated = activities.map((a) => ({
-      ...a,
-      estado: isActivityLate(a) ? 'ATRASADO' : a.estado,
-    }));
-    setActivities(updated);
-  }, []);
+    return {
+      codigo: activity.wbs,
+      titulo: activity.nombre,
+      descripcion: activity.descripcion || '',
+      estado: activity.estado,
+      prioridad: activity.prioridad,
+      fechaInicio: activity.fechaInicio instanceof Date ? activity.fechaInicio.toISOString() : activity.fechaInicio,
+      fechaFin: activity.fechaFin instanceof Date ? activity.fechaFin.toISOString() : activity.fechaFin,
+      fechaLimite: activity.fechaLimite instanceof Date ? activity.fechaLimite.toISOString() : activity.fechaLimite,
+      responsableId: activity.responsableId || undefined,
+      tipo,
+      projectId: fallbackProjectId,
+      area: activity.programaNombre || activity.iniciativaNombre || activity.proyectoNombre || undefined,
+      fuente: 'PLAN_DE_TRABAJO',
+    };
+  }
 
   async function loadActivities() {
     try {
       setLoading(true);
       const data = await getGanttActivities();
       setActivities(data);
+      return data;
     } catch (error) {
       console.error('Error loading activities:', error);
+      return [];
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function loadOptions() {
+    try {
+      const [clientsData, initiativesData, projectsData, usersData, programsData] = await Promise.all([
+        getClients(),
+        getInitiatives(),
+        getProjects(),
+        getUsers(),
+        getPrograms(),
+      ]);
+
+      setClients(clientsData || []);
+      setInitiatives(initiativesData || []);
+      setProjects(projectsData || []);
+      setUsers(usersData || []);
+      setPrograms(programsData || []);
+    } catch (error) {
+      console.error('Error loading PMO options:', error);
     }
   }
 
@@ -117,12 +206,19 @@ export default function CronogramaPage() {
     setIsModalOpen(true);
   }
 
-  function handleActivityChange(activity: GanttActivity) {
-    setActivities((prev) => prev.map((item) => (item.id === activity.id ? activity : item)));
-    setSelectedActivity(activity);
+  async function handleActivityChange(activity: GanttActivity) {
+    try {
+      if (!activity?.id) return;
+      await updateTask(activity.id, mapActivityToTaskPayload(activity));
+      await loadActivities();
+      setSelectedActivity(activity);
+    } catch (error) {
+      console.error('Error updating activity:', error);
+      alert('No fue posible actualizar la actividad en el backend');
+    }
   }
 
-  function handleDuplicateActivity(activity: GanttActivity) {
+  async function handleDuplicateActivity(activity: GanttActivity) {
     const duplicatedActivity: GanttActivity = {
       ...activity,
       id: `${activity.id}-copy-${Date.now()}`,
@@ -132,25 +228,58 @@ export default function CronogramaPage() {
       updatedAt: new Date(),
     };
 
-    setActivities((prev) => [...prev, duplicatedActivity]);
-    setSelectedActivity(duplicatedActivity);
-  }
-
-  function handleSaveActivity(activity: GanttActivity) {
-    const existing = activities.find((a) => a.id === activity.id);
-    if (existing) {
-      setActivities((prev) => prev.map((a) => (a.id === activity.id ? activity : a)));
-    } else {
-      setActivities((prev) => [...prev, activity]);
+    try {
+      const created = await createTask(mapActivityToTaskPayload(duplicatedActivity));
+      await loadActivities();
+      setSelectedActivity({ ...duplicatedActivity, id: created?.id || duplicatedActivity.id });
+    } catch (error) {
+      console.error('Error duplicating activity:', error);
+      alert('No fue posible duplicar la actividad en el backend');
     }
-    setSelectedActivity(activity);
-    setIsModalOpen(false);
-    setEditingActivity(undefined);
   }
 
-  function handleDeleteActivity(id: string) {
-    setActivities((prev) => prev.filter((a) => a.id !== id));
-    setSelectedActivity(null);
+  async function handleSaveActivity(activity: GanttActivity) {
+    try {
+      const payload = mapActivityToTaskPayload(activity);
+      const existing = activities.find((a) => a.id === activity.id);
+
+      if (existing) {
+        await updateTask(activity.id, payload);
+      } else {
+        await createTask(payload);
+      }
+
+      await loadActivities();
+      setSelectedActivity(activity);
+      setIsModalOpen(false);
+      setEditingActivity(undefined);
+    } catch (error) {
+      console.error('Error saving activity:', error);
+      alert('No fue posible guardar la actividad en el backend');
+    }
+  }
+
+  async function handleUpdateActivityState(activity: GanttActivity, estado: GanttActivity['estado']) {
+    try {
+      const updated = { ...activity, estado, updatedAt: new Date() };
+      await updateTask(activity.id, mapActivityToTaskPayload(updated));
+      await loadActivities();
+      setSelectedActivity(updated);
+    } catch (error) {
+      console.error('Error updating activity state:', error);
+      alert('No fue posible actualizar el estado de la actividad');
+    }
+  }
+
+  async function handleDeleteActivity(id: string) {
+    try {
+      await deleteTask(id);
+      await loadActivities();
+      setSelectedActivity(null);
+    } catch (error) {
+      console.error('Error deleting activity:', error);
+      alert('No fue posible eliminar la actividad en el backend');
+    }
   }
 
   function handleExport() {
@@ -168,15 +297,7 @@ export default function CronogramaPage() {
   }
 
   // Sincronizar scroll entre tabla y chart
-  const handleTableScroll = (scrollTop: number) => {
-    setTableScrollTop(scrollTop);
-    if (chartRef.current) {
-      const scrollable = chartRef.current.querySelector('.flex-1');
-      if (scrollable) {
-        (scrollable as HTMLElement).scrollTop = scrollTop;
-      }
-    }
-  };
+  const handleScroll = (scrollTop: number) => setTableScrollTop(scrollTop);
 
   if (loading) {
     return (
@@ -184,7 +305,7 @@ export default function CronogramaPage() {
         <div className="flex h-screen items-center justify-center">
           <div className="text-center">
             <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600 mx-auto"></div>
-            <p className="text-gray-600">Cargando cronograma...</p>
+            <p className="text-gray-600">Cargando Plan de Trabajo...</p>
           </div>
         </div>
       </PmoShell>
@@ -195,7 +316,7 @@ export default function CronogramaPage() {
     <PmoShell>
       <div className="flex flex-col h-screen overflow-hidden bg-gray-50">
         {/* Encabezado */}
-        <PageHeader section="PMO" title="Cronograma (Gantt)" description="Planificación y seguimiento interactivo de proyectos" />
+        <PageHeader section="PMO" title="Plan de Trabajo" description="Planificación y seguimiento unificado de actividades y proyectos" />
 
         {/* Contenido principal */}
         <div className="flex-1 overflow-hidden flex flex-col p-4 gap-4">
@@ -215,6 +336,13 @@ export default function CronogramaPage() {
             onTimeScaleChange={setTimeScale}
             viewMode={viewMode}
             onViewModeChange={setViewMode}
+            groupBy={groupBy}
+            onGroupByChange={setGroupBy}
+            sortBy={sortBy}
+            onSortByChange={setSortBy}
+            visibleColumns={visibleColumns}
+            onVisibleColumnsChange={setVisibleColumns}
+            options={{ clients, programs, initiatives, projects, users }}
           />
 
           {/* Vista Dividida o Individual */}
@@ -227,8 +355,9 @@ export default function CronogramaPage() {
                 onEditActivity={handleEditActivity}
                 onDuplicateActivity={handleDuplicateActivity}
                 onDeleteActivity={handleDeleteActivity}
+                visibleColumns={visibleColumns}
                 scrollTop={tableScrollTop}
-                onScroll={handleTableScroll}
+                onScroll={handleScroll}
               />
             )}
 
@@ -240,7 +369,7 @@ export default function CronogramaPage() {
                 onActivityChange={handleActivityChange}
                 timeScale={timeScale}
                 scrollTop={tableScrollTop}
-                onScroll={handleTableScroll}
+                onScroll={handleScroll}
               />
             )}
 
@@ -255,13 +384,14 @@ export default function CronogramaPage() {
                     onEditActivity={handleEditActivity}
                     onDuplicateActivity={handleDuplicateActivity}
                     onDeleteActivity={handleDeleteActivity}
+                    visibleColumns={visibleColumns}
                     scrollTop={tableScrollTop}
-                    onScroll={handleTableScroll}
+                    onScroll={handleScroll}
                   />
                 </div>
 
                 {/* Panel derecho: Gantt */}
-                <div className="flex-1 min-w-0 overflow-hidden" ref={chartRef}>
+                <div className="flex-1 min-w-0 overflow-hidden">
                   <GanttChart
                     activities={filteredActivities}
                     selectedActivity={selectedActivity}
@@ -269,10 +399,27 @@ export default function CronogramaPage() {
                     onActivityChange={handleActivityChange}
                     timeScale={timeScale}
                     scrollTop={tableScrollTop}
-                    onScroll={handleTableScroll}
+                    onScroll={handleScroll}
                   />
                 </div>
               </div>
+            )}
+
+            {viewMode === 'CALENDARIO' && (
+              <GanttCalendarView
+                activities={filteredActivities}
+                view={timeScale === 'DIA' ? 'DIA' : timeScale === 'SEMANA' ? 'SEMANA' : 'MES'}
+                onSelectActivity={setSelectedActivity}
+                onEditActivity={handleEditActivity}
+              />
+            )}
+
+            {viewMode === 'KANBAN' && (
+              <GanttKanbanView
+                activities={filteredActivities}
+                onSelectActivity={setSelectedActivity}
+                onUpdateActivityState={handleUpdateActivityState}
+              />
             )}
 
             {viewMode === 'TIMELINE' && (
@@ -290,6 +437,7 @@ export default function CronogramaPage() {
         <ActivityModal
           isOpen={isModalOpen}
           activity={editingActivity}
+          options={{ clients, programs, initiatives, projects, users }}
           onClose={() => {
             setIsModalOpen(false);
             setEditingActivity(undefined);

@@ -8,7 +8,11 @@ export async function getProjects() {
   }
 
   try {
-    const res = await fetch(`${API}/pmo/projects`, { cache: 'no-store' });
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+    const res = await fetch(`${API}/pmo/projects`, { cache: 'no-store', headers });
     if (!res.ok) {
       console.error('getProjects non-ok response', res.status);
       return [];

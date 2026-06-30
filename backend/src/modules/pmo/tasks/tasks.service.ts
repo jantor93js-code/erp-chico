@@ -13,6 +13,43 @@ export class TasksService {
     return role === 'admin' || role === 'pmo-admin';
   }
 
+  private taskInclude() {
+    return {
+      comentarios: true,
+      responsable: {
+        select: {
+          id: true,
+          nombre: true,
+          email: true,
+        },
+      },
+      proyecto: {
+        select: {
+          id: true,
+          nombre: true,
+          iniciativa: {
+            select: {
+              id: true,
+              nombre: true,
+              programa: {
+                select: {
+                  id: true,
+                  nombre: true,
+                  cliente: {
+                    select: {
+                      id: true,
+                      nombre: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    };
+  }
+
   async create(createTaskDto: CreateTaskDto, user: any) {
     const data: any = {
       ...createTaskDto,
@@ -29,7 +66,7 @@ export class TasksService {
       tenantId: user.tenant_id,
       codigo: createTaskDto.codigo ?? `TK-${randomUUID()}`,
     };
-    return this.prisma.task.create({ data });
+    return this.prisma.task.create({ data, include: this.taskInclude() });
   }
 
 async findAll(user: any) {
@@ -47,22 +84,7 @@ async findAll(user: any) {
 
     let result;
 
-    const include = {
-      comentarios: true,
-      responsable: {
-        select: {
-          id: true,
-          nombre: true,
-          email: true,
-        },
-      },
-      proyecto: {
-        select: {
-          id: true,
-          nombre: true,
-        },
-      },
-    };
+    const include = this.taskInclude();
 
     if (this.isAdmin(user)) {
 
@@ -100,22 +122,7 @@ async findAll(user: any) {
   async findOne(id: string, user: any) {
     const task = await this.prisma.task.findUnique({
       where: { id },
-      include: {
-        comentarios: true,
-        responsable: {
-          select: {
-            id: true,
-            nombre: true,
-            email: true,
-          },
-        },
-        proyecto: {
-          select: {
-            id: true,
-            nombre: true,
-          },
-        },
-      },
+      include: this.taskInclude(),
     });
     if (!task) throw new NotFoundException('Task not found');
     if (task.tenantId !== user.tenant_id) {
@@ -128,9 +135,14 @@ async findAll(user: any) {
   }
 
   async update(id: string, updateDto: UpdateTaskDto, user: any) {
-    // only admin can update
-    if (!this.isAdmin(user)) throw new ForbiddenException('Only PMO_ADMIN can update tasks');
-    await this.ensureExists(id, user.tenant_id);
+    const task = await this.prisma.task.findUnique({ where: { id } });
+    if (!task) throw new NotFoundException('Task not found');
+    if (task.tenantId !== user.tenant_id) {
+      throw new ForbiddenException('Access denied (tenant mismatch)');
+    }
+    if (!this.isAdmin(user) && task.responsableId !== user.sub) {
+      throw new ForbiddenException('Only the task responsable or PMO_ADMIN can update tasks');
+    }
 
     const data: any = {
       ...updateDto,
@@ -145,7 +157,7 @@ async findAll(user: any) {
         : undefined,
     };
 
-    return this.prisma.task.update({ where: { id }, data });
+    return this.prisma.task.update({ where: { id }, data, include: this.taskInclude() });
   }
 
   async remove(id: string, user: any) {

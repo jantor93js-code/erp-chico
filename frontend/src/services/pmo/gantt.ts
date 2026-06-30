@@ -4,11 +4,10 @@
  */
 
 import { GanttActivity, GanttKPI, GanttFilter } from '@/src/components/gantt/types';
-import { getProjects } from '@/src/services/pmo/projects';
 import { getTasks } from '@/src/services/pmo/tasks';
 import { getClients } from '@/src/services/pmo/clients';
-import { getPrograms } from '@/src/services/pmo/programs';
 import { getInitiatives } from '@/src/services/pmo/initiatives';
+import { getProjects } from '@/src/services/pmo/projects';
 import { getUsers } from '@/src/services/pmo/users';
 
 const API = process.env.NEXT_PUBLIC_API_URL;
@@ -18,85 +17,74 @@ const API = process.env.NEXT_PUBLIC_API_URL;
  */
 export async function getGanttActivities(filters?: GanttFilter): Promise<GanttActivity[]> {
   try {
-    const [projects, tasks, clients, programs, initiatives, users] = await Promise.all([
-      getProjects(),
+    const [tasks, clients, initiatives, projects, users] = await Promise.all([
       getTasks(),
       getClients(),
-      getPrograms(),
       getInitiatives(),
+      getProjects(),
       getUsers(),
     ]);
 
     const activities: GanttActivity[] = [];
 
-    // Convertir Projects a GanttActivities
-    projects.forEach((project: any, index: number) => {
-      const startDate = project.fechaInicio ? new Date(project.fechaInicio) : new Date();
-      const endDate = project.fechaFin ? new Date(project.fechaFin) : new Date(startDate.getTime() + 30 * 24 * 60 * 60 * 1000);
-
-      const activity: GanttActivity = {
-        id: project.id,
-        wbs: `1.${index + 1}`,
-        nombre: project.nombre,
-        descripcion: project.descripcion,
-        tipo: 'ACTIVIDAD',
-        estado: (project.estado || 'PENDIENTE') as any,
-        prioridad: (project.prioridad || 'MEDIA') as any,
-
-        proyectoId: project.id,
-        proyectoNombre: project.nombre,
-        programaId: project.programId,
-        iniciativaId: project.iniciativaId,
-        clienteId: project.clienteId,
-        responsableId: project.responsableId,
-
-        fechaInicio: startDate,
-        fechaFin: endDate,
-        duracionDias: Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)),
-        avancePorc: calculateProgress(project),
-        esMilestone: false,
-
-        createdAt: new Date(project.createdAt),
-        updatedAt: new Date(project.updatedAt),
-      };
-
-      if (shouldIncludeActivity(activity, filters)) {
-        activities.push(activity);
+    const normalizeGanttState = (state?: string): GanttActivity['estado'] => {
+      switch (String(state ?? '').toUpperCase()) {
+        case 'FINALIZADO':
+        case 'COMPLETADO':
+          return 'COMPLETADO';
+        case 'EN_CURSO':
+        case 'EN PROGRESO':
+          return 'EN_CURSO';
+        case 'ATRASADO':
+        case 'BLOQUEADO':
+        case 'CANCELADO':
+          return 'ATRASADO';
+        default:
+          return 'PENDIENTE';
       }
-    });
+    };
 
-    // Convertir Tasks a GanttActivities (solo las que no pertenezcan a un proyecto ya procesado)
     tasks.forEach((task: any, index: number) => {
-      if (task.projectId) return; // Skip, ya está en Projects
+      const startDate = task.fechaInicio ? new Date(task.fechaInicio) : new Date();
+      const endDate = task.fechaFin ? new Date(task.fechaFin) : task.fechaLimite
+        ? new Date(task.fechaLimite)
+        : new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
 
-      const startDate = task.fechaCreacion ? new Date(task.fechaCreacion) : new Date();
-      const endDate = task.fechaLimite ? new Date(task.fechaLimite) : new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const proyecto = task.proyecto;
+      const iniciativa = proyecto?.iniciativa;
+      const programa = iniciativa?.programa;
+      const cliente = programa?.cliente;
 
       const activity: GanttActivity = {
         id: task.id,
-        wbs: `2.${index + 1}`,
+        wbs: `1.${index + 1}`,
         nombre: task.titulo,
         descripcion: task.descripcion,
         tipo: task.tipo || 'ACTIVIDAD',
-        estado: task.estado || 'PENDIENTE',
+        estado: normalizeGanttState(task.estado),
         prioridad: task.prioridad || 'MEDIA',
 
-        proyectoId: task.projectId,
+        proyectoId: proyecto?.id,
+        proyectoNombre: proyecto?.nombre,
+        iniciativaId: iniciativa?.id,
+        iniciativaNombre: iniciativa?.nombre,
+        clienteId: cliente?.id,
+        clienteNombre: cliente?.nombre,
         responsableId: task.responsableId,
+        responsableNombre: task.responsable?.nombre || task.responsable?.email,
 
         fechaInicio: startDate,
         fechaFin: endDate,
-        duracionDias: Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)),
-        avancePorc: task.estado === 'FINALIZADO' ? 100 : task.estado === 'EN_CURSO' ? 50 : 0,
+        duracionDias: Math.max(1, Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))),
+        avancePorc: task.avance ?? calculateProgress(task),
         esMilestone: task.tipo === 'MILESTONE' || task.tipo === 'HITO',
 
-        createdAt: new Date(task.createdAt),
-        updatedAt: new Date(task.updatedAt),
+        createdAt: new Date(task.createdAt || Date.now()),
+        updatedAt: new Date(task.updatedAt || Date.now()),
       };
 
-      // Enriquecer con info de usuario responsable
-      if (task.responsableId && users.length > 0) {
-        const responsable = users.find((u: any) => u.id === task.responsableId);
+      if (activity.responsableId && users.length > 0) {
+        const responsable = users.find((u: any) => u.id === activity.responsableId);
         if (responsable) activity.responsableNombre = responsable.nombre || responsable.email;
       }
 
@@ -150,7 +138,6 @@ function shouldIncludeActivity(activity: GanttActivity, filters?: GanttFilter): 
   if (!filters) return true;
 
   if (filters.cliente && activity.clienteId !== filters.cliente) return false;
-  if (filters.programa && activity.programaId !== filters.programa) return false;
   if (filters.iniciativa && activity.iniciativaId !== filters.iniciativa) return false;
   if (filters.proyecto && activity.proyectoId !== filters.proyecto) return false;
   if (filters.responsable && activity.responsableId !== filters.responsable) return false;
@@ -167,6 +154,7 @@ function calculateProgress(item: any): number {
   if (item.avance !== undefined) return item.avance;
   if (item.estado === 'COMPLETADO') return 100;
   if (item.estado === 'EN_CURSO') return 50;
+  if (item.avance !== undefined) return item.avance;
   return 0;
 }
 

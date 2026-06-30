@@ -11,6 +11,7 @@ import { getClients } from "@/src/services/pmo/clients";
 import { getProjects } from "@/src/services/pmo/projects";
 import { getTasks } from "@/src/services/pmo/tasks";
 import { getDocuments } from "@/src/services/pmo/documents";
+import { getTaskSummary } from "@/src/lib/pmo";
 
 export default function DashboardPage() {
   const [users, setUsers] = useState<any[]>([]);
@@ -43,10 +44,11 @@ export default function DashboardPage() {
     }
   }
 
-  const pendientes = tasks.filter((t) => t.estado === "PENDIENTE").length;
-  const enCurso = tasks.filter((t) => t.estado === "EN_CURSO").length;
-  const bloqueadas = tasks.filter((t) => t.estado === "BLOQUEADO").length;
-  const finalizadas = tasks.filter((t) => t.estado === "FINALIZADO").length;
+  const summary = getTaskSummary(tasks);
+  const pendientes = summary.pendientes;
+  const enCurso = summary.enCurso;
+  const atrasadas = summary.atrasadas;
+  const finalizadas = summary.finalizadas;
   const proyectosActivos = projects.filter((p) => p.estado === "ACTIVO").length;
   const documentosTotales = documents.length;
   const documentosActivos = documents.filter((d) => d.activo || d.estado === "ACTIVO").length;
@@ -57,6 +59,28 @@ export default function DashboardPage() {
 
   const latestTasks = [...tasks]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 5);
+
+  const activitiesByResponsible = Object.entries(
+    tasks.reduce((acc: Record<string, number>, task: any) => {
+      const name = task.responsable?.nombre || task.responsable?.email || 'Sin responsable';
+      acc[name] = (acc[name] || 0) + 1;
+      return acc;
+    }, {}),
+  ).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+  const activitiesByClient = Object.entries(
+    tasks.reduce((acc: Record<string, number>, task: any) => {
+      const clientName = task.proyecto?.iniciativa?.programa?.cliente?.nombre || 'Sin cliente';
+      acc[clientName] = (acc[clientName] || 0) + 1;
+      return acc;
+    }, {}),
+  ).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+  const overdueTasks = tasks.filter((task) => task.estado === 'ATRASADO' || task.estado === 'BLOQUEADO').slice(0, 5);
+  const upcomingTasks = [...tasks]
+    .filter((task) => task.fechaLimite)
+    .sort((a, b) => new Date(a.fechaLimite).getTime() - new Date(b.fechaLimite).getTime())
     .slice(0, 5);
 
   return (
@@ -119,8 +143,8 @@ export default function DashboardPage() {
                   <p className="mt-3 text-3xl font-semibold text-[#0F172A]">{enCurso}</p>
                 </div>
                 <div className="rounded-3xl bg-[#F8FAFC] p-4">
-                  <p className="text-[10px] uppercase tracking-[0.25em] text-[#9CA3AF]">Bloqueadas</p>
-                  <p className="mt-3 text-3xl font-semibold text-[#0F172A]">{bloqueadas}</p>
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-[#9CA3AF]">Atrasadas</p>
+                  <p className="mt-3 text-3xl font-semibold text-[#0F172A]">{atrasadas}</p>
                 </div>
                 <div className="rounded-3xl bg-[#F8FAFC] p-4">
                   <p className="text-[10px] uppercase tracking-[0.25em] text-[#9CA3AF]">Finalizadas</p>

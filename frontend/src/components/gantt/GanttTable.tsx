@@ -3,7 +3,7 @@
  */
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { GanttActivity } from './types';
 
 interface GanttTableProps {
@@ -13,6 +13,7 @@ interface GanttTableProps {
   onEditActivity: (activity: GanttActivity) => void;
   onDuplicateActivity: (activity: GanttActivity) => void;
   onDeleteActivity: (id: string) => void;
+  visibleColumns?: Record<string, boolean>;
   scrollTop?: number;
   onScroll?: (scrollTop: number) => void;
 }
@@ -54,42 +55,45 @@ export const GanttTable: React.FC<GanttTableProps> = ({
   onEditActivity,
   onDuplicateActivity,
   onDeleteActivity,
+  visibleColumns,
   scrollTop = 0,
   onScroll,
 }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (containerRef.current && containerRef.current.scrollTop !== scrollTop) {
+      containerRef.current.scrollTop = scrollTop;
+    }
+  }, [scrollTop]);
+
   return (
     <div className="overflow-hidden bg-white rounded-lg border border-gray-200 flex flex-col h-full">
-      {/* Encabezado fijo */}
-      <div className="overflow-x-auto sticky top-0 bg-gray-50 border-b border-gray-200">
-        <table className="w-full text-sm border-collapse">
-          <thead>
-            <tr className="border-b border-gray-300">
-              <th className="px-3 py-2 text-left font-semibold text-gray-900 min-w-[50px] bg-gray-50">WBS</th>
-              <th className="px-3 py-2 text-left font-semibold text-gray-900 min-w-[150px] bg-gray-50">Actividad</th>
-              <th className="px-3 py-2 text-left font-semibold text-gray-900 min-w-[100px] bg-gray-50">Proyecto</th>
-              <th className="px-3 py-2 text-left font-semibold text-gray-900 min-w-[100px] bg-gray-50">Responsable</th>
-              <th className="px-3 py-2 text-center font-semibold text-gray-900 min-w-[80px] bg-gray-50">Estado</th>
-              <th className="px-3 py-2 text-center font-semibold text-gray-900 min-w-[70px] bg-gray-50">Prioridad</th>
-              <th className="px-3 py-2 text-center font-semibold text-gray-900 min-w-[70px] bg-gray-50">Inicio</th>
-              <th className="px-3 py-2 text-center font-semibold text-gray-900 min-w-[70px] bg-gray-50">Fin</th>
-              <th className="px-3 py-2 text-center font-semibold text-gray-900 min-w-[60px] bg-gray-50">Días</th>
-              <th className="px-3 py-2 text-center font-semibold text-gray-900 min-w-[60px] bg-gray-50">Avance</th>
-              <th className="px-3 py-2 text-center font-semibold text-gray-900 min-w-[50px] bg-gray-50">Acciones</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-
-      {/* Body scrollable */}
       <div
-        className="flex-1 overflow-y-auto"
+        ref={containerRef}
+        className="flex-1 overflow-auto"
         onScroll={(e) => onScroll?.((e.target as HTMLDivElement).scrollTop)}
       >
-        <table className="w-full text-sm border-collapse">
+        <table className="w-full min-w-full text-sm border-collapse">
+          <thead>
+            <tr className="border-b border-gray-300 bg-gray-50">
+              {visibleColumns?.wbs !== false && <th className="sticky top-0 z-10 px-3 py-2 text-left font-semibold text-gray-900 min-w-[50px] bg-gray-50">WBS</th>}
+              {visibleColumns?.actividad !== false && <th className="sticky top-0 z-10 px-3 py-2 text-left font-semibold text-gray-900 min-w-[180px] bg-gray-50">Actividad</th>}
+              {visibleColumns?.proyecto !== false && <th className="sticky top-0 z-10 px-3 py-2 text-left font-semibold text-gray-900 min-w-[120px] bg-gray-50">Proyecto</th>}
+              {visibleColumns?.responsable !== false && <th className="sticky top-0 z-10 px-3 py-2 text-left font-semibold text-gray-900 min-w-[120px] bg-gray-50">Responsable</th>}
+              {visibleColumns?.estado !== false && <th className="sticky top-0 z-10 px-3 py-2 text-center font-semibold text-gray-900 min-w-[90px] bg-gray-50">Estado</th>}
+              {visibleColumns?.prioridad !== false && <th className="sticky top-0 z-10 px-3 py-2 text-center font-semibold text-gray-900 min-w-[80px] bg-gray-50">Prioridad</th>}
+              {visibleColumns?.inicio !== false && <th className="sticky top-0 z-10 px-3 py-2 text-center font-semibold text-gray-900 min-w-[80px] bg-gray-50">Inicio</th>}
+              {visibleColumns?.fin !== false && <th className="sticky top-0 z-10 px-3 py-2 text-center font-semibold text-gray-900 min-w-[80px] bg-gray-50">Fin</th>}
+              {visibleColumns?.dias !== false && <th className="sticky top-0 z-10 px-3 py-2 text-center font-semibold text-gray-900 min-w-[60px] bg-gray-50">Días</th>}
+              {visibleColumns?.avance !== false && <th className="sticky top-0 z-10 px-3 py-2 text-center font-semibold text-gray-900 min-w-[90px] bg-gray-50">Avance</th>}
+              {visibleColumns?.acciones !== false && <th className="sticky top-0 z-10 px-3 py-2 text-center font-semibold text-gray-900 min-w-[80px] bg-gray-50">Acciones</th>}
+            </tr>
+          </thead>
           <tbody>
             {activities.length === 0 ? (
               <tr>
-                <td colSpan={11} className="px-4 py-8 text-center text-gray-500">
+                <td colSpan={12} className="px-4 py-8 text-center text-gray-500">
                   No hay actividades disponibles
                 </td>
               </tr>
@@ -102,28 +106,28 @@ export const GanttTable: React.FC<GanttTableProps> = ({
                     selectedActivity?.id === activity.id ? 'bg-blue-100' : ''
                   }`}
                 >
-                  <td className="px-3 py-2 text-gray-900 font-semibold">{activity.wbs}</td>
-                  <td className="px-3 py-2 text-gray-900 font-medium">{activity.nombre}</td>
-                  <td className="px-3 py-2 text-gray-700 text-xs">{activity.proyectoNombre || '—'}</td>
-                  <td className="px-3 py-2 text-gray-700 text-xs">{activity.responsableNombre || '—'}</td>
-                  <td className="px-3 py-2 text-center">
+                  {visibleColumns?.wbs !== false && <td className="px-3 py-2 text-gray-900 font-semibold">{activity.wbs}</td>}
+                  {visibleColumns?.actividad !== false && <td className="px-3 py-2 text-gray-900 font-medium">{activity.nombre}</td>}
+                  {visibleColumns?.proyecto !== false && <td className="px-3 py-2 text-gray-700 text-xs">{activity.proyectoNombre || '—'}</td>}
+                  {visibleColumns?.responsable !== false && <td className="px-3 py-2 text-gray-700 text-xs">{activity.responsableNombre || '—'}</td>}
+                  {visibleColumns?.estado !== false && <td className="px-3 py-2 text-center">
                     <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${getStateColor(activity.estado)}`}>
                       {activity.estado}
                     </span>
-                  </td>
-                  <td className={`px-3 py-2 text-center font-medium text-xs ${getPriorityColor(activity.prioridad)}`}>
+                  </td>}
+                  {visibleColumns?.prioridad !== false && <td className={`px-3 py-2 text-center font-medium text-xs ${getPriorityColor(activity.prioridad)}`}>
                     {activity.prioridad}
-                  </td>
-                  <td className="px-3 py-2 text-center text-gray-700 text-xs">
+                  </td>}
+                  {visibleColumns?.inicio !== false && <td className="px-3 py-2 text-center text-gray-700 text-xs">
                     {activity.fechaInicio.toLocaleDateString('es-ES', { month: '2-digit', day: '2-digit' })}
-                  </td>
-                  <td className="px-3 py-2 text-center text-gray-700 text-xs">
+                  </td>}
+                  {visibleColumns?.fin !== false && <td className="px-3 py-2 text-center text-gray-700 text-xs">
                     {activity.fechaFin.toLocaleDateString('es-ES', { month: '2-digit', day: '2-digit' })}
-                  </td>
-                  <td className="px-3 py-2 text-center text-gray-900 font-semibold text-xs">
+                  </td>}
+                  {visibleColumns?.dias !== false && <td className="px-3 py-2 text-center text-gray-900 font-semibold text-xs">
                     {activity.duracionDias}
-                  </td>
-                  <td className="px-3 py-2 text-center">
+                  </td>}
+                  {visibleColumns?.avance !== false && <td className="px-3 py-2 text-center">
                     <div className="w-12 h-2 bg-gray-200 rounded-full mx-auto overflow-hidden">
                       <div
                         className="h-full bg-green-500 transition-all"
@@ -131,8 +135,8 @@ export const GanttTable: React.FC<GanttTableProps> = ({
                       ></div>
                     </div>
                     <span className="text-xs text-gray-700 font-medium">{activity.avancePorc}%</span>
-                  </td>
-                  <td className="px-3 py-2 text-center">
+                  </td>}
+                  {visibleColumns?.acciones !== false && <td className="px-3 py-2 text-center">
                     <div className="flex items-center gap-2 justify-center">
                       <button
                         onClick={(e) => {
@@ -167,7 +171,7 @@ export const GanttTable: React.FC<GanttTableProps> = ({
                         ✕
                       </button>
                     </div>
-                  </td>
+                  </td>}
                 </tr>
               ))
             )}

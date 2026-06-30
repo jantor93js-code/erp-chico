@@ -16,25 +16,53 @@ interface GanttChartProps {
   onScroll?: (scrollTop: number) => void;
 }
 
+const ROW_HEIGHT = 48;
+const MIN_BAR_WIDTH = 24;
+
 const getScaleConfig = (
   scale: TimeScale,
 ): {
-  daysPerPixel: number;
+  pixelsPerDay: number;
   headerHeight: number;
-  cellWidth: number;
+  headerStepDays: number;
   label: (date: Date) => string;
 } => {
   switch (scale) {
     case 'DIA':
-      return { daysPerPixel: 1 / 40, headerHeight: 60, cellWidth: 40, label: (d) => d.toLocaleDateString('es-ES', { day: '2-digit' }) };
+      return {
+        pixelsPerDay: 40,
+        headerHeight: 60,
+        headerStepDays: 1,
+        label: (d) => d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }),
+      };
     case 'SEMANA':
-      return { daysPerPixel: 7 / 50, headerHeight: 60, cellWidth: 50, label: (d) => `S${Math.ceil(d.getDate() / 7)}` };
+      return {
+        pixelsPerDay: 10,
+        headerHeight: 60,
+        headerStepDays: 7,
+        label: (d) => `S${Math.ceil((d.getDate() + 1) / 7)} ${d.getFullYear()}`,
+      };
     case 'MES':
-      return { daysPerPixel: 30 / 60, headerHeight: 60, cellWidth: 60, label: (d) => d.toLocaleDateString('es-ES', { month: '2-digit', year: '2-digit' }) };
+      return {
+        pixelsPerDay: 3,
+        headerHeight: 60,
+        headerStepDays: 30,
+        label: (d) => d.toLocaleDateString('es-ES', { month: 'short', year: '2-digit' }),
+      };
     case 'TRIMESTRE':
-      return { daysPerPixel: 90 / 70, headerHeight: 60, cellWidth: 70, label: (d) => `Q${Math.ceil((d.getMonth() + 1) / 3)}` };
+      return {
+        pixelsPerDay: 1.5,
+        headerHeight: 60,
+        headerStepDays: 90,
+        label: (d) => `T${Math.ceil((d.getMonth() + 1) / 3)} ${d.getFullYear()}`,
+      };
     case 'AÑO':
-      return { daysPerPixel: 365 / 80, headerHeight: 60, cellWidth: 80, label: (d) => d.getFullYear().toString() };
+      return {
+        pixelsPerDay: 0.5,
+        headerHeight: 60,
+        headerStepDays: 365,
+        label: (d) => d.getFullYear().toString(),
+      };
   }
 };
 
@@ -53,6 +81,58 @@ const getActivityColor = (activity: GanttActivity): string => {
   }
 };
 
+const normalizeStartOfScale = (date: Date, scale: TimeScale): Date => {
+  const normalized = new Date(date);
+  normalized.setHours(0, 0, 0, 0);
+
+  switch (scale) {
+    case 'DIA':
+      return normalized;
+    case 'SEMANA': {
+      const mondayOffset = (normalized.getDay() + 6) % 7;
+      normalized.setDate(normalized.getDate() - mondayOffset);
+      return normalized;
+    }
+    case 'MES':
+      normalized.setDate(1);
+      return normalized;
+    case 'TRIMESTRE': {
+      const quarterStartMonth = Math.floor(normalized.getMonth() / 3) * 3;
+      normalized.setMonth(quarterStartMonth, 1);
+      return normalized;
+    }
+    case 'AÑO':
+      normalized.setMonth(0, 1);
+      return normalized;
+  }
+};
+
+const normalizeEndOfScale = (date: Date, scale: TimeScale): Date => {
+  const normalized = new Date(date);
+  normalized.setHours(23, 59, 59, 999);
+
+  switch (scale) {
+    case 'DIA':
+      return normalized;
+    case 'SEMANA': {
+      const mondayOffset = (normalized.getDay() + 6) % 7;
+      normalized.setDate(normalized.getDate() + (6 - mondayOffset));
+      return normalized;
+    }
+    case 'MES':
+      normalized.setMonth(normalized.getMonth() + 1, 0);
+      return normalized;
+    case 'TRIMESTRE': {
+      const quarterStartMonth = Math.floor(normalized.getMonth() / 3) * 3;
+      normalized.setMonth(quarterStartMonth + 3, 0);
+      return normalized;
+    }
+    case 'AÑO':
+      normalized.setMonth(11, 31);
+      return normalized;
+  }
+};
+
 export const GanttChart: React.FC<GanttChartProps> = ({
   activities,
   selectedActivity,
@@ -64,6 +144,9 @@ export const GanttChart: React.FC<GanttChartProps> = ({
 }) => {
   const config = getScaleConfig(timeScale);
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const bodyRef = useRef<HTMLDivElement | null>(null);
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const isSyncingScroll = useRef(false);
   const [dragState, setDragState] = useState<{
     activityId: string;
     startX: number;
@@ -74,21 +157,21 @@ export const GanttChart: React.FC<GanttChartProps> = ({
   const { minDate, maxDate, totalDays } = useMemo(() => {
     if (activities.length === 0) {
       const today = new Date();
-      return { minDate: today, maxDate: new Date(today.getTime() + 365 * 24 * 60 * 60 * 1000), totalDays: 365 };
+      const minDate = normalizeStartOfScale(today, timeScale);
+      const maxDate = normalizeEndOfScale(new Date(today.getTime() + 365 * 24 * 60 * 60 * 1000), timeScale);
+      const totalDays = Math.max(1, Math.ceil((maxDate.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24)) + 1);
+      return { minDate, maxDate, totalDays };
     }
 
-    const dates = activities.flatMap((a) => [a.fechaInicio, a.fechaFin]);
-    const minDate = new Date(Math.min(...dates.map((d) => d.getTime())));
-    const maxDate = new Date(Math.max(...dates.map((d) => d.getTime())));
+    const allDates = activities.flatMap((a) => [a.fechaInicio, a.fechaFin]);
+    const minDate = normalizeStartOfScale(new Date(Math.min(...allDates.map((d) => d.getTime()))), timeScale);
+    const maxDate = normalizeEndOfScale(new Date(Math.max(...allDates.map((d) => d.getTime()))), timeScale);
+    const totalDays = Math.max(1, Math.ceil((maxDate.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24)) + 1);
 
-    // Redondear a inicio de período según escala
-    minDate.setDate(minDate.getDate() - minDate.getDate() % 7);
-
-    const totalDays = Math.ceil((maxDate.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24));
     return { minDate, maxDate, totalDays };
   }, [activities, timeScale]);
 
-  const totalWidth = Math.max(800, totalDays / config.daysPerPixel + 100);
+  const totalWidth = Math.max(900, Math.ceil(totalDays * config.pixelsPerDay) + 160);
 
   useEffect(() => {
     if (!dragState || !svgRef.current) return;
@@ -98,7 +181,7 @@ export const GanttChart: React.FC<GanttChartProps> = ({
       if (!rect) return;
 
       const currentX = event.clientX - rect.left;
-      const deltaDays = Math.round((currentX - dragState.startX) / (config.cellWidth * config.daysPerPixel));
+      const deltaDays = Math.round((currentX - dragState.startX) / config.pixelsPerDay);
       const activity = activities.find((item) => item.id === dragState.activityId);
       if (!activity) return;
 
@@ -126,6 +209,13 @@ export const GanttChart: React.FC<GanttChartProps> = ({
     };
   }, [dragState, activities, config, onActivityChange]);
 
+  useEffect(() => {
+    if (!bodyRef.current) return;
+    if (bodyRef.current.scrollTop !== scrollTop) {
+      bodyRef.current.scrollTop = scrollTop;
+    }
+  }, [scrollTop]);
+
   // Generar encabezados de fecha
   const dateHeaders = useMemo(() => {
     const headers = [];
@@ -137,27 +227,43 @@ export const GanttChart: React.FC<GanttChartProps> = ({
         label: config.label(new Date(current)),
       });
 
-      if (timeScale === 'DIA') current.setDate(current.getDate() + 1);
-      else if (timeScale === 'SEMANA') current.setDate(current.getDate() + 7);
-      else if (timeScale === 'MES') current.setMonth(current.getMonth() + 1);
-      else if (timeScale === 'TRIMESTRE') current.setMonth(current.getMonth() + 3);
-      else if (timeScale === 'AÑO') current.setFullYear(current.getFullYear() + 1);
+      current.setDate(current.getDate() + config.headerStepDays);
     }
 
     return headers;
-  }, [minDate, maxDate, timeScale, config]);
+  }, [minDate, maxDate, config]);
 
   return (
-    <div className="overflow-hidden bg-white rounded-lg border border-gray-200 flex flex-col h-full">
+    <div className="overflow-hidden bg-white rounded-2xl border border-slate-200 flex flex-col h-full shadow-sm">
+      <div className="border-b border-slate-200 bg-slate-50/80 px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-sm font-semibold text-slate-900">Vista Gantt ejecutiva</p>
+            <p className="text-xs text-slate-500">Ruta crítica, progreso, hitos y línea de hoy en una sola vista.</p>
+          </div>
+          <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-slate-600">
+            <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700">✓ Progreso</span>
+            <span className="rounded-full bg-violet-50 px-2.5 py-1 text-violet-700">◆ Hitos</span>
+            <span className="rounded-full bg-rose-50 px-2.5 py-1 text-rose-700">● Hoy</span>
+          </div>
+        </div>
+      </div>
+
       {/* Encabezado de fechas fijo */}
-      <div className="sticky top-0 z-10 bg-gray-50 border-b border-gray-200 overflow-x-auto">
+      <div ref={headerRef} className="sticky top-0 z-10 bg-white/95 border-b border-slate-200 overflow-x-auto" onScroll={(e) => {
+        if (isSyncingScroll.current) return;
+        if (!bodyRef.current) return;
+        isSyncingScroll.current = true;
+        bodyRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft;
+        isSyncingScroll.current = false;
+      }}>
         <div style={{ width: totalWidth }}>
-          <div className="flex border-b border-gray-300">
+          <div className="flex border-b border-slate-200">
             {dateHeaders.map((header, idx) => (
               <div
                 key={idx}
-                className="px-2 py-2 text-center text-xs font-semibold text-gray-900 border-r border-gray-300 flex-shrink-0"
-                style={{ width: config.cellWidth }}
+                className="px-2 py-2 text-center text-xs font-semibold text-slate-700 border-r border-slate-200 flex-shrink-0"
+                style={{ width: Math.max(config.headerStepDays * config.pixelsPerDay, 80) }}
               >
                 {header.label}
               </div>
@@ -168,18 +274,27 @@ export const GanttChart: React.FC<GanttChartProps> = ({
 
       {/* Grid de barras */}
       <div
+        ref={bodyRef}
         className="flex-1 overflow-auto"
-        onScroll={(e) => onScroll?.((e.target as HTMLDivElement).scrollTop)}
+        onScroll={(e) => {
+          const target = e.target as HTMLDivElement;
+          onScroll?.(target.scrollTop);
+          if (isSyncingScroll.current) return;
+          if (!headerRef.current) return;
+          isSyncingScroll.current = true;
+          headerRef.current.scrollLeft = target.scrollLeft;
+          isSyncingScroll.current = false;
+        }}
       >
-        <svg ref={svgRef} style={{ width: totalWidth, minHeight: '100%' }} className="bg-white">
+        <svg ref={svgRef} width={totalWidth} height={Math.max(activities.length * ROW_HEIGHT + 140, 300)} className="bg-white">
           {/* Líneas verticales de grid */}
           {dateHeaders.map((_, idx) => (
             <line
               key={`grid-${idx}`}
-              x1={idx * config.cellWidth}
+              x1={idx * config.headerStepDays * config.pixelsPerDay}
               y1="0"
-              x2={idx * config.cellWidth}
-              y2={activities.length * 50 + 100}
+              x2={idx * config.headerStepDays * config.pixelsPerDay}
+              y2={activities.length * ROW_HEIGHT + 100}
               stroke="#E5E7EB"
               strokeWidth="1"
             />
@@ -188,21 +303,25 @@ export const GanttChart: React.FC<GanttChartProps> = ({
           {/* Hoy - línea roja */}
           {(() => {
             const today = new Date();
-            const daysFromStart = (today.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24);
-            const x = (daysFromStart / config.daysPerPixel) * config.cellWidth;
-            if (x > 0 && x < totalWidth) {
-              return <line x1={x} y1="0" x2={x} y2={activities.length * 50 + 100} stroke="#DC2626" strokeWidth="2" strokeDasharray="4" />;
+            const daysFromStart = Math.round((today.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24));
+            const x = daysFromStart * config.pixelsPerDay;
+            if (x >= 0 && x <= totalWidth) {
+              return <line x1={x} y1="0" x2={x} y2={activities.length * ROW_HEIGHT + 100} stroke="#DC2626" strokeWidth="2" strokeDasharray="4" />;
             }
+            return null;
           })()}
 
           {/* Barras de actividades */}
           {activities.map((activity, idx) => {
-            const startDays = (activity.fechaInicio.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24);
-            const durationDays = (activity.fechaFin.getTime() - activity.fechaInicio.getTime()) / (1000 * 60 * 60 * 24);
+            const startDays = Math.round((activity.fechaInicio.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24));
+            const durationDays = Math.max(
+              1,
+              Math.ceil((activity.fechaFin.getTime() - activity.fechaInicio.getTime()) / (1000 * 60 * 60 * 24)),
+            );
 
-            const x = (startDays / config.daysPerPixel) * config.cellWidth;
-            const width = (durationDays / config.daysPerPixel) * config.cellWidth;
-            const y = idx * 50 + 10;
+            const x = Math.round(startDays * config.pixelsPerDay);
+            const width = Math.max(Math.round(durationDays * config.pixelsPerDay), MIN_BAR_WIDTH);
+            const y = idx * ROW_HEIGHT + 12;
             const barColor = getActivityColor(activity);
             const isSelected = selectedActivity?.id === activity.id;
 
@@ -244,10 +363,10 @@ export const GanttChart: React.FC<GanttChartProps> = ({
                   width={Math.max(width, 20)}
                   height="30"
                   fill={barColor}
-                  opacity={isSelected ? 1 : 0.8}
-                  stroke={isSelected ? '#1E40AF' : 'none'}
-                  strokeWidth={isSelected ? '2' : '0'}
-                  rx="4"
+                  opacity={isSelected ? 1 : 0.85}
+                  stroke={isSelected ? '#0F4C81' : '#ffffff'}
+                  strokeWidth={isSelected ? '2' : '1'}
+                  rx="6"
                   className="hover:opacity-100 transition-opacity"
                 />
 
@@ -258,9 +377,9 @@ export const GanttChart: React.FC<GanttChartProps> = ({
                     y={y}
                     width={Math.max((width * activity.avancePorc) / 100, 3)}
                     height="30"
-                    fill={barColor}
-                    opacity="0.4"
-                    rx="4"
+                    fill={isSelected ? '#0F4C81' : '#ffffff'}
+                    opacity="0.28"
+                    rx="6"
                   />
                 )}
 
@@ -269,9 +388,28 @@ export const GanttChart: React.FC<GanttChartProps> = ({
                   <polygon
                     points={`${x + width / 2},${y - 8} ${x + width / 2 + 8},${y + 15} ${x + width / 2},${y + 38} ${x + width / 2 - 8},${y + 15}`}
                     fill="#9333EA"
-                    opacity="0.7"
+                    opacity="0.9"
                   />
                 )}
+
+                {/* Etiqueta de actividad */}
+                <text
+                  x={x + 8}
+                  y={y + 16}
+                  fontSize="11"
+                  fontWeight="600"
+                  fill={width > 120 ? '#ffffff' : '#0f172a'}
+                >
+                  {activity.nombre}
+                </text>
+                <text
+                  x={x + 8}
+                  y={y + 30}
+                  fontSize="10"
+                  fill={width > 120 ? '#f8fafc' : '#64748b'}
+                >
+                  {activity.responsableNombre || 'Sin responsable'} • {activity.duracionDias}d
+                </text>
 
                 {/* Dependencias (línea de conexión) */}
                 {activity.sucesoras &&
@@ -282,9 +420,9 @@ export const GanttChart: React.FC<GanttChartProps> = ({
                     const endX = x + width;
                     const endY = y + 15;
 
-                    const succStartDays = (succActivity.fechaInicio.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24);
-                    const succX = (succStartDays / config.daysPerPixel) * config.cellWidth;
-                    const succY = activities.indexOf(succActivity) * 50 + 25;
+                    const succStartDays = Math.round((succActivity.fechaInicio.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24));
+                    const succX = succStartDays * config.pixelsPerDay;
+                    const succY = activities.indexOf(succActivity) * ROW_HEIGHT + 30;
 
                     return (
                       <line

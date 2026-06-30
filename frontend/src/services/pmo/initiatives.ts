@@ -1,18 +1,22 @@
 const API = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getInitiatives() {
+  if (!API) {
+    console.warn('NEXT_PUBLIC_API_URL is not set; getInitiatives will return []');
+    return [];
+  }
 
-  const res = await fetch(
-    `${API}/pmo/initiatives`,
-    {
-      cache: "no-store",
-    }
-  );
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const res = await fetch(`${API}/pmo/initiatives`, {
+    cache: 'no-store',
+    headers,
+  });
 
   if (!res.ok) {
-    throw new Error(
-      "Error cargando iniciativas"
-    );
+    throw new Error('Error cargando iniciativas');
   }
 
   return res.json();
