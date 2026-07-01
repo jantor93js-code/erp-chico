@@ -237,7 +237,7 @@ export default function BibliotecaDocumentalExplorer({
         ...doc,
         nombre: finalNombre || 'por asignar',
         codigo: finalCodigo,
-        codigoDependencia: rawCodigoDependencia,
+        codigoDependencia: rawCodigoDependencia || '',
         tipo: doc.tipoRef?.codigo || doc.tipoRef?.nombre || doc.tipo || (doc as any).tipo_documento || (doc as any).tipoDocumento || 'Sin tipo',
         tipoId: doc.tipoId || doc.tipoRef?.id || (doc as any).tipo_id || '',
         estadoDocumental:
@@ -246,7 +246,6 @@ export default function BibliotecaDocumentalExplorer({
         vigencia: doc.estadoVigencia || doc.vigencia || undefined,
         area: rawArea || 'Sin área',
         areaId: doc.areaId || doc.areaRef?.id || '',
-        codigoDependencia: rawCodigoDependencia || '',
         proceso: rawProceso || 'Sin proceso',
         procesoId: doc.procesoId || doc.processRef?.id || '',
         responsableActualizacion: doc.responsableActualizacion || (doc as any).responsable || '',
