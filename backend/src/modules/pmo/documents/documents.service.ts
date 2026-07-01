@@ -405,7 +405,8 @@ export class DocumentsService {
       }
 
       const data: any = {
-        codigo: row.codigo_manual,
+        codigo: row.codigo_manual || row.codigo_dependencia || null,
+        codigoDependencia: row.codigo_dependencia || null,
         nombre: row.nombre_documento,
         observaciones: row.observaciones,
         enlace: row.enlace_drive,
@@ -447,11 +448,11 @@ export class DocumentsService {
         SELECT id FROM documents WHERE codigo = ${row.codigo_manual}
       `) as any;
 
-      // Defensive: remove any codigoDependencia keys that may be present
-      // so Prisma doesn't attempt to access a DB column that doesn't exist.
+      // Keep the dependency code in the dedicated DB column when available.
       if (data && typeof data === 'object') {
-        if ('codigoDependencia' in data) delete data.codigoDependencia;
-        if ('codigo_dependencia' in data) delete data.codigo_dependencia;
+        if ('codigoDependencia' in data && data.codigoDependencia === undefined) {
+          delete data.codigoDependencia;
+        }
       }
 
       // Build explicit DB columns and values for a raw upsert to avoid Prisma
@@ -465,10 +466,11 @@ export class DocumentsService {
 
       const sql = `
         INSERT INTO documents
-          (codigo, nombre, observaciones, enlace, fuente, "origenImportacion", activo, area, proceso, tipo, "fechaCreacion", "fechaRevision", responsable_actualizacion, responsable_revision, "estadoDocumental", area_id_ref, process_id, tipo_id, estado_documental_id)
+          (codigo, codigo_dependencia, nombre, observaciones, enlace, fuente, "origenImportacion", activo, area, proceso, tipo, "fechaCreacion", "fechaRevision", responsable_actualizacion, responsable_revision, "estadoDocumental", area_id_ref, process_id, tipo_id, estado_documental_id)
         VALUES
-          ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10::"DocumentType",$11,$12,$13,$14,$15::"DocumentEstado",$16::uuid,$17::uuid,$18::uuid,$19::uuid)
+          ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::"DocumentType",$12,$13,$14,$15,$16::"DocumentEstado",$17::uuid,$18::uuid,$19::uuid,$20::uuid)
         ON CONFLICT (codigo) DO UPDATE SET
+          codigo_dependencia = EXCLUDED.codigo_dependencia,
           nombre = EXCLUDED.nombre,
           observaciones = EXCLUDED.observaciones,
           enlace = EXCLUDED.enlace,
@@ -491,6 +493,7 @@ export class DocumentsService {
 
       const params = [
         data.codigo,
+        data.codigoDependencia ?? null,
         data.nombre,
         data.observaciones ?? null,
         data.enlace ?? null,
@@ -630,7 +633,7 @@ export class DocumentsService {
     const activoFilter = activo === 'false' ? false : true;
 
     const rows = await (this.prisma as any).$queryRawUnsafe(
-      `SELECT d.id, d.codigo, d.nombre, d.descripcion, d.tipo::text as tipo, d.proceso, d.area, d.version, d.responsable_actualizacion, d.responsable_revision, d."estadoDocumental", d.area_id_ref, d.process_id, d.tipo_id, d.estado_documental_id,
+      `SELECT d.id, d.codigo, d.codigo_dependencia as "codigoDependencia", d.nombre, d.descripcion, d.tipo::text as tipo, d.proceso, d.area, d.version, d.responsable_actualizacion, d.responsable_revision, d."estadoDocumental", d.area_id_ref, d.process_id, d.tipo_id, d.estado_documental_id,
          json_build_object('id', d.estado_documental_id, 'codigo', s.codigo, 'nombre', s.nombre) as "estadoDocumentalRef",
          d."fechaCreacion", d."fechaRevision", d.observaciones, d.enlace, d.fuente, d."origenImportacion", d.activo, d.cliente_id, d.program_id, d.initiative_id, d.project_id, d."createdAt", d."updatedAt"
        FROM documents d

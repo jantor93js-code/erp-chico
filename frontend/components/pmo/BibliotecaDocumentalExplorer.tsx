@@ -143,6 +143,13 @@ function highlightText(text?: string, q?: string): any {
   }
 }
 
+function getCodeDisplayValue(value?: string | null): string {
+  if (value === null || value === undefined) return 'por asignar';
+  const normalized = String(value).trim();
+  if (!normalized || normalized.toLowerCase() === 'null' || normalized.toLowerCase() === 'undefined') return 'por asignar';
+  return normalized;
+}
+
 function getVigencyText(vigencia?: string): string {
   if (vigencia === 'VENCIDO') return 'Vencido';
   if (vigencia === 'PROXIMO_VENCER') return 'Próximo a vencer';
@@ -221,7 +228,7 @@ export default function BibliotecaDocumentalExplorer({
         }
       }
 
-      // handle codigo vs codigoDependencia: avoid showing codigoDependencia in codigo column
+      // Preserve manual code separately from dependency code for table columns.
       const rawCodigo = (doc.codigo || (doc as any).codigo_manual || (doc as any).codigoManual || '').toString().trim();
       const rawCodigoDependencia = (doc.codigoDependencia || (doc as any).codigo_dependencia || '').toString().trim();
       const finalCodigo = rawCodigo && rawCodigo !== rawCodigoDependencia ? rawCodigo : '';
@@ -230,6 +237,7 @@ export default function BibliotecaDocumentalExplorer({
         ...doc,
         nombre: finalNombre || 'por asignar',
         codigo: finalCodigo,
+        codigoDependencia: rawCodigoDependencia,
         tipo: doc.tipoRef?.codigo || doc.tipoRef?.nombre || doc.tipo || (doc as any).tipo_documento || (doc as any).tipoDocumento || 'Sin tipo',
         tipoId: doc.tipoId || doc.tipoRef?.id || (doc as any).tipo_id || '',
         estadoDocumental:
@@ -778,8 +786,8 @@ export default function BibliotecaDocumentalExplorer({
               <thead className="bg-slate-50 text-slate-500">
                 <tr>
                   {[
-                    { label: 'Código manual', key: 'codigo' },
-                    { label: 'Código dependencia', key: 'codigoDependencia' },
+                    { label: 'Código de Área', key: 'codigo' },
+                    { label: 'Código de Doc.', key: 'codigoDependencia' },
                     { label: 'Nombre', key: 'nombre' },
                     { label: 'Tipo', key: 'tipo' },
                     { label: 'Proceso', key: 'proceso' },
@@ -812,8 +820,8 @@ export default function BibliotecaDocumentalExplorer({
                 ) : (
                   visibleDocuments.map((doc) => (
                     <tr key={doc.id} className={rowClass(doc)} onClick={() => handleSelectDocument(doc)}>
-                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs font-mono">{highlightText(doc.codigo, search)}</td>
-                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs font-mono">{highlightText(doc.codigoDependencia || 'Pendiente', search)}</td>
+                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs font-mono">{highlightText(getCodeDisplayValue(doc.codigoDependencia), search)}</td>
+                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs font-mono">{highlightText(getCodeDisplayValue(doc.codigo), search)}</td>
                       <td className="px-4 py-4 font-semibold text-slate-900 max-w-xs truncate">
                         {doc.nombre === 'por asignar' ? (
                           <div className="flex items-center gap-2">
