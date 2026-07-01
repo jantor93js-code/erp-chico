@@ -1,0 +1,30 @@
+[
+  {
+    "codigo_manual": "DOC-2026-001",
+    "codigo_dependencia": "1.5",
+    "nombre_documento": "Manual de Procedimientos",
+    "tipo_documento": "Manual",
+    "proceso_asociado": "Proceso A",
+    "area_dependencia": "Área Operaciones",
+    "estado_documento": "VIGENTE",
+    "responsable": "Jorge Mendoza",
+    "fecha_creacion": "2024-01-01",
+    "fecha_ultima_revision": "2026-01-01",
+    "observaciones": "Versión inicial",
+    "enlace_drive": "https://drive.google.com/example"
+  },
+  {
+    "codigo_manual": "DOC-2026-002",
+    "codigo_dependencia": "2.1",
+    "nombre_documento": "Política de Calidad",
+    "tipo_documento": "Política",
+    "proceso_asociado": "Proceso B",
+    "area_dependencia": "Área Calidad",
+    "estado_documento": "EN_REVISION",
+    "responsable": "Maria Gomez",
+    "fecha_creacion": "2023-06-15",
+    "fecha_ultima_revision": "2025-06-15",
+    "observaciones": "Revisión en curso",
+    "enlace_drive": null
+  }
+]

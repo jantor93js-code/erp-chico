@@ -37,6 +37,9 @@ export const ActivityModal: React.FC<ActivityModalProps> = ({
 }) => {
   const [formData, setFormData] = useState<Partial<GanttActivity>>(activity || defaultActivity);
 
+  // Sync incoming activity prop to local form state when modal opens.
+  // This intentionally calls setState from an effect to update derived local state.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     if (activity) {
       setFormData(activity);
@@ -44,6 +47,7 @@ export const ActivityModal: React.FC<ActivityModalProps> = ({
       setFormData(defaultActivity);
     }
   }, [activity, isOpen]);
+
 
   const visibleInitiatives = (options?.initiatives || []).filter((item) => {
     if (!formData.clienteId) return true;

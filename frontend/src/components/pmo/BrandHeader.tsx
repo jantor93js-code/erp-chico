@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MetricLogo from "@/src/components/MetricLogo";
 
 function parseTokenName() {
@@ -18,11 +18,7 @@ function parseTokenName() {
 }
 
 export default function BrandHeader() {
-  const [userLabel, setUserLabel] = useState("Usuario PMO");
-
-  useEffect(() => {
-    setUserLabel(parseTokenName());
-  }, []);
+  const [userLabel] = useState<string>(() => parseTokenName());
 
   return (
     <header

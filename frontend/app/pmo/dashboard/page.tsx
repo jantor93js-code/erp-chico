@@ -6,43 +6,72 @@ import PmoShell from "@/src/components/layout/PmoShell";
 import ExecutiveCard from "@/src/components/pmo/ExecutiveCard";
 import PageHeader from "@/src/components/pmo/PageHeader";
 import StatusBadge from "@/src/components/pmo/StatusBadge";
-import { getUsers } from "@/src/services/pmo/users";
 import { getClients } from "@/src/services/pmo/clients";
 import { getProjects } from "@/src/services/pmo/projects";
 import { getTasks } from "@/src/services/pmo/tasks";
-import { getDocuments } from "@/src/services/pmo/documents";
+import { getDocumentsDashboard } from "@/src/services/pmo/documents";
 import { getTaskSummary } from "@/src/lib/pmo";
 
-export default function DashboardPage() {
-  const [users, setUsers] = useState<any[]>([]);
-  const [clients, setClients] = useState<any[]>([]);
-  const [projects, setProjects] = useState<any[]>([]);
-  const [tasks, setTasks] = useState<any[]>([]);
-  const [documents, setDocuments] = useState<any[]>([]);
+type PmoTask = {
+  id?: string;
+  titulo?: string;
+  createdAt?: string;
+  fechaLimite?: string;
+  estado: string;
+  responsable?: {
+    nombre?: string;
+    email?: string;
+  };
+  proyecto?: {
+    iniciativa?: {
+      programa?: {
+        cliente?: {
+          nombre?: string;
+        };
+      };
+    };
+  };
+};
 
-  useEffect(() => {
-    loadData();
-  }, []);
+type PmoProject = {
+  estado?: string;
+};
+
+type DocumentDashboard = {
+  total?: number;
+  active?: number;
+  inactive?: number;
+  byTipo?: Array<{ tipo?: string; count: number }>;
+} | null;
+
+export default function DashboardPage() {
+  const [clients, setClients] = useState<unknown[]>([]);
+  const [projects, setProjects] = useState<PmoProject[]>([]);
+  const [tasks, setTasks] = useState<PmoTask[]>([]);
+  const [documentsDashboard, setDocumentsDashboard] = useState<DocumentDashboard>(null);
 
   async function loadData() {
     try {
-      const [clientsData, projectsData, tasksData, usersData, documentsData] = await Promise.all([
+      const [clientsData, projectsData, tasksData, documentsDashboardData] = await Promise.all([
         getClients(),
         getProjects(),
         getTasks(),
-        getUsers(),
-        getDocuments(),
+        getDocumentsDashboard(),
       ]);
 
-      setUsers(usersData);
       setClients(clientsData);
       setProjects(projectsData);
       setTasks(tasksData);
-      setDocuments(documentsData);
+      setDocumentsDashboard(documentsDashboardData);
     } catch (error) {
       console.error(error);
     }
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void loadData();
+  }, []);
 
   const summary = getTaskSummary(tasks);
   const pendientes = summary.pendientes;
@@ -50,42 +79,15 @@ export default function DashboardPage() {
   const atrasadas = summary.atrasadas;
   const finalizadas = summary.finalizadas;
   const proyectosActivos = projects.filter((p) => p.estado === "ACTIVO").length;
-  const documentosTotales = documents.length;
-  const documentosActivos = documents.filter((d) => d.activo || d.estado === "ACTIVO").length;
-  const documentosPorTipo = documents.reduce((acc, item) => {
-    acc[item.tipo] = (acc[item.tipo] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
+  const documentosActivos = documentsDashboard?.active ?? 0;
+  const documentosInactivos = documentsDashboard?.inactive ?? 0;
 
   const latestTasks = [...tasks]
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    .slice(0, 5);
-
-  const activitiesByResponsible = Object.entries(
-    tasks.reduce((acc: Record<string, number>, task: any) => {
-      const name = task.responsable?.nombre || task.responsable?.email || 'Sin responsable';
-      acc[name] = (acc[name] || 0) + 1;
-      return acc;
-    }, {}),
-  ).sort((a, b) => b[1] - a[1]).slice(0, 5);
-
-  const activitiesByClient = Object.entries(
-    tasks.reduce((acc: Record<string, number>, task: any) => {
-      const clientName = task.proyecto?.iniciativa?.programa?.cliente?.nombre || 'Sin cliente';
-      acc[clientName] = (acc[clientName] || 0) + 1;
-      return acc;
-    }, {}),
-  ).sort((a, b) => b[1] - a[1]).slice(0, 5);
-
-  const overdueTasks = tasks.filter((task) => task.estado === 'ATRASADO' || task.estado === 'BLOQUEADO').slice(0, 5);
-  const upcomingTasks = [...tasks]
-    .filter((task) => task.fechaLimite)
-    .sort((a, b) => new Date(a.fechaLimite).getTime() - new Date(b.fechaLimite).getTime())
+    .sort((a, b) => new Date(b.createdAt ?? '').getTime() - new Date(a.createdAt ?? '').getTime())
     .slice(0, 5);
 
   return (
     <PmoShell>
-
       <PageHeader
         section="PMO"
         title="Dashboard Ejecutivo"
@@ -93,33 +95,11 @@ export default function DashboardPage() {
       />
 
       <div className="space-y-6 px-8 py-6">
-
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-
-          <ExecutiveCard
-            label="Clientes"
-            value={String(clients.length)}
-            accent="gold"
-          />
-
-          <ExecutiveCard
-            label="Proyectos"
-            value={String(projects.length)}
-            accent="green"
-          />
-
-          <ExecutiveCard
-            label="Documentos"
-            value={String(documentosTotales)}
-            accent="gold"
-          />
-
-          <ExecutiveCard
-            label="Usuarios PMO"
-            value={String(users.length)}
-            accent="green"
-          />
-
+          <ExecutiveCard label="Clientes" value={String(clients.length)} accent="gold" />
+          <ExecutiveCard label="Proyectos" value={String(projects.length)} accent="green" />
+          <ExecutiveCard label="Documentos activos" value={String(documentosActivos)} accent="gold" />
+          <ExecutiveCard label="Documentos inactivos" value={String(documentosInactivos)} accent="rose" />
         </div>
 
         <div className="grid gap-4 xl:grid-cols-[1.9fr_1.1fr]">
@@ -207,9 +187,7 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-
       </div>
-
     </PmoShell>
   );
 }

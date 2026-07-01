@@ -422,11 +422,103 @@ export default function CronogramaPage() {
               />
             )}
 
-            {viewMode === 'TIMELINE' && (
-              <div className="bg-white rounded-lg border border-gray-200 p-6 flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                  <p className="text-lg font-medium">Vista Timeline</p>
-                  <p className="text-sm mt-2">Esta vista está en desarrollo</p>
+            {viewMode === 'DIVIDIDO' && (
+              <div className="space-y-4">
+                {/* KPI cards for requested groups */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {/** compute counts below */}
+                  {(() => {
+                    const normalize = (s?: string) => String(s || '').toLowerCase();
+                    let sinIniciar = 0;
+                    let estructuracion = 0;
+                    let revision = 0;
+                    filteredActivities.forEach((a) => {
+                      const s = normalize(a.estado);
+                      if (s.includes('sin iniciar') || s.includes('sin_iniciar') || s === 'sin iniciar' || s === 'sin_iniciar') {
+                        sinIniciar += 1;
+                        return;
+                      }
+                      if (s.includes('estructur')) {
+                        estructuracion += 1;
+                        return;
+                      }
+                      if (s.includes('revision') || s.includes('revisión') || s.includes('directiva') || s.includes('tecnica') || s.includes('técnica')) {
+                        revision += 1;
+                        return;
+                      }
+                    });
+
+                    const max = Math.max(1, sinIniciar, estructuracion, revision);
+
+                    const Card = ({ title, count, color }: { title: string; count: number; color: string }) => (
+                      <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm flex items-center justify-between">
+                        <div>
+                          <div className="text-sm text-gray-500">{title}</div>
+                          <div className="text-2xl font-semibold mt-1">{count}</div>
+                        </div>
+                        <div className="w-24 h-12 flex items-end">
+                          <div className="w-full h-2 rounded" style={{ background: '#F3F4F6' }}>
+                            <div style={{ width: `${Math.round((count / max) * 100)}%`, height: '8px', background: color }} className="rounded" />
+                          </div>
+                        </div>
+                      </div>
+                    );
+
+                    return (
+                      <>
+                        <Card title="Sin iniciar" count={sinIniciar} color="#F59E0B" />
+                        <Card title="Estructuración" count={estructuracion} color="#3B82F6" />
+                        <Card title="Revisión" count={revision} color="#10B981" />
+                      </>
+                    );
+                  })()}
+                </div>
+
+                {/* Simple bar chart summarizing the three groups */}
+                <div className="bg-white rounded-lg border border-gray-200 p-4">
+                  <h3 className="text-lg font-medium mb-3">Resumen</h3>
+                  {(() => {
+                    const normalize = (s?: string) => String(s || '').toLowerCase();
+                    let sinIniciar = 0;
+                    let estructuracion = 0;
+                    let revision = 0;
+                    filteredActivities.forEach((a) => {
+                      const s = normalize(a.estado);
+                      if (s.includes('sin iniciar') || s.includes('sin_iniciar')) {
+                        sinIniciar += 1;
+                        return;
+                      }
+                      if (s.includes('estructur')) {
+                        estructuracion += 1;
+                        return;
+                      }
+                      if (s.includes('revision') || s.includes('revisión') || s.includes('directiva') || s.includes('tecnica') || s.includes('técnica')) {
+                        revision += 1;
+                        return;
+                      }
+                    });
+
+                    const items = [
+                      { key: 'Sin iniciar', value: sinIniciar, color: '#F59E0B' },
+                      { key: 'Estructuración', value: estructuracion, color: '#3B82F6' },
+                      { key: 'Revisión', value: revision, color: '#10B981' },
+                    ];
+                    const max = Math.max(1, ...items.map((i) => i.value));
+
+                    return (
+                      <div className="space-y-3">
+                        {items.map((it) => (
+                          <div key={it.key} className="flex items-center gap-4">
+                            <div className="w-40 text-sm text-gray-600">{it.key}</div>
+                            <div className="flex-1 bg-gray-100 rounded h-5 overflow-hidden">
+                              <div style={{ width: `${Math.round((it.value / max) * 100)}%`, background: it.color, height: '100%' }} />
+                            </div>
+                            <div className="w-16 text-right font-medium">{it.value}</div>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
             )}

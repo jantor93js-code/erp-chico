@@ -1,0 +1,1042 @@
+[
+  {
+    "row": 1,
+    "codigo_json": "MAN-GD-01",
+    "nombre_json": "Manual de Gobierno Documental",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "7d7e1750-4d6e-4dff-95e8-3ed4d5f0fe72",
+      "codigo": "MAN-GD-01",
+      "nombre": "Manual de Gobierno Documental",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 2,
+    "codigo_json": "POL-SIG-01",
+    "nombre_json": "Política de Calidad SIG",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "9962aea4-1bb7-49cf-a839-8486c0b7f4af",
+      "codigo": "POL-SIG-01",
+      "nombre": "Política de Calidad SIG",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 3,
+    "codigo_json": "POL-SIG-02",
+    "nombre_json": "Política Ambiental SIG",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "b780c542-41a1-4cfc-a84a-74f6df76539d",
+      "codigo": "POL-SIG-02",
+      "nombre": "Política Ambiental SIG",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 4,
+    "codigo_json": "POL-SIG-03",
+    "nombre_json": "Política de SST SIG",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "bfd1446a-45d2-473a-b744-b79557a03d03",
+      "codigo": "POL-SIG-03",
+      "nombre": "Política de SST SIG",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 5,
+    "codigo_json": "0",
+    "nombre_json": "Manual De Funciones Gerente General",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": "2026-05-12",
+    "db": {
+      "id": "131512f4-f3e4-4253-9f7c-8afc5809d61c",
+      "codigo": "0",
+      "nombre": "Manual De Funciones Gerente General",
+      "fechaRevision": "2026-05-12T00:00:00.000Z",
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 6,
+    "codigo_json": "0.1",
+    "nombre_json": "Manual De Funciones Asistente de General",
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "12d3c65b-af62-42ff-aaf1-f3fa31bf5785",
+      "codigo": "0.1",
+      "nombre": "Manual De Funciones Asistente de General",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 7,
+    "codigo_json": "0.a",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "e6d04822-5afb-48ad-a7f5-54b9bee0b377",
+      "codigo": "0.a",
+      "nombre": "Control Interno",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 8,
+    "codigo_json": "0.b",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "71467c60-45c8-4605-82fb-fe668af09f2c",
+      "codigo": "0.b",
+      "nombre": "Juridica",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 9,
+    "codigo_json": "0.c",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "5ca06a64-b0cb-42d5-9cf9-119157eb1c83",
+      "codigo": "0.c",
+      "nombre": "Oficial de cumplimiento",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 10,
+    "codigo_json": "1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "f3774624-6dcc-4fd0-a8bc-0890fa4f8bc7",
+      "codigo": "1",
+      "nombre": "Dirección Administrativa y Financiera",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 11,
+    "codigo_json": "1.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "0e99b4af-c7ca-46fe-8296-5aa26f1a83cb",
+      "codigo": "1.1",
+      "nombre": "Analista Administrativo",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 12,
+    "codigo_json": "MAN-GH-06",
+    "nombre_json": "Manual De Funciones Coordinador de Nómina y Seguridad Social",
+    "estado_json": "Revisión Directiva",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "3ce141cb-cb30-46d1-80bc-d07aac73d996",
+      "codigo": "MAN-GH-06",
+      "nombre": "Manual De Funciones Coordinador de Nómina y Seguridad Social",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f8de38d6-e5e8-4a64-a21a-5c1e3098fbab",
+      "estado_nombre": "Revisión Directiva"
+    }
+  },
+  {
+    "row": 13,
+    "codigo_json": "1.2.1",
+    "nombre_json": "Manual De Funciones Analista de Talento Humano",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "b106de27-96b3-4325-9bfd-35f0570b1e41",
+      "codigo": "1.2.1",
+      "nombre": "Manual De Funciones Analista de Talento Humano",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 14,
+    "codigo_json": "1.2.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "b46f1137-6864-416d-bbf0-d556a0764890",
+      "codigo": "1.2.2",
+      "nombre": "Auxilar de RRHH",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 15,
+    "codigo_json": "1.2.3",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "d6f2c0b6-b04b-4747-8794-1d2fc2a1f714",
+      "codigo": "1.2.3",
+      "nombre": "Auxiliar de Seguridad",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 16,
+    "codigo_json": "1.2.4",
+    "nombre_json": "Manual de Funciones Servicios Generales",
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "d0045160-6ea4-4ad1-8780-4865742486c9",
+      "codigo": "1.2.4",
+      "nombre": "Manual de Funciones Servicios Generales",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 17,
+    "codigo_json": "MAN-GH-10",
+    "nombre_json": "Profesional en Tesoreria Junior",
+    "estado_json": "Revisión Directiva",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "54ef8950-450d-4ec2-b7d0-4ede2050f603",
+      "codigo": "MAN-GH-10",
+      "nombre": "Profesional en Tesoreria Junior",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f8de38d6-e5e8-4a64-a21a-5c1e3098fbab",
+      "estado_nombre": "Revisión Directiva"
+    }
+  },
+  {
+    "row": 18,
+    "codigo_json": "1.3.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "7918e13c-eb7b-4d4e-bf92-d9f8ad235d89",
+      "codigo": "1.3.1",
+      "nombre": "Analista de Tesoreria",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 19,
+    "codigo_json": "1.3.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "4cbb8b1f-e7c0-4393-9833-fdaf44cc10af",
+      "codigo": "1.3.2",
+      "nombre": "Auxiliar Tesoreria",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 20,
+    "codigo_json": "MAN-GH-17",
+    "nombre_json": "Profesional facturacion y cartera",
+    "estado_json": "Revisión Directiva",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "50c46fe3-1e7c-4d45-b2cd-a3879b7510e2",
+      "codigo": "MAN-GH-17",
+      "nombre": "Profesional facturacion y cartera",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f8de38d6-e5e8-4a64-a21a-5c1e3098fbab",
+      "estado_nombre": "Revisión Directiva"
+    }
+  },
+  {
+    "row": 21,
+    "codigo_json": "1.4.1",
+    "nombre_json": "Manual De Funciones Analista de Facturación y Cartera",
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "84ed82b4-7bc2-49eb-b379-79cbcaa52bc1",
+      "codigo": "1.4.1",
+      "nombre": "Manual De Funciones Analista de Facturación y Cartera",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 22,
+    "codigo_json": "1.4.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "cc329ea6-6e43-4127-9216-c8e0b4c741ae",
+      "codigo": "1.4.2",
+      "nombre": "Auxiliar Facturacion y Cartera",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 23,
+    "codigo_json": "MAN-GH-18",
+    "nombre_json": "Manual De Funciones Profesional en Compras",
+    "estado_json": "Revisión Directiva",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "c76be84a-89b2-4460-bfae-be7852546bfe",
+      "codigo": "MAN-GH-18",
+      "nombre": "Manual De Funciones Profesional en Compras",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f8de38d6-e5e8-4a64-a21a-5c1e3098fbab",
+      "estado_nombre": "Revisión Directiva"
+    }
+  },
+  {
+    "row": 24,
+    "codigo_json": "1.5.1",
+    "nombre_json": "Manual De Funciones Analista de Legalizaciones",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "4ea04f7a-47be-4d02-9b73-fdc330662db2",
+      "codigo": "1.5.1",
+      "nombre": "Manual De Funciones Analista de Legalizaciones",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 25,
+    "codigo_json": "1.5.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "003eacdc-8ce2-4d1c-8582-71d3b52ed2b7",
+      "codigo": "1.5.2",
+      "nombre": "Auxiliar de Compras",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 26,
+    "codigo_json": "1.6",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "4739a7f8-66d2-4f86-8d6b-6bd5d6b5606d",
+      "codigo": "1.6",
+      "nombre": "Profesional Financiero y Planeacion",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 27,
+    "codigo_json": "1.6.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "5f8ca9b5-f8a4-4f43-8a2f-7d3e3edcfe29",
+      "codigo": "1.6.1",
+      "nombre": "Analista de Planeacion",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 28,
+    "codigo_json": "MAN-GH-19",
+    "nombre_json": "Manual De Funciones Profesional SIG",
+    "estado_json": "Revisión Directiva",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "27a4b0fe-2a7a-47f8-88fa-a83c85591c82",
+      "codigo": "MAN-GH-19",
+      "nombre": "Manual De Funciones Profesional SIG",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f8de38d6-e5e8-4a64-a21a-5c1e3098fbab",
+      "estado_nombre": "Revisión Directiva"
+    }
+  },
+  {
+    "row": 29,
+    "codigo_json": "1.7.1",
+    "nombre_json": "Manual De Funciones Analista SST",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "7bb1e649-e503-4be7-a0d3-deb43cd9470b",
+      "codigo": "1.7.1",
+      "nombre": "Manual De Funciones Analista SST",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 30,
+    "codigo_json": "MAN-GH-03",
+    "nombre_json": "Manual de Funciones Profesional TI",
+    "estado_json": "Revisión Directiva",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "1c8691f0-500f-4e6e-a688-625b85927e6b",
+      "codigo": "MAN-GH-03",
+      "nombre": "Manual de Funciones Profesional TI",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f8de38d6-e5e8-4a64-a21a-5c1e3098fbab",
+      "estado_nombre": "Revisión Directiva"
+    }
+  },
+  {
+    "row": 31,
+    "codigo_json": "1.8.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "997a903e-3cc3-4a63-83e7-6252252100c9",
+      "codigo": "1.8.1",
+      "nombre": "Auxiliar soporte tecnico",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 32,
+    "codigo_json": "1.8.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "3101b0d2-d64f-4568-a706-b9396c0b9e5b",
+      "codigo": "1.8.2",
+      "nombre": "Auxiliar de Seguridad ( Pdte Rol)",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 33,
+    "codigo_json": "MAN-GH-30",
+    "nombre_json": "Manual De Funciones Director de Operaciones",
+    "estado_json": "Revisión Directiva",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "787bbb81-5409-4973-94de-baea454db2d7",
+      "codigo": "MAN-GH-30",
+      "nombre": "Manual De Funciones Director de Operaciones",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f8de38d6-e5e8-4a64-a21a-5c1e3098fbab",
+      "estado_nombre": "Revisión Directiva"
+    }
+  },
+  {
+    "row": 34,
+    "codigo_json": "MAN-GH-45",
+    "nombre_json": "Manual De Funciones Coordinador de Operaciones",
+    "estado_json": "Revisión Directiva",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "48001f91-4082-4bcf-8cd2-9a3067bdae07",
+      "codigo": "MAN-GH-45",
+      "nombre": "Manual De Funciones Coordinador de Operaciones",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f8de38d6-e5e8-4a64-a21a-5c1e3098fbab",
+      "estado_nombre": "Revisión Directiva"
+    }
+  },
+  {
+    "row": 35,
+    "codigo_json": "2.1.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "190880e2-644a-4496-aa41-701ad0be55eb",
+      "codigo": "2.1.1",
+      "nombre": "Analista de Operaciones",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 36,
+    "codigo_json": "2.1.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "6c459bbc-f35c-497c-94d0-24a897dd0fd9",
+      "codigo": "2.1.2",
+      "nombre": "Auxiliar (Supervisor de Zona)",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 37,
+    "codigo_json": "2.1.2.1",
+    "nombre_json": "Manual De Funciones Operario",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "78725948-8996-4255-a0ae-6c73e500fc93",
+      "codigo": "2.1.2.1",
+      "nombre": "Manual De Funciones Operario",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 38,
+    "codigo_json": "2.1.2.2",
+    "nombre_json": "Manual De Funciones Conductor",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "2c64080b-4454-466f-985f-967c07bf4a04",
+      "codigo": "2.1.2.2",
+      "nombre": "Manual De Funciones Conductor",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 39,
+    "codigo_json": "2.1.3",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "70278f38-be7e-4e1c-b9b0-c01b26d9b9a9",
+      "codigo": "2.1.3",
+      "nombre": "Analista Programador Logistico",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 40,
+    "codigo_json": "2.1.4",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "1534aa15-2aa3-43e7-974e-be42d48347de",
+      "codigo": "2.1.4",
+      "nombre": "Analista Mantenimiento",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 41,
+    "codigo_json": "2.1.5",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "0bad1c61-662e-442b-9b75-725b63099506",
+      "codigo": "2.1.5",
+      "nombre": "Analista Seguridad y Control de Trafico",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 42,
+    "codigo_json": "MAN-GH-32",
+    "nombre_json": "Manual De Funciones Coordinador de Proyectos Especiales",
+    "estado_json": "Revisión Técnica",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "da702f61-e7c6-45f3-8c05-93c0a5db0f3a",
+      "codigo": "MAN-GH-32",
+      "nombre": "Manual De Funciones Coordinador de Proyectos Especiales",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "ed7964a2-962f-478f-933d-5d84893ec1c8",
+      "estado_nombre": "Revisión Técnica"
+    }
+  },
+  {
+    "row": 43,
+    "codigo_json": "2.2.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "32ad3fba-16ca-4d0b-9f65-1717f42c9770",
+      "codigo": "2.2.1",
+      "nombre": "Analista Proyectos Especiales",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 44,
+    "codigo_json": "2.2.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "588dcd28-fb3b-4479-966a-a8afafcb897a",
+      "codigo": "2.2.2",
+      "nombre": "Lider In House",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 45,
+    "codigo_json": "2.2.1.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "6697f32d-b2d8-426a-a56d-eddf8da35804",
+      "codigo": "2.2.1.1",
+      "nombre": "Lideres Proyectos",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 46,
+    "codigo_json": "2.2.1.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "604f92e1-da05-4146-b14b-3063a4568add",
+      "codigo": "2.2.1.2",
+      "nombre": "Analista",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 47,
+    "codigo_json": "2.2.1.3",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "a981ee52-18eb-4faa-8ce3-2a873e6421f9",
+      "codigo": "2.2.1.3",
+      "nombre": "Auxiliares Equipo Tecnico",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 48,
+    "codigo_json": "MAN-GH-31",
+    "nombre_json": null,
+    "estado_json": "Revisión Técnica",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "8eb301f7-0da2-4767-a802-6310f840fca1",
+      "codigo": "MAN-GH-31",
+      "nombre": "Profesional Operaciones",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "ed7964a2-962f-478f-933d-5d84893ec1c8",
+      "estado_nombre": "Revisión Técnica"
+    }
+  },
+  {
+    "row": 49,
+    "codigo_json": "2.3.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "cf651c52-2a5d-4bc0-932e-5cc87a93aba9",
+      "codigo": "2.3.1",
+      "nombre": "Auxiliar Administrativo",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 50,
+    "codigo_json": "2.3.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "b0bf1301-9f36-4535-a5c4-5febe9a47995",
+      "codigo": "2.3.2",
+      "nombre": "Auxiliar Bodega",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 51,
+    "codigo_json": "3",
+    "nombre_json": "Manual De Funciones Dirección Comercial",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "12866df3-2d05-485f-802d-8f082d4181d2",
+      "codigo": "3",
+      "nombre": "Manual De Funciones Dirección Comercial",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 52,
+    "codigo_json": "3.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "0db243db-13b6-45f9-8a37-45994873b32b",
+      "codigo": "3.1",
+      "nombre": "Profesional Comercial (Senior)",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 53,
+    "codigo_json": "3.1.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "1c7836c8-fe7d-4d3d-b455-58a2b6cc3a4a",
+      "codigo": "3.1.1",
+      "nombre": "Analista Comercial",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 54,
+    "codigo_json": "3.1.2",
+    "nombre_json": "Manual De Funciones Ejecutivo de Cuenta",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "d2dc47ae-4f47-4783-9626-684735d94441",
+      "codigo": "3.1.2",
+      "nombre": "Manual De Funciones Ejecutivo de Cuenta",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 55,
+    "codigo_json": "3.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "06ab0594-42fb-48e4-b513-7bd07e50b57e",
+      "codigo": "3.2",
+      "nombre": "Profesional  en Licitaciones",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 56,
+    "codigo_json": "3.2.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "66a28e43-c7b6-4aa6-b85c-bf5700b8b115",
+      "codigo": "3.2.1",
+      "nombre": "Analista Licitaciones",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 57,
+    "codigo_json": "3.2.2",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "0b25d0ef-85e7-475f-9fb5-c563322294b8",
+      "codigo": "3.2.2",
+      "nombre": "Analista de Costos",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 58,
+    "codigo_json": "3.2.3",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "368db5a6-bfa6-4bb8-bcfe-c08e126778df",
+      "codigo": "3.2.3",
+      "nombre": "Ejecutivo Comercial B2B / B2G",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 59,
+    "codigo_json": "3.3",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "008ea5c9-a8aa-4c38-acd4-33b3196256c0",
+      "codigo": "3.3",
+      "nombre": "Auxiliar Adminstrativo",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 60,
+    "codigo_json": "4",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "864e9d88-ea1f-41dd-9357-91f8e4d5c980",
+      "codigo": "4",
+      "nombre": "Direccion de Marketing",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 61,
+    "codigo_json": "4.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "257272b9-9f82-4b36-b113-d5bc5026c169",
+      "codigo": "4.1",
+      "nombre": "Especialista en Marketing Digital",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 62,
+    "codigo_json": "4.1.1",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "efe5d3f1-320f-4561-8759-8681a5f44610",
+      "codigo": "4.1.1",
+      "nombre": "Diseñador Gráfico / Multimedia",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 63,
+    "codigo_json": "4.1.2",
+    "nombre_json": "Community Manager",
+    "estado_json": "Estructuración",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "6790013d-4cee-4ff8-9f5a-65047f311b69",
+      "codigo": "4.1.2",
+      "nombre": "Community Manager",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f555194b-15c1-4a8a-b6e3-6c1e6e442d7a",
+      "estado_nombre": "Estructuración"
+    }
+  },
+  {
+    "row": 64,
+    "codigo_json": "4.1.3",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "34e77c9c-870c-4712-85d0-7fe8844b1ac2",
+      "codigo": "4.1.3",
+      "nombre": "Profesional SAC",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  },
+  {
+    "row": 65,
+    "codigo_json": "4.1.4",
+    "nombre_json": null,
+    "estado_json": "Sin iniciar",
+    "fechaRevision_json": null,
+    "db": {
+      "id": "6f386324-b2b3-46dd-ae99-09adc016281c",
+      "codigo": "4.1.4",
+      "nombre": "Asistente de Marketing",
+      "fechaRevision": null,
+      "estadoDocumental": "VIGENTE",
+      "estado_documental_id": "f1d6ea7d-492a-4c4e-80f7-965ee8a38e46",
+      "estado_nombre": "Sin iniciar"
+    }
+  }
+]

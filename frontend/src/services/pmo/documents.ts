@@ -1,8 +1,9 @@
-import { apiDelete, apiGet, apiPatch, apiPost } from '@/src/lib/api';
+import { apiDelete, apiGet, apiPatch, apiPost, apiPostForm } from '@/src/lib/api';
 
 type DocumentPayload = {
   nombre: string;
   codigo?: string;
+  codigoDependencia?: string;
   descripcion?: string;
   tipoId?: string;
   procesoId?: string;
@@ -20,8 +21,15 @@ type DocumentPayload = {
   activo?: boolean;
 };
 
-export async function getDocuments() {
-  return apiGet('/pmo/documents');
+export async function getDocuments(query?: Record<string, string>) {
+  const queryString = query
+    ? `?${new URLSearchParams(query).toString()}`
+    : '';
+  return apiGet(`/pmo/documents${queryString}`);
+}
+
+export async function getDocumentsDashboard() {
+  return apiGet('/pmo/documents/dashboard');
 }
 
 export async function createDocument(data: DocumentPayload) {
@@ -34,4 +42,14 @@ export async function updateDocument(id: string, data: Partial<DocumentPayload>)
 
 export async function deleteDocument(id: string) {
   return apiDelete(`/pmo/documents/${id}`);
+}
+
+export async function importDocuments(records: unknown[] | File) {
+  if (records instanceof File) {
+    const formData = new FormData();
+    formData.append('file', records, records.name);
+    return apiPostForm('/pmo/documents/import', formData);
+  }
+
+  return apiPost('/pmo/documents/import', records);
 }

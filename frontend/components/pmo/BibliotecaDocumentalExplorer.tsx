@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { createDocument, deleteDocument, updateDocument } from '@/src/services/pmo/documents';
 import DocumentFormModal from '@/src/components/pmo/DocumentFormModal';
 
@@ -18,6 +18,7 @@ type DocumentItem = {
   area?: string;
   areaId?: string;
   areaRef?: { id: string; nombre: string };
+  codigoDependencia?: string;
   estadoDocumental?: string;
   estadoDocumentalId?: string;
   estadoDocumentalRef?: { id: string; codigo: string; nombre: string };
@@ -32,6 +33,10 @@ type DocumentItem = {
   observaciones?: string;
   fuente?: string;
   activo?: boolean;
+  // calculated fields from backend
+  nextReview?: string | Date | null;
+  daysRemaining?: number | null;
+  estadoVigencia?: string | null;
 };
 
 type AreaItem = { id: string; nombre?: string; codigo?: string };
@@ -43,6 +48,7 @@ type UserItem = { id: string; nombre?: string; email?: string; role?: { nombre?:
 type FormState = {
   nombre: string;
   codigo: string;
+  codigoDependencia: string;
   descripcion: string;
   tipoId: string;
   procesoId: string;
@@ -64,6 +70,7 @@ type FormState = {
 const initialFormState: FormState = {
   nombre: '',
   codigo: '',
+  codigoDependencia: '',
   descripcion: '',
   tipoId: '',
   procesoId: '',
@@ -100,17 +107,16 @@ function formatDate(date?: string) {
 }
 
 function getStatusBadgeColor(estadoNombre?: string): string {
-  if (!estadoNombre) return 'bg-slate-100 text-slate-700';
-  
+  if (!estadoNombre) return 'badge badge--gray';
+
   const normalized = estadoNombre.toLowerCase();
-  if (normalized.includes('aprobado')) return 'bg-green-100 text-green-700';
-  if (normalized.includes('rechazado')) return 'bg-red-100 text-red-700';
-  if (normalized.includes('en revisión') || normalized.includes('en_revision') || normalized.includes('en revision')) return 'bg-slate-100 text-slate-700';
-  if (normalized.includes('vigente')) return 'bg-green-100 text-green-700';
-  if (normalized.includes('obsoleto')) return 'bg-red-100 text-red-700';
-  if (normalized.includes('archivado')) return 'bg-gray-100 text-gray-700';
-  
-  return 'bg-slate-100 text-slate-700';
+  if (normalized.includes('publicado') || normalized.includes('aprobado') || normalized.includes('vigente')) return 'badge badge--green';
+  if (normalized.includes('vencido') || normalized.includes('obsoleto') || normalized.includes('rechazado')) return 'badge badge--red';
+  if (normalized.includes('revisión') || normalized.includes('revision') || normalized.includes('en revisión') || normalized.includes('en_revision')) return 'badge badge--yellow';
+  if (normalized.includes('estructuracion') || normalized.includes('estructuración') || normalized.includes('estructura')) return 'badge badge--blue';
+  if (normalized.includes('sin') || normalized.includes('iniciar') || normalized.includes('sin iniciar')) return 'badge badge--gray';
+
+  return 'badge badge--gray';
 }
 
 function truncateText(text?: string, maxLength: number = 50): string {
@@ -119,16 +125,56 @@ function truncateText(text?: string, maxLength: number = 50): string {
   return text.substring(0, maxLength) + '...';
 }
 
+function highlightText(text?: string, q?: string): any {
+  if (!text) return '-';
+  if (!q) return text;
+  try {
+    const escaped = q.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&');
+    const parts = text.split(new RegExp(`(${escaped})`, 'ig'));
+    return parts.map((part, i) =>
+      part.toLowerCase() === q.toLowerCase() ? (
+        <mark key={i} className="search-highlight">{part}</mark>
+      ) : (
+        part
+      )
+    );
+  } catch (e) {
+    return text;
+  }
+}
+
 function getVigencyText(vigencia?: string): string {
-  if (vigencia === 'NO_VIGENTE') return 'No vigente';
+  if (vigencia === 'VENCIDO') return 'Vencido';
+  if (vigencia === 'PROXIMO_VENCER') return 'Próximo a vencer';
   if (vigencia === 'VIGENTE') return 'Vigente';
   return vigencia || 'Sin vigencia';
 }
 
 function getVigencyBadgeColor(vigencia?: string): string {
-  if (vigencia === 'VIGENTE') return 'bg-green-100 text-green-700';
-  if (vigencia === 'NO_VIGENTE') return 'bg-slate-100 text-slate-700';
-  return 'bg-slate-100 text-slate-700';
+  if (vigencia === 'VENCIDO') return 'badge badge--red';
+  if (vigencia === 'PROXIMO_VENCER') return 'badge badge--yellow';
+  if (vigencia === 'VIGENTE') return 'badge badge--green';
+  return 'badge badge--gray';
+}
+
+// Shade a hex color by percent (-100..100). Negative = darker, Positive = lighter.
+function shadeColor(hex: string, percent: number): string {
+  try {
+    let c = hex.replace('#', '');
+    if (c.length === 3) c = c.split('').map((x) => x + x).join('');
+    const num = parseInt(c, 16);
+    let r = (num >> 16) & 0xff;
+    let g = (num >> 8) & 0xff;
+    let b = num & 0xff;
+    const factor = (100 + percent) / 100;
+    r = Math.min(255, Math.max(0, Math.round(r * factor)));
+    g = Math.min(255, Math.max(0, Math.round(g * factor)));
+    b = Math.min(255, Math.max(0, Math.round(b * factor)));
+    const newHex = ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    return `#${newHex}`;
+  } catch (e) {
+    return hex;
+  }
 }
 
 export default function BibliotecaDocumentalExplorer({
@@ -140,7 +186,9 @@ export default function BibliotecaDocumentalExplorer({
   onRefresh,
   loading,
 }: Props) {
+  const [showProcessBreakdown, setShowProcessBreakdown] = useState(false);
   const [search, setSearch] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [filterTipoId, setFilterTipoId] = useState('');
   const [filterEstadoId, setFilterEstadoId] = useState('');
   const [filterAreaId, setFilterAreaId] = useState('');
@@ -152,36 +200,87 @@ export default function BibliotecaDocumentalExplorer({
   const [saving, setSaving] = useState(false);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(12);
-  const [sortBy, setSortBy] = useState<'codigo' | 'nombre' | 'tipo' | 'area' | 'proceso' | 'version' | 'descripcion' | 'enlace' | 'estadoDocumental' | 'responsable' | 'fechaCreacion' | 'fechaRevision' | 'activo'>('nombre');
+  type SortKey = 'codigo' | 'codigoDependencia' | 'nombre' | 'tipo' | 'area' | 'proceso' | 'version' | 'descripcion' | 'enlace' | 'estadoDocumental' | 'responsable' | 'fechaCreacion' | 'fechaRevision' | 'vigencia' | 'activo';
+  const [sortBy, setSortBy] = useState<SortKey>('nombre');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
   const normalizedDocuments = useMemo(() => {
-    return documents.map((doc) => ({
-      ...doc,
-      tipo: doc.tipoRef?.codigo || doc.tipoRef?.nombre || doc.tipo || 'Sin tipo',
-      tipoId: doc.tipoId || doc.tipoRef?.id || '',
-          estadoDocumental:
-        doc.estadoDocumentalRef?.codigo || doc.estadoDocumentalRef?.nombre || doc.estadoDocumental || 'Sin estado',
-      estadoDocumentalId: doc.estadoDocumentalId || doc.estadoDocumentalRef?.id || '',
-      vigencia: doc.vigencia || doc.estadoDocumental || 'VIGENTE',
-      area: doc.area || doc.areaRef?.nombre || 'Sin área',
-      areaId: doc.areaId || doc.areaRef?.id || '',
-      proceso: doc.proceso || doc.processRef?.nombre || 'Sin proceso',
-      procesoId: doc.procesoId || doc.processRef?.id || '',
-      responsableActualizacion: doc.responsableActualizacion || '',
-      responsableRevision: doc.responsableRevision || '',
-      responsable: [doc.responsableActualizacion, doc.responsableRevision].filter(Boolean).join(' / '),
-      activo: doc.activo ?? true,
-      fuente: doc.fuente || 'MANUAL',
-    } as DocumentItem));
+    return documents.map((doc) => {
+      // support different field names from imports
+      const rawNombre = (doc.nombre || (doc as any).nombre_documento || (doc as any).nombreDocumento || '').toString().trim();
+      const rawArea = (doc.area || doc.areaRef?.nombre || (doc as any).area_dependencia || (doc as any).areaDependencia || '').toString().trim();
+      const rawProceso = (doc.proceso || doc.processRef?.nombre || (doc as any).proceso_asociado || '').toString().trim();
+      const rawTipo = (doc.tipoRef?.nombre || doc.tipo || (doc as any).tipo_documento || (doc as any).tipoDocumento || '').toString().trim();
+
+      // If the name equals area/proceso/tipo (likely mis-mapped), treat as missing
+      let finalNombre: string | undefined = rawNombre || undefined;
+      if (finalNombre) {
+        const n = finalNombre.toLowerCase();
+        if ((rawArea && n === rawArea.toLowerCase()) || (rawProceso && n === rawProceso.toLowerCase()) || (rawTipo && n === rawTipo.toLowerCase())) {
+          finalNombre = undefined;
+        }
+      }
+
+      // handle codigo vs codigoDependencia: avoid showing codigoDependencia in codigo column
+      const rawCodigo = (doc.codigo || (doc as any).codigo_manual || (doc as any).codigoManual || '').toString().trim();
+      const rawCodigoDependencia = (doc.codigoDependencia || (doc as any).codigo_dependencia || '').toString().trim();
+      const finalCodigo = rawCodigo && rawCodigo !== rawCodigoDependencia ? rawCodigo : '';
+
+      return ({
+        ...doc,
+        nombre: finalNombre || 'por asignar',
+        codigo: finalCodigo,
+        tipo: doc.tipoRef?.codigo || doc.tipoRef?.nombre || doc.tipo || (doc as any).tipo_documento || (doc as any).tipoDocumento || 'Sin tipo',
+        tipoId: doc.tipoId || doc.tipoRef?.id || (doc as any).tipo_id || '',
+        estadoDocumental:
+          doc.estadoDocumentalRef?.nombre || doc.estadoDocumentalRef?.codigo || doc.estadoDocumental || (doc as any).estado_documento || 'Sin estado',
+        estadoDocumentalId: doc.estadoDocumentalId || doc.estadoDocumentalRef?.id || '',
+        vigencia: doc.estadoVigencia || doc.vigencia || undefined,
+        area: rawArea || 'Sin área',
+        areaId: doc.areaId || doc.areaRef?.id || '',
+        codigoDependencia: rawCodigoDependencia || '',
+        proceso: rawProceso || 'Sin proceso',
+        procesoId: doc.procesoId || doc.processRef?.id || '',
+        responsableActualizacion: doc.responsableActualizacion || (doc as any).responsable || '',
+        responsableRevision: doc.responsableRevision || '',
+        responsable: doc.responsable || (doc as any).responsable || [doc.responsableActualizacion, doc.responsableRevision].filter(Boolean).join(' / ') || 'Sin asignar',
+        activo: doc.activo ?? true,
+        fuente: doc.fuente || 'MANUAL',
+      } as DocumentItem);
+    });
   }, [documents]);
+
+  const alerts = useMemo(() => {
+    let vencidos = 0;
+    let proximos = 0;
+    let sinResponsable = 0;
+    let sinCodigo = 0;
+    let sinEnlace = 0;
+
+    normalizedDocuments.forEach((d) => {
+      const days = typeof d.daysRemaining === 'number' ? d.daysRemaining : undefined;
+      if (days !== undefined) {
+        if (days < 0) vencidos += 1;
+        else if (days <= 30) proximos += 1;
+      }
+      if (!d.responsableActualizacion && !d.responsableRevision) sinResponsable += 1;
+      if (!d.codigo) sinCodigo += 1;
+      if (!d.enlace) sinEnlace += 1;
+    });
+
+    return { vencidos, proximos, sinResponsable, sinCodigo, sinEnlace };
+  }, [normalizedDocuments]);
 
   const filteredDocuments = useMemo(() => {
     return normalizedDocuments
       .filter((doc) => {
-        const query = `${doc.codigo || ''} ${doc.nombre} ${doc.area || ''} ${doc.proceso || ''} ${doc.tipo || ''} ${doc.estadoDocumental || ''} ${doc.responsableActualizacion || ''} ${doc.responsableRevision || ''}`.toLowerCase();
+        const query = `${doc.codigo || ''} ${doc.codigoDependencia || ''} ${doc.nombre} ${doc.area || ''} ${doc.proceso || ''} ${doc.tipo || ''} ${doc.estadoDocumental || ''} ${doc.responsable || ''}`.toLowerCase();
         const matchesSearch = !search || query.includes(search.toLowerCase());
-        const matchesTipo = !filterTipoId || doc.tipoId === filterTipoId;
+        const selectedTipoName = documentTypes.find((t) => t.id === filterTipoId)?.nombre;
+        const matchesTipo =
+          !filterTipoId ||
+          doc.tipoId === filterTipoId ||
+          (selectedTipoName && String(doc.tipo).toLowerCase() === String(selectedTipoName).toLowerCase());
         const matchesEstado = !filterEstadoId || doc.estadoDocumentalId === filterEstadoId;
         const matchesArea = !filterAreaId || doc.areaId === filterAreaId;
         const matchesActive =
@@ -192,14 +291,58 @@ export default function BibliotecaDocumentalExplorer({
         return matchesSearch && matchesTipo && matchesEstado && matchesArea && matchesActive;
       })
       .sort((a, b) => {
-        const aValue = ((a as any)[sortBy] ?? '').toString();
-        const bValue = ((b as any)[sortBy] ?? '').toString();
+        const aValue = String((a as Record<string, unknown>)[sortBy] ?? '');
+        const bValue = String((b as Record<string, unknown>)[sortBy] ?? '');
         return sortDirection === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
       });
   }, [normalizedDocuments, search, filterTipoId, filterEstadoId, filterAreaId, filterActive, sortBy, sortDirection]);
 
   const pageCount = Math.max(1, Math.ceil(filteredDocuments.length / rowsPerPage));
   const visibleDocuments = filteredDocuments.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+
+  // Debounce the visible search input to avoid excessive filtering on rapid typing
+  useEffect(() => {
+    const t = setTimeout(() => setSearch(searchQuery.trim()), 280);
+    return () => clearTimeout(t);
+  }, [searchQuery]);
+
+  const vigencyCounts = useMemo(() => {
+    let vigente = 0;
+    let proximo = 0;
+    let vencido = 0;
+    normalizedDocuments.forEach((d) => {
+      if (d.vigencia === 'VENCIDO') vencido += 1;
+      else if (d.vigencia === 'PROXIMO_VENCER') proximo += 1;
+      else vigente += 1;
+    });
+    return { vigente, proximo, vencido };
+  }, [normalizedDocuments]);
+
+  const reviewCounts = useMemo(() => {
+    let notStarted = 0;
+    let structuring = 0;
+    let revision = 0;
+    normalizedDocuments.forEach((d) => {
+      const s = (d.estadoDocumental || '').toLowerCase();
+      if (s.includes('sin iniciar') || s.includes('sin') && s.includes('iniciar') || s.includes('no iniciado')) notStarted += 1;
+      else if (s.includes('estructur') || s.includes('estructura')) structuring += 1;
+      else if (s.includes('revisión') || s.includes('revision') || s.includes('técnica') || s.includes('tecnica') || s.includes('directiva')) revision += 1;
+      else {
+        // fallback: if estado mentions 'revis' treat as revision
+        if (s.includes('revis')) revision += 1;
+      }
+    });
+    return { notStarted, structuring, revision };
+  }, [normalizedDocuments]);
+
+  const processCounts = useMemo(() => {
+    const map = new Map<string, number>();
+    normalizedDocuments.forEach((d) => {
+      const key = d.proceso || 'Sin proceso';
+      map.set(key, (map.get(key) || 0) + 1);
+    });
+    return Array.from(map.entries()).map(([label, count]) => ({ label, count })).sort((a, b) => b.count - a.count);
+  }, [normalizedDocuments]);
 
   const selectedDocument = selectedDocumentId
     ? normalizedDocuments.find((doc) => doc.id === selectedDocumentId) || null
@@ -226,6 +369,7 @@ export default function BibliotecaDocumentalExplorer({
         : 'VIGENTE',
       fechaCreacion: doc.fechaCreacion ? doc.fechaCreacion.split('T')[0] : '',
       fechaRevision: doc.fechaRevision ? doc.fechaRevision.split('T')[0] : '',
+      codigoDependencia: doc.codigoDependencia || '',
       observaciones: doc.observaciones || '',
       enlace: doc.enlace || '',
       fuente: doc.fuente || 'MANUAL',
@@ -294,6 +438,7 @@ export default function BibliotecaDocumentalExplorer({
     const payload = {
       nombre: formState.nombre,
       codigo: formState.codigo,
+      codigoDependencia: formState.codigoDependencia || undefined,
       descripcion: formState.descripcion || undefined,
       tipoId: formState.tipoId,
       procesoId: formState.procesoId,
@@ -379,106 +524,152 @@ export default function BibliotecaDocumentalExplorer({
   };
 
   const rowClass = (doc: DocumentItem) =>
-    selectedDocumentId === doc.id
+    (selectedDocumentId === doc.id
       ? 'border border-[#C89B2A] bg-[#FEF3C7]'
-      : 'border-b border-slate-200 hover:bg-slate-50';
+      : 'border-b border-slate-200 hover:bg-slate-50') +
+    (typeof doc.daysRemaining === 'number' && doc.daysRemaining < 0
+      ? ' bg-rose-50'
+      : typeof doc.daysRemaining === 'number' && doc.daysRemaining <= 30
+      ? ' bg-amber-50'
+      : (!doc.responsableActualizacion && !doc.responsableRevision)
+      ? ' bg-yellow-50'
+      : '');
 
   return (
     <div className="space-y-6">
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <p className="text-sm font-semibold text-slate-900">Filtros principales</p>
-            <p className="mt-1 text-sm text-slate-500">Busca por documento, tipo, estado, área o responsable.</p>
+      <div className="flex items-center justify-between">
+        <div />
+        <div className="flex items-center gap-3">
+          <button onClick={handleNewDocument} className="btn btn--primary">+ Nuevo documento</button>
+        </div>
+      </div>
+
+      <div className="pmo-kpi-row">
+        <div className="kpi-card">
+          <div className="left">
+            <div className="meta"><div className="num">{normalizedDocuments.length}</div><div className="label">Documentos</div></div>
           </div>
-          <button onClick={handleNewDocument} className="rounded-2xl bg-[#C89B2A] px-4 py-2 text-sm font-semibold text-white shadow-sm">
-            + Nuevo documento
-          </button>
+          <div className="badge badge--gray">Total</div>
+        </div>
+        <div className="kpi-card">
+          <div className="left">
+            <div className="meta"><div className="num">{vigencyCounts.vigente}</div><div className="label">Vigentes</div></div>
+          </div>
+          <div className="badge badge--green">Vigente</div>
+        </div>
+        <div className="kpi-card">
+          <div className="left">
+            <div className="meta"><div className="num">{vigencyCounts.proximo}</div><div className="label">Próximo a vencer</div></div>
+          </div>
+          <div className="badge badge--yellow">Próximo</div>
+        </div>
+        <div className="kpi-card">
+          <div className="left">
+            <div className="meta"><div className="num">{alerts.vencidos}</div><div className="label">Vencidos</div></div>
+          </div>
+          <div className="badge badge--red">Vencidos</div>
+        </div>
+      </div>
+
+      {/* toolbar moved below, directly above the table for better UX */}
+      {(search || filterTipoId || filterEstadoId || filterAreaId) && (
+        <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+          <span className="font-semibold">Filtros activos:</span>
+          {search && <span className="badge badge--gray">Buscar: {search}</span>}
+          {filterTipoId && <span className="badge badge--blue">Tipo: {documentTypes.find((t) => t.id === filterTipoId)?.nombre || filterTipoId}</span>}
+          {filterEstadoId && <span className="badge badge--blue">Estado: {documentStatuses.find((s) => s.id === filterEstadoId)?.nombre || filterEstadoId}</span>}
+          {filterAreaId && <span className="badge badge--blue">Área: {areas.find((a) => a.id === filterAreaId)?.nombre || filterAreaId}</span>}
+        </div>
+      )}
+
+      <div className="mb-6 px-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4">
+            <h4 className="text-sm font-semibold mb-2">No iniciados</h4>
+            <div className="text-3xl font-bold">{reviewCounts.notStarted}</div>
+            <div className="text-xs text-slate-500 mt-1">Documentos sin inicio de proceso</div>
+          </div>
+          <div className="rounded-2xl border border-slate-200 bg-white p-4">
+            <h4 className="text-sm font-semibold mb-2">En estructuración</h4>
+            <div className="text-3xl font-bold">{reviewCounts.structuring}</div>
+            <div className="text-xs text-slate-500 mt-1">Documentos en fase de estructuración</div>
+          </div>
+          <div className="rounded-2xl border border-slate-200 bg-white p-4">
+            <h4 className="text-sm font-semibold mb-2">Revisión</h4>
+            <div className="text-3xl font-bold">{reviewCounts.revision}</div>
+            <div className="text-xs text-slate-500 mt-1">Incluye revisión técnica y directiva</div>
+          </div>
         </div>
 
-        <div className="mt-6 grid gap-4 xl:grid-cols-5">
-          <label className="space-y-2 text-sm text-slate-700">
-            <span>Buscar</span>
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Código, nombre, línea de negocio..."
-              className="w-full rounded-2xl border border-slate-300 px-4 py-3"
-            />
-          </label>
-          <label className="space-y-2 text-sm text-slate-700">
-            <span>Tipo documental</span>
-            <select
-              value={filterTipoId}
-              onChange={(e) => setFilterTipoId(e.target.value)}
-              className="w-full rounded-2xl border border-slate-300 px-4 py-3"
-            >
-              <option value="">Todos</option>
-              {documentTypes.map((type) => (
-                <option key={type.id} value={type.id}>
-                  {type.codigo || type.nombre}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="space-y-2 text-sm text-slate-700">
-            <span>Estado documental</span>
-            <select
-              value={filterEstadoId}
-              onChange={(e) => setFilterEstadoId(e.target.value)}
-              className="w-full rounded-2xl border border-slate-300 px-4 py-3"
-            >
-              <option value="">Todos</option>
-              {documentStatuses.map((status) => (
-                <option key={status.id} value={status.id}>
-                  {status.codigo || status.nombre}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="space-y-2 text-sm text-slate-700">
-            <span>Área</span>
-            <select
-              value={filterAreaId}
-              onChange={(e) => setFilterAreaId(e.target.value)}
-              className="w-full rounded-2xl border border-slate-300 px-4 py-3"
-            >
-              <option value="">Todas</option>
-              {areas.map((area) => (
-                <option key={area.id} value={area.id}>
-                  {area.nombre || area.codigo}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
+        <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h4 className="text-sm font-semibold">Resumen: estado de revisión</h4>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowProcessBreakdown((v) => !v)}
+                className="text-sm rounded-full border px-3 py-1 bg-slate-50 hover:bg-slate-100 transition"
+                aria-pressed={showProcessBreakdown}
+              >
+                {showProcessBreakdown ? 'Ocultar desglose por proceso' : 'Desglose por proceso'}
+              </button>
+            </div>
+          </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          {['ALL', 'ACTIVO', 'INACTIVO'].map((value) => (
-            <button
-              key={value}
-              onClick={() => setFilterActive(value as 'ALL' | 'ACTIVO' | 'INACTIVO')}
-              className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
-                filterActive === value
-                  ? 'border-[#C89B2A] bg-[#FEF3C7] text-[#92400E]'
-                  : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-              }`}
-            >
-              {value === 'ALL' ? 'Todos' : value === 'ACTIVO' ? 'Activos' : 'Inactivos'}
-            </button>
-          ))}
-          <button
-            onClick={() => {
-              setSearch('');
-              setFilterTipoId('');
-              setFilterEstadoId('');
-              setFilterAreaId('');
-              setFilterActive('ALL');
-            }}
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-700"
-          >
-            Limpiar filtros
-          </button>
+          {!showProcessBreakdown ? (
+            <div>
+              <div className="flex items-center gap-6 mb-4 text-sm text-slate-600">
+                <div className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full" style={{ background: '#6B7280' }} /> No iniciado</div>
+                <div className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full" style={{ background: '#15803D' }} /> Revisión</div>
+                <div className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full" style={{ background: '#FB923C' }} /> Estructuración</div>
+              </div>
+
+              <div className="flex items-end gap-6 h-32 mt-1 justify-between px-8">
+                {(() => {
+                  const max = Math.max(reviewCounts.notStarted, reviewCounts.structuring, reviewCounts.revision, 1);
+                  const items = [
+                    { label: 'No iniciado', value: reviewCounts.notStarted, color: '#6B7280' },
+                    { label: 'Revisión', value: reviewCounts.revision, color: '#15803D' },
+                    { label: 'Estructuración', value: reviewCounts.structuring, color: '#FB923C' },
+                  ];
+                  return items.map((it) => {
+                    const pct = it.value > 0 ? (it.value / max) * 100 : 6;
+                    const height = `${Math.max(pct, 8)}%`;
+                    const opacity = it.value > 0 ? 1 : 0.35;
+                    return (
+                      <div key={it.label} className="flex-1 flex flex-col items-center px-2">
+                        <div className="text-sm font-semibold mb-1 text-slate-800">{it.value}</div>
+                        <div className="w-full h-24 flex items-end justify-center">
+                          <div
+                            role="img"
+                            aria-label={`${it.label}: ${it.value}`}
+                            style={{ height, background: `linear-gradient(180deg, ${it.color}, ${shadeColor(it.color, -12)})`, opacity }}
+                            className="w-12 rounded-lg border border-slate-200 shadow-sm transform transition-transform hover:scale-105"
+                          />
+                        </div>
+                        <div className="mt-2 text-xs text-slate-600 text-center">{it.label}</div>
+                      </div>
+                    );
+                  });
+                })()}
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {(() => {
+                const top = processCounts.slice(0, 6);
+                const max = top.length ? Math.max(...top.map((t) => t.count)) : 1;
+                return top.map((p) => (
+                  <div key={p.label} className="flex items-center gap-3">
+                    <div className="text-sm text-slate-700 w-40 truncate">{p.label}</div>
+                    <div className="flex-1 bg-slate-100 h-3 rounded overflow-hidden">
+                      <div style={{ width: `${(p.count / max) * 100}%`, background: '#C89B2A' }} className="h-3 rounded" />
+                    </div>
+                    <div className="text-sm w-10 text-right font-semibold">{p.count}</div>
+                  </div>
+                ));
+              })()}
+            </div>
+          )}
         </div>
       </div>
 
@@ -494,121 +685,175 @@ export default function BibliotecaDocumentalExplorer({
                 </p>
               )}
             </div>
-            <div className="flex flex-wrap items-center gap-2">
-              {selectedDocument && (
-                <>
-                  <button
-                    onClick={handleOpenEdit}
-                    className="rounded-2xl bg-[#C89B2A] px-4 py-2 text-sm font-semibold text-white shadow-sm"
-                  >
-                    Editar documento
-                  </button>
-                  <button
-                    onClick={handleDelete}
-                    className="rounded-2xl border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
-                  >
-                    Eliminar documento
-                  </button>
-                </>
-              )}
-              <span className="text-sm text-slate-600">Página {page} de {pageCount}</span>
-              <button
-                onClick={() => handlePageChange(page - 1)}
-                disabled={page === 1}
-                className="rounded-2xl border border-slate-200 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
-              >Anterior</button>
-              <button
-                onClick={() => handlePageChange(page + 1)}
-                disabled={page === pageCount}
-                className="rounded-2xl border border-slate-200 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
-              >Siguiente</button>
+            <div className="flex gap-3 items-center">
+              <div className="text-sm text-slate-600">Alertas:</div>
+              <div className="flex gap-2">
+                <div className="badge badge--red">Vencidos: {alerts.vencidos}</div>
+                <div className="badge badge--yellow">Próx: {alerts.proximos}</div>
+                <div className="badge badge--yellow">Sin resp.: {alerts.sinResponsable}</div>
+                <div className="badge badge--gray">Sin código: {alerts.sinCodigo}</div>
+                <div className="badge badge--gray">Sin enlace: {alerts.sinEnlace}</div>
+              </div>
+              <div className="ml-4 flex items-center gap-3">
+                <div className="text-sm text-slate-600">Distribución</div>
+                <div className="w-40 h-4 rounded overflow-hidden bg-slate-100 border border-slate-100">
+                  {(() => {
+                    const total = vigencyCounts.vigente + vigencyCounts.proximo + vigencyCounts.vencido || 1;
+                    const w1 = (vigencyCounts.vigente / total) * 100;
+                    const w2 = (vigencyCounts.proximo / total) * 100;
+                    const w3 = (vigencyCounts.vencido / total) * 100;
+                    return (
+                      <div className="flex h-full">
+                        <div style={{ width: `${w1}%`, background: '#D1FAE5' }} />
+                        <div style={{ width: `${w2}%`, background: '#FFF3CD' }} />
+                        <div style={{ width: `${w3}%`, background: '#FCAEAE' }} />
+                      </div>
+                    );
+                  })()}
+                </div>
+                <div className="text-xs text-slate-500">{vigencyCounts.vigente} / {vigencyCounts.proximo} / {vigencyCounts.vencido}</div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                {selectedDocument && (
+                  <>
+                    <button
+                      onClick={handleOpenEdit}
+                      className="rounded-2xl bg-[#C89B2A] px-4 py-2 text-sm font-semibold text-white shadow-sm"
+                    >
+                      Editar documento
+                    </button>
+                    <button
+                      onClick={handleDelete}
+                      className="rounded-2xl border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
+                    >
+                      Eliminar documento
+                    </button>
+                  </>
+                )}
+                <span className="text-sm text-slate-600">Página {page} de {pageCount}</span>
+                <button
+                  onClick={() => handlePageChange(page - 1)}
+                  disabled={page === 1}
+                  className="rounded-2xl border border-slate-200 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
+                >Anterior</button>
+                <button
+                  onClick={() => handlePageChange(page + 1)}
+                  disabled={page === pageCount}
+                  className="rounded-2xl border border-slate-200 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
+                >Siguiente</button>
+              </div>
             </div>
           </div>
+          {/* Filters & search placed above the table for better UX */}
+          <div className="toolbar flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 mb-4">
+            <div className="flex items-center gap-2 p-2 rounded-2xl bg-slate-50 relative flex-1 min-w-[260px]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M7 12h10M10 18h4" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <input aria-label="Buscar documentos" placeholder="Buscar documentos" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} className="bg-transparent outline-none flex-1" />
+              {searchQuery && (
+                <button aria-label="Limpiar búsqueda" onClick={() => { setSearchQuery(''); setSearch(''); }} className="ml-2 text-slate-400 hover:text-slate-600">✕</button>
+              )}
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <select value={filterTipoId} onChange={(e)=>setFilterTipoId(e.target.value)} className="rounded-2xl border border-slate-200 px-3 py-2 bg-white">
+                <option value="">Tipo</option>
+                {documentTypes.map(t=> <option key={t.id} value={t.id}>{t.nombre}</option>)}
+              </select>
+              <select value={filterEstadoId} onChange={(e)=>setFilterEstadoId(e.target.value)} className="rounded-2xl border border-slate-200 px-3 py-2 bg-white">
+                <option value="">Estado</option>
+                {documentStatuses.map(s=> <option key={s.id} value={s.id}>{s.nombre}</option>)}
+              </select>
+              <select value={filterAreaId} onChange={(e)=>setFilterAreaId(e.target.value)} className="rounded-2xl border border-slate-200 px-3 py-2 bg-white">
+                <option value="">Área</option>
+                {areas.map(a=> <option key={a.id} value={a.id}>{a.nombre}</option>)}
+              </select>
+            </div>
+            <div className="ml-auto flex items-center gap-2">
+              <button className="btn btn--secondary" onClick={()=>{setSearch(''); setSearchQuery(''); setFilterTipoId(''); setFilterEstadoId(''); setFilterAreaId('');}}>Limpiar</button>
+            </div>
+          </div>
+
           <div className="min-w-full overflow-x-auto">
-            <table className="min-w-full border-separate border-spacing-0 text-left text-sm">
+            <table className="pmo-table min-w-full border-separate border-spacing-0 text-left text-sm">
               <thead className="bg-slate-50 text-slate-500">
                 <tr>
                   {[
-                    { label: 'Código', key: 'codigo' },
+                    { label: 'Código manual', key: 'codigo' },
+                    { label: 'Código dependencia', key: 'codigoDependencia' },
                     { label: 'Nombre', key: 'nombre' },
                     { label: 'Tipo', key: 'tipo' },
                     { label: 'Proceso', key: 'proceso' },
                     { label: 'Área', key: 'area' },
-                    { label: 'Versión', key: 'version' },
-                    { label: 'Descripción', key: 'descripcion' },
-                    { label: 'Link', key: 'enlace' },
-                    { label: 'Estado', key: 'estadoDocumental' },
-                    { label: 'Responsables', key: 'responsable' },
-                    { label: 'Última actualización', key: 'fechaCreacion' },
-                    { label: 'Próxima revisión', key: 'fechaRevision' },
-                    { label: 'Vigencia', key: 'activo' },
+                    { label: 'Estado documental', key: 'estadoDocumental' },
+                    { label: 'Responsable', key: 'responsable' },
+                    { label: 'Creación', key: 'fechaCreacion' },
+                    { label: 'Última revisión', key: 'fechaRevision' },
+                    { label: 'Vigencia', key: 'vigencia' },
+                    { label: 'Drive', key: 'enlace' },
                   ].map((column) => (
-                    <th key={column.key} className="whitespace-nowrap border-b border-slate-200 px-4 py-3 font-medium text-slate-700">
-                      {column.key === 'acciones' ? (
-                        column.label
-                      ) : (
-                        <button type="button" onClick={() => setSortBy(column.key as any)} className="inline-flex items-center gap-2 hover:text-slate-900">
+                      <th key={column.key} className="whitespace-nowrap border-b border-slate-200 px-4 py-3 font-medium text-slate-700">
+                        <button type="button" onClick={() => setSortBy(column.key as SortKey)} className="inline-flex items-center gap-2 hover:text-slate-900">
                           {column.label}
                           {sortBy === column.key && <span className="text-xs text-slate-400">{sortDirection === 'asc' ? '▲' : '▼'}</span>}
                         </button>
-                      )}
-                    </th>
+                      </th>
                   ))}
                 </tr>
               </thead>
               <tbody className="bg-white">
                 {loading ? (
                   <tr>
-                    <td colSpan={13} className="px-4 py-12 text-center text-slate-600">Cargando documentos...</td>
+                    <td colSpan={12} className="px-4 py-12 text-center text-slate-600">Cargando documentos...</td>
                   </tr>
                 ) : visibleDocuments.length === 0 ? (
                   <tr>
-                    <td colSpan={13} className="px-4 py-12 text-center text-slate-600">No se encontraron documentos.</td>
+                    <td colSpan={12} className="px-4 py-12 text-center text-slate-600">No se encontraron documentos.</td>
                   </tr>
                 ) : (
                   visibleDocuments.map((doc) => (
                     <tr key={doc.id} className={rowClass(doc)} onClick={() => handleSelectDocument(doc)}>
-                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs font-mono">{doc.codigo || '-'}</td>
-                      <td className="px-4 py-4 font-semibold text-slate-900 max-w-xs truncate">{doc.nombre}</td>
-                      <td className="whitespace-nowrap px-4 py-4 text-slate-700">
-                        <span className="inline-block px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">
-                          {doc.tipo}
-                        </span>
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{doc.proceso}</td>
-                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{doc.area}</td>
-                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{doc.version || '-'}</td>
-                      <td className="px-4 py-4 text-slate-700 text-xs max-w-[220px]">
-                        {truncateText(doc.descripcion, 80)}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs max-w-[220px]">
-                        {doc.enlace ? (
-                          <a href={doc.enlace} target="_blank" rel="noreferrer" className="text-blue-600 underline">
-                            Ver enlace
-                          </a>
+                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs font-mono">{highlightText(doc.codigo, search)}</td>
+                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs font-mono">{highlightText(doc.codigoDependencia || 'Pendiente', search)}</td>
+                      <td className="px-4 py-4 font-semibold text-slate-900 max-w-xs truncate">
+                        {doc.nombre === 'por asignar' ? (
+                          <div className="flex items-center gap-2">
+                            <em className="text-slate-500 italic">por asignar</em>
+                            {doc.codigoDependencia && (
+                              <span className="text-xs font-mono px-2 py-0.5 bg-slate-100 rounded">{doc.codigoDependencia}</span>
+                            )}
+                          </div>
                         ) : (
-                          '-'
+                          highlightText(doc.nombre, search)
                         )}
                       </td>
+                      <td className="whitespace-nowrap px-4 py-4 text-slate-700">
+                        <span className="inline-block px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">
+                          {highlightText(doc.tipo, search)}
+                        </span>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{highlightText(doc.proceso, search)}</td>
+                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{highlightText(doc.area, search)}</td>
                       <td className="whitespace-nowrap px-4 py-4">
                         <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-medium ${getStatusBadgeColor(doc.estadoDocumental)}`}>
                           {doc.estadoDocumental}
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">
-                        <div className="space-y-1">
-                          <div>{doc.responsableActualizacion || '-'}</div>
-                          <div className="text-[11px] text-slate-500">Actualización</div>
-                          <div>{doc.responsableRevision || '-'}</div>
-                          <div className="text-[11px] text-slate-500">Revisión / Aprobación</div>
-                        </div>
-                      </td>
+                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{highlightText(doc.responsable, search)}</td>
                       <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{formatDate(doc.fechaCreacion)}</td>
                       <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{formatDate(doc.fechaRevision)}</td>
                       <td className="whitespace-nowrap px-4 py-4">
                         <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-medium ${getVigencyBadgeColor(doc.vigencia)}`}>
                           {getVigencyText(doc.vigencia)}
                         </span>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">
+                        {doc.enlace ? (
+                          <a href={doc.enlace} target="_blank" rel="noreferrer" className="text-blue-600 underline">
+                            Abrir
+                          </a>
+                        ) : (
+                          <span className="text-slate-500">Sin enlace</span>
+                        )}
                       </td>
                     </tr>
                   ))
@@ -617,7 +862,6 @@ export default function BibliotecaDocumentalExplorer({
             </table>
           </div>
         </div>
-
       </div>
 
       <DocumentFormModal

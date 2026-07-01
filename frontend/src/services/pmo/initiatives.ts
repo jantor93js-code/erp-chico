@@ -56,7 +56,7 @@ export async function createInitiative(
 
 export async function updateInitiative(
   id: string,
-  data: any,
+  data: unknown,
 ) {
 
   const res = await fetch(

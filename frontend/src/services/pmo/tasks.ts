@@ -6,7 +6,7 @@ const BACKEND_TASK_TIPOS = ['PROCEDIMIENTO', 'INSTRUCTIVO', 'MANUAL', 'FORMATO',
 
 type BackendTaskTipo = (typeof BACKEND_TASK_TIPOS)[number];
 
-function toBackendTaskTipo(value: any): BackendTaskTipo | undefined {
+function toBackendTaskTipo(value: unknown): BackendTaskTipo | undefined {
   if (!value) return undefined;
   const normalized = String(value).toUpperCase();
   if (BACKEND_TASK_TIPOS.includes(normalized as BackendTaskTipo)) {
@@ -15,17 +15,19 @@ function toBackendTaskTipo(value: any): BackendTaskTipo | undefined {
   return 'ACTIVIDAD';
 }
 
-function buildPayload(data: any) {
+function buildPayload(data: unknown) {
   if (!data || typeof data !== 'object') return data;
 
-  const payload = { ...data };
+  const payload = { ...(data as Record<string, unknown>) };
 
-  if (payload.estado !== undefined) {
-    payload.estado = toBackendTaskEstado(payload.estado);
+  const estadoValue = payload.estado;
+  if (typeof estadoValue === 'string') {
+    payload.estado = toBackendTaskEstado(estadoValue);
   }
 
-  if (payload.tipo !== undefined) {
-    payload.tipo = toBackendTaskTipo(payload.tipo);
+  const tipoValue = payload.tipo;
+  if (tipoValue !== undefined) {
+    payload.tipo = toBackendTaskTipo(tipoValue);
   }
 
   if (payload.fechaInicio instanceof Date) {
@@ -61,14 +63,14 @@ export async function getTasks() {
     }
 
     const data = await res.json();
-    return (data ?? []).map((task: any) => normalizeTask(task));
+    return (data ?? []).map((task: unknown) => normalizeTask(task));
   } catch (err) {
     console.error('getTasks fetch failed', err);
     return [];
   }
 }
 
-export async function createTask(data: any) {
+export async function createTask(data: unknown) {
   const token = localStorage.getItem('token');
 
   const res = await fetch(`${API}/pmo/tasks`, {
@@ -112,7 +114,7 @@ export async function deleteTask(id: string) {
   return true;
 }
 
-export async function updateTask(id: string, data: any) {
+export async function updateTask(id: string, data: unknown) {
   const token = localStorage.getItem('token');
 
   const res = await fetch(`${API}/pmo/tasks/${id}`, {

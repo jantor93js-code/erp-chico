@@ -1,4 +1,4 @@
-import { IsBoolean, IsDateString, IsIn, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsBoolean, IsDateString, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class UpdateDocumentDto {
   @IsOptional()
@@ -12,6 +12,10 @@ export class UpdateDocumentDto {
   @IsOptional()
   @IsString()
   descripcion?: string;
+
+  @IsOptional()
+  @IsString()
+  codigoDependencia?: string;
 
   @IsOptional()
   @IsUUID()
@@ -30,7 +34,7 @@ export class UpdateDocumentDto {
   estadoDocumentalId?: string;
 
   @IsOptional()
-  @IsIn(['VIGENTE', 'NO_VIGENTE'])
+  @IsString()
   estadoDocumental?: string;
 
   @IsOptional()

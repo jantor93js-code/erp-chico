@@ -53,7 +53,7 @@ export async function
 
 export async function updateProgram(
   id: string,
-  data: any,
+  data: unknown,
 ) {
 
   const res = await fetch(

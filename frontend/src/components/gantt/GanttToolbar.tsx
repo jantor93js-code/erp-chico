@@ -4,7 +4,7 @@
 'use client';
 
 import React from 'react';
-import { GanttFilter, TimeScale, ViewMode } from './types';
+import { GanttActivityState, GanttFilter, GanttPriority, TimeScale, ViewMode } from './types';
 
 interface GanttToolbarProps {
   filters: GanttFilter;
@@ -154,7 +154,7 @@ export const GanttToolbar: React.FC<GanttToolbarProps> = ({
           <span>Agrupar</span>
           <select
             value={groupBy}
-            onChange={(e) => onGroupByChange?.(e.target.value as any)}
+            onChange={(e) => onGroupByChange?.((e.target as HTMLSelectElement).value as 'none' | 'cliente' | 'programa' | 'iniciativa' | 'proyecto' | 'responsable')}
             className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-[#C89B2A] focus:outline-none"
           >
             <option value="none">Sin agrupar</option>
@@ -170,7 +170,7 @@ export const GanttToolbar: React.FC<GanttToolbarProps> = ({
           <span>Ordenar</span>
           <select
             value={sortBy}
-            onChange={(e) => onSortByChange?.(e.target.value as any)}
+            onChange={(e) => onSortByChange?.((e.target as HTMLSelectElement).value as 'inicio' | 'fin' | 'nombre' | 'progreso')}
             className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-[#C89B2A] focus:outline-none"
           >
             <option value="inicio">Fecha de inicio</option>
@@ -226,7 +226,10 @@ export const GanttToolbar: React.FC<GanttToolbarProps> = ({
           </select>
           <select
             value={filters.estado || ''}
-            onChange={(e) => onFiltersChange({ ...filters, estado: (e.target.value as any) || undefined })}
+            onChange={(e) => {
+              const value = (e.target as HTMLSelectElement).value as GanttActivityState;
+              onFiltersChange({ ...filters, estado: value || undefined });
+            }}
             className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
           >
             <option value="">Todos los estados</option>
@@ -237,7 +240,10 @@ export const GanttToolbar: React.FC<GanttToolbarProps> = ({
           </select>
           <select
             value={filters.prioridad || ''}
-            onChange={(e) => onFiltersChange({ ...filters, prioridad: (e.target.value as any) || undefined })}
+            onChange={(e) => {
+              const value = (e.target as HTMLSelectElement).value as GanttPriority;
+              onFiltersChange({ ...filters, prioridad: value || undefined });
+            }}
             className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
           >
             <option value="">Todas las prioridades</option>

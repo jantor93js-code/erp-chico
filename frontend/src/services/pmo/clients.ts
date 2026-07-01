@@ -60,7 +60,7 @@ export async function createClient(
 
 export async function updateClient(
   id: string,
-  data: any,
+  data: unknown,
 ) {
 
   const res = await fetch(

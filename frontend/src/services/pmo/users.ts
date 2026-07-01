@@ -27,7 +27,7 @@ export async function getUsers() {
 
 
 export async function createUser(
-  data: any,
+  data: unknown,
 ) {
 
   const token =
@@ -58,7 +58,7 @@ export async function createUser(
 
 export async function updateUser(
   id: string,
-  data: any,
+  data: unknown,
 ) {
 
   const token =

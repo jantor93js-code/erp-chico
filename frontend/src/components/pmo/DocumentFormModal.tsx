@@ -6,6 +6,7 @@ type DocumentItem = {
   id: string;
   nombre: string;
   codigo?: string;
+  codigoDependencia?: string;
   descripcion?: string;
   tipo?: string;
   tipoId?: string;
@@ -41,6 +42,7 @@ type UserItem = { id: string; nombre?: string; email?: string; role?: { nombre?:
 type FormState = {
   nombre: string;
   codigo: string;
+  codigoDependencia: string;
   descripcion: string;
   tipoId: string;
   procesoId: string;
@@ -87,8 +89,6 @@ export default function DocumentFormModal({
   documentStatuses,
   saving,
 }: DocumentFormModalProps) {
-  if (!isOpen) return null;
-
   const [mouseDownStartedOnWrapper, setMouseDownStartedOnWrapper] = useState(false);
 
   const handleBackdropMouseDown = () => {
@@ -107,6 +107,16 @@ export default function DocumentFormModal({
   };
 
   const estadoDocumentalOptions = documentStatuses.map((s) => ({ value: s.codigo || s.nombre, label: s.nombre || s.codigo }));
+
+  const initialResponsable = formState.responsableActualizacion || formState.responsableRevision || '';
+
+  const handleResponsableChange = (value: string) => {
+    // Keep backward compatibility: set both fields to the same responsable
+    onFormChange('responsableActualizacion', value);
+    onFormChange('responsableRevision', value);
+  };
+
+  if (!isOpen) return null;
 
   return (
     <div
@@ -158,6 +168,16 @@ export default function DocumentFormModal({
                 value={formState.codigo}
                 onChange={(e) => onFormChange('codigo', e.target.value)}
                 placeholder="Ej: DOC-2026-001"
+                className="w-full rounded-2xl border border-slate-300 px-4 py-3 focus:border-[#C89B2A] focus:outline-none"
+              />
+            </label>
+
+            <label className="space-y-2 text-sm text-slate-700">
+              <span className="font-medium">Código dependencia</span>
+              <input
+                value={(formState as any).codigoDependencia || ''}
+                onChange={(e) => onFormChange('codigoDependencia' as any, e.target.value)}
+                placeholder="Ej: 1.5"
                 className="w-full rounded-2xl border border-slate-300 px-4 py-3 focus:border-[#C89B2A] focus:outline-none"
               />
             </label>
@@ -268,23 +288,14 @@ export default function DocumentFormModal({
             <h3 className="text-sm font-semibold text-slate-900">Responsables</h3>
             
             <label className="space-y-2 text-sm text-slate-700">
-              <span className="font-medium">Responsable de Actualización *</span>
+              <span className="font-medium">Responsable *</span>
               <input
-                value={formState.responsableActualizacion}
-                onChange={(e) => onFormChange('responsableActualizacion', e.target.value)}
+                value={initialResponsable}
+                onChange={(e) => handleResponsableChange(e.target.value)}
                 placeholder="Ej: Jorge Mendoza"
                 className="w-full rounded-2xl border border-slate-300 px-4 py-3 focus:border-[#C89B2A] focus:outline-none"
               />
-            </label>
-
-            <label className="space-y-2 text-sm text-slate-700">
-              <span className="font-medium">Responsable de Revisión/Aprobación *</span>
-              <input
-                value={formState.responsableRevision}
-                onChange={(e) => onFormChange('responsableRevision', e.target.value)}
-                placeholder="Ej: Gerente PMO"
-                className="w-full rounded-2xl border border-slate-300 px-4 py-3 focus:border-[#C89B2A] focus:outline-none"
-              />
+              <p className="text-xs text-slate-500">Se asignará como responsable de actualización y revisión.</p>
             </label>
           </div>
 
@@ -368,28 +379,11 @@ export default function DocumentFormModal({
               Documento seleccionado: <span className="font-semibold text-slate-900">{selectedDocument.nombre}</span>
             </div>
           )}
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-2xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-          >
-            Cancelar
-          </button>
+          <button type="button" onClick={onClose} className="btn btn--secondary">Cancelar</button>
           {selectedDocument && (
-            <button
-              type="button"
-              onClick={onDelete}
-              className="rounded-2xl border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
-            >
-              Eliminar
-            </button>
+            <button type="button" onClick={onDelete} className="btn btn--secondary" style={{borderColor:'rgba(239,68,68,0.08)', color:'#991b1b'}}>Eliminar</button>
           )}
-          <button
-            type="button"
-            onClick={onSave}
-            disabled={saving}
-            className="rounded-2xl bg-[#C89B2A] px-4 py-2 text-sm font-semibold text-white hover:bg-[#B8900E] disabled:cursor-not-allowed disabled:opacity-60"
-          >
+          <button type="button" onClick={onSave} disabled={saving} className="btn btn--primary">
             {saving ? 'Guardando...' : selectedDocument ? 'Actualizar documento' : 'Crear documento'}
           </button>
         </div>

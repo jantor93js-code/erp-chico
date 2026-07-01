@@ -3,7 +3,7 @@
  * Integra datos de Projects, Tasks, Clients, Programs, Initiatives
  */
 
-import { GanttActivity, GanttKPI, GanttFilter } from '@/src/components/gantt/types';
+import { GanttActivity, GanttActivityType, GanttKPI, GanttFilter, GanttPriority } from '@/src/components/gantt/types';
 import { getTasks } from '@/src/services/pmo/tasks';
 import { getClients } from '@/src/services/pmo/clients';
 import { getInitiatives } from '@/src/services/pmo/initiatives';
@@ -44,7 +44,37 @@ export async function getGanttActivities(filters?: GanttFilter): Promise<GanttAc
       }
     };
 
-    tasks.forEach((task: any, index: number) => {
+    type RawTask = {
+      id: string;
+      titulo?: string;
+      descripcion?: string;
+      tipo?: string;
+      estado?: string;
+      prioridad?: string;
+      fechaInicio?: string | number | Date;
+      fechaFin?: string | number | Date;
+      fechaLimite?: string | number | Date;
+      avance?: number;
+      proyecto?: {
+        id?: string;
+        nombre?: string;
+        iniciativa?: {
+          id?: string;
+          nombre?: string;
+          programa?: {
+            id?: string;
+            nombre?: string;
+            cliente?: { id?: string; nombre?: string };
+          };
+        };
+      };
+      responsableId?: string;
+      responsable?: { id?: string; nombre?: string; email?: string };
+      createdAt?: string | number | Date;
+      updatedAt?: string | number | Date;
+    };
+
+    tasks.forEach((task: RawTask, index: number) => {
       const startDate = task.fechaInicio ? new Date(task.fechaInicio) : new Date();
       const endDate = task.fechaFin ? new Date(task.fechaFin) : task.fechaLimite
         ? new Date(task.fechaLimite)
@@ -58,11 +88,11 @@ export async function getGanttActivities(filters?: GanttFilter): Promise<GanttAc
       const activity: GanttActivity = {
         id: task.id,
         wbs: `1.${index + 1}`,
-        nombre: task.titulo,
+        nombre: task.titulo || '',
         descripcion: task.descripcion,
-        tipo: task.tipo || 'ACTIVIDAD',
+        tipo: (task.tipo as GanttActivityType) || 'ACTIVIDAD',
         estado: normalizeGanttState(task.estado),
-        prioridad: task.prioridad || 'MEDIA',
+        prioridad: (task.prioridad as GanttPriority) || 'MEDIA',
 
         proyectoId: proyecto?.id,
         proyectoNombre: proyecto?.nombre,
@@ -84,7 +114,7 @@ export async function getGanttActivities(filters?: GanttFilter): Promise<GanttAc
       };
 
       if (activity.responsableId && users.length > 0) {
-        const responsable = users.find((u: any) => u.id === activity.responsableId);
+        const responsable = (users as Array<{ id?: string; nombre?: string; email?: string }>).find((u) => u.id === activity.responsableId);
         if (responsable) activity.responsableNombre = responsable.nombre || responsable.email;
       }
 
@@ -150,11 +180,12 @@ function shouldIncludeActivity(activity: GanttActivity, filters?: GanttFilter): 
 /**
  * Calcula el porcentaje de avance de una actividad
  */
-function calculateProgress(item: any): number {
-  if (item.avance !== undefined) return item.avance;
-  if (item.estado === 'COMPLETADO') return 100;
-  if (item.estado === 'EN_CURSO') return 50;
-  if (item.avance !== undefined) return item.avance;
+function calculateProgress(item: { avance?: number; estado?: string } | unknown): number {
+  const task = item as { avance?: number; estado?: string };
+  if (task.avance !== undefined) return task.avance;
+  if (task.estado === 'COMPLETADO') return 100;
+  if (task.estado === 'EN_CURSO') return 50;
+  if (task.avance !== undefined) return task.avance;
   return 0;
 }
 

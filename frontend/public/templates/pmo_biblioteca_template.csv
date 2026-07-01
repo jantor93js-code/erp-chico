@@ -1,0 +1,3 @@
+codigo_manual,codigo_dependencia,nombre_documento,tipo_documento,proceso_asociado,area_dependencia,estado_documento,responsable,fecha_creacion,fecha_ultima_revision,observaciones,enlace_drive
+DOC-2026-001,1.5,Manual de Procedimientos,Manual,Proceso A,Área Operaciones,VIGENTE,Jorge Mendoza,2024-01-01,2026-01-01,Versión inicial,https://drive.google.com/example
+DOC-2026-002,2.1,Política de Calidad,Política,Proceso B,Área Calidad,EN_REVISION,Maria Gomez,2023-06-15,2025-06-15,Revisión en curso,

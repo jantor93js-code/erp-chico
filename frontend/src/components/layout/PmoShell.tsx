@@ -7,15 +7,22 @@ import PmoSidebar from "@/src/components/layout/PmoSidebar";
 
 export default function PmoShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const [collapsed, setCollapsed] = useState(false);
-  const [ready, setReady] = useState(false);
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [ready, setReady] = useState<boolean>(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) { router.push("/pmo/login"); return; }
-    const saved = localStorage.getItem("pmoSidebarCollapsed");
-    if (saved) setCollapsed(saved === "true");
-    setReady(true);
+    /* eslint-disable react-hooks/set-state-in-effect */
+    const saved = window.localStorage.getItem('pmoSidebarCollapsed');
+    setCollapsed(saved === 'true');
+
+    const token = window.localStorage.getItem('token');
+    const isReady = Boolean(token);
+    setReady(isReady);
+    /* eslint-enable react-hooks/set-state-in-effect */
+
+    if (!isReady) {
+      router.push('/pmo/login');
+    }
   }, [router]);
 
   function toggle() {

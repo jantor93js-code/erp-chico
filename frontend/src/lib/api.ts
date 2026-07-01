@@ -51,6 +51,16 @@ export async function apiPost(endpoint: string, body: unknown) {
   );
 }
 
+export async function apiPostForm(endpoint: string, body: FormData) {
+  return handle(
+    await fetch(`${API_URL}${endpoint}`, {
+      method: 'POST',
+      headers: headers(),
+      body,
+    }),
+  );
+}
+
 export async function apiPatch(endpoint: string, body: unknown) {
   return handle(
     await fetch(`${API_URL}${endpoint}`, {

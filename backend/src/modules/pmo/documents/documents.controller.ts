@@ -6,7 +6,12 @@ import {
   Delete,
   Body,
   Param,
+  Query,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import * as multer from 'multer';
 import { DocumentsService } from './documents.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
 import { UpdateDocumentDto } from './dto/update-document.dto';
@@ -15,14 +20,33 @@ import { UpdateDocumentDto } from './dto/update-document.dto';
 export class DocumentsController {
   constructor(private readonly service: DocumentsService) {}
 
+  @Post('import')
+  @UseInterceptors(FileInterceptor('file', { storage: multer.memoryStorage() }))
+  async importFromJson(@Body() records: any[], @UploadedFile() file?: Express.Multer.File) {
+    try {
+      if (file) {
+        return await this.service.importFromFile(file);
+      }
+      return await this.service.importFromJson(records);
+    } catch (err: any) {
+      console.error('IMPORT ERROR:', err?.message ?? err, err?.stack ?? 'no-stack');
+      return {
+        statusCode: 500,
+        message: 'Import failed',
+        error: err?.message ?? String(err),
+        stack: err?.stack ?? undefined,
+      };
+    }
+  }
+
   @Post()
   create(@Body() dto: CreateDocumentDto) {
     return this.service.create(dto);
   }
 
   @Get()
-  findAll() {
-    return this.service.findAll();
+  findAll(@Query('activo') activo?: string) {
+    return this.service.findAll(activo);
   }
 
   @Get('dashboard')
