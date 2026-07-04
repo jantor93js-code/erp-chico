@@ -190,11 +190,12 @@ option {
   font-size: 0.75rem;
   font-weight: 600;
 }
-.badge--green { background: rgba(16,185,129,0.08); color: #047857; }
-.badge--yellow { background: rgba(245,158,11,0.08); color: #92400e; }
-.badge--blue { background: rgba(59,130,246,0.06); color: #1e40af; }
-.badge--gray { background: rgba(148,163,184,0.06); color: #475569; }
-.badge--red { background: rgba(239,68,68,0.06); color: #991b1b; }
+.badge--green { background: rgba(16,185,129,0.12); color: #065f46; }
+.badge--orange { background: rgba(249,115,22,0.12); color: #9a3412; }
+.badge--yellow { background: rgba(245,158,11,0.12); color: #78350f; }
+.badge--blue { background: rgba(59,130,246,0.12); color: #1e3a8a; }
+.badge--gray { background: rgba(148,163,184,0.08); color: #334155; }
+.badge--red { background: rgba(239,68,68,0.14); color: #7f1d1d; }
 
 /* Badge microinteractions */
 .badge{transition:transform .12s ease,box-shadow .12s ease}
@@ -202,6 +203,22 @@ option {
 
 /* Search highlight */
 .search-highlight{background:linear-gradient(90deg,#fff6d6,#fff9ef);padding:0 4px;border-radius:4px;color:inherit}
+
+.chart-panel {
+  transition: opacity .25s ease, transform .25s ease, max-height .25s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+.chart-panel.is-hidden {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(-8px);
+}
+.chart-panel.is-visible {
+  opacity: 1;
+  max-height: 1000px;
+}
 
 /* Table improvements */
 .pmo-table thead th {

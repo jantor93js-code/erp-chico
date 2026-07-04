@@ -1,0 +1,52 @@
+export type DocumentItem = {
+  id: string;
+  nombre?: string;
+  codigo?: string;
+  codigoDependencia?: string;
+  tipo?: string;
+  tipoId?: string;
+  proceso?: string;
+  procesoId?: string;
+  area?: string;
+  areaId?: string;
+  estadoDocumental?: string;
+  estadoDocumentalId?: string;
+  vigencia?: string;
+  responsableActualizacion?: string;
+  responsableRevision?: string;
+  responsable?: string;
+  enlace?: string;
+  fechaCreacion?: string;
+  fechaRevision?: string;
+  activo?: boolean;
+  version?: string;
+  descripcion?: string;
+  observaciones?: string;
+  fuente?: string;
+};
+
+export type AreaItem = { id: string; nombre?: string };
+export type ProcessItem = { id: string; nombre?: string };
+export type DocumentTypeItem = { id: string; nombre?: string };
+export type DocumentStatusItem = { id: string; nombre?: string };
+
+export type FormState = {
+  nombre: string;
+  codigo: string;
+  codigoDependencia: string;
+  descripcion: string;
+  tipoId: string;
+  procesoId: string;
+  areaId: string;
+  version: string;
+  responsableActualizacion: string;
+  responsableRevision: string;
+  estadoDocumentalState: string;
+  estadoDocumental: 'VIGENTE' | 'NO_VIGENTE';
+  fechaCreacion: string;
+  fechaRevision: string;
+  observaciones: string;
+  enlace: string;
+  fuente: string;
+  activo: boolean;
+};

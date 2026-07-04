@@ -1,0 +1,15 @@
+export type ContractError =
+  | 'missing-metadata'
+  | 'missing-catalogos'
+  | 'missing-documentos'
+  | 'metadata-missing-fechaGeneracion'
+  | 'metadata-missing-versionNormalizador'
+  | 'metadata-missing-versionTransformador'
+  | 'catalogos-missing-areas'
+  | 'catalogos-missing-procesos'
+  | 'catalogos-missing-tiposDocumentales'
+  | 'catalogos-missing-estados'
+  | 'catalogos-missing-responsablesActualizacion'
+  | 'catalogos-missing-responsablesRevision'
+  | 'catalogos-missing-codigosArea'
+  | 'documentos-not-array';
