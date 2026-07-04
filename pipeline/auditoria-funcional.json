@@ -1,0 +1,2514 @@
+{
+  "metadata": {
+    "fechaGeneracion": "2026-07-03T23:17:43.996892+00:00",
+    "versionAuditor": "auditor-funcional-1.0.0",
+    "archivoJsonPmo": "json-pmo.json",
+    "archivoReporteValidacion": "reporte-validacion.json",
+    "totalDocumentos": 300
+  },
+  "calidadEstructural": {
+    "porcentaje": 80.6,
+    "clasificacion": "Aceptable",
+    "criteriosEvaluados": [
+      "codigo",
+      "nombre",
+      "tipoDocumental",
+      "area",
+      "estado"
+    ],
+    "pregunta": "¿Los documentos pueden importarse?"
+  },
+  "calidadDocumental": {
+    "porcentaje": 12.33,
+    "clasificacion": "Critica",
+    "pregunta": "¿Que tan completos estan los documentos?",
+    "campos": {
+      "version": {
+        "evaluado": true,
+        "porcentajeCompleto": 7.0
+      },
+      "fechas": {
+        "evaluado": true,
+        "porcentajeCompleto": 7.0
+      },
+      "observaciones": {
+        "evaluado": true,
+        "porcentajeCompleto": 23.33
+      },
+      "responsables": {
+        "evaluado": true,
+        "porcentajeCompleto": 20.33
+      },
+      "vigencia": {
+        "evaluado": true,
+        "porcentajeCompleto": 4.0
+      },
+      "anexos": {
+        "evaluado": false,
+        "motivo": "Campo no existe en el modelo de origen (Excel no lo contempla)"
+      }
+    },
+    "nota": "Los campos marcados como 'No evaluado' no existen en el modelo de origen y no penalizan el indice."
+  },
+  "calidadRelacional": {
+    "porcentaje": 60.89,
+    "clasificacion": "Critica",
+    "pregunta": "¿Que tan preparados estan los documentos para integrarse al PMO?",
+    "camposEvaluados": {
+      "area": 85.0,
+      "proceso": 22.0,
+      "tipoDocumental": 100.0,
+      "responsables": 20.33,
+      "estados": 97.0,
+      "codigos": 41.0
+    },
+    "catalogosReferenciados": {
+      "areasDistintas": 66,
+      "procesosDistintos": 26,
+      "responsablesDistintos": 67,
+      "estadosDistintos": 8
+    }
+  },
+  "madurezDocumental": {
+    "reglas": {
+      "0": "Sin nombre.",
+      "1": "Nombre + tipo documental.",
+      "2": "Nivel 1 + codigo unico + area.",
+      "3": "Nivel 2 + estado + proceso.",
+      "4": "Nivel 3 + responsable + version.",
+      "5": "Nivel 4 + al menos una fecha + vigencia."
+    },
+    "distribucion": [
+      {
+        "nivel": 0,
+        "nombre": "Nivel 0 - Registro incompleto",
+        "cantidad": 58,
+        "porcentaje": 19.33
+      },
+      {
+        "nivel": 1,
+        "nombre": "Nivel 1 - Documento minimo",
+        "cantidad": 168,
+        "porcentaje": 56.0
+      },
+      {
+        "nivel": 2,
+        "nombre": "Nivel 2 - Documento identificado",
+        "cantidad": 10,
+        "porcentaje": 3.33
+      },
+      {
+        "nivel": 3,
+        "nombre": "Nivel 3 - Documento controlado",
+        "cantidad": 43,
+        "porcentaje": 14.33
+      },
+      {
+        "nivel": 4,
+        "nombre": "Nivel 4 - Documento gestionado",
+        "cantidad": 9,
+        "porcentaje": 3.0
+      },
+      {
+        "nivel": 5,
+        "nombre": "Nivel 5 - Documento listo para auditoria",
+        "cantidad": 12,
+        "porcentaje": 4.0
+      }
+    ],
+    "nivelPromedio": 1.38,
+    "documentosListosParaAuditoria": 12,
+    "porcentajeListosParaAuditoria": 4.0,
+    "detallePorDocumento": [
+      {
+        "codigoDocumento": "MAN‑GG‑01-0",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑GG‑02-01",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑GG‑03-0A",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 4,
+        "nivelNombre": "Nivel 4 - Documento gestionado",
+        "razon": "Tiene responsable y version, pero le falta trazabilidad temporal para auditoria (fecha/vigencia)."
+      },
+      {
+        "codigoDocumento": "MAN‑GG‑03-0B",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 4,
+        "nivelNombre": "Nivel 4 - Documento gestionado",
+        "razon": "Tiene responsable y version, pero le falta trazabilidad temporal para auditoria (fecha/vigencia)."
+      },
+      {
+        "codigoDocumento": "MAN‑GER‑03-0C",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑DAF‑01-1",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑DAF‑02-11",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑GH‑01-12",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑GH‑02-121",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 4,
+        "nivelNombre": "Nivel 4 - Documento gestionado",
+        "razon": "Tiene responsable y version, pero le falta trazabilidad temporal para auditoria (fecha/vigencia)."
+      },
+      {
+        "codigoDocumento": "MAN‑GH‑03-122",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑GH‑04-123",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑GH‑05-124",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑TES‑01-13",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑TES‑02-131",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑TES‑03-132",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑FAC‑01-14",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑FAC‑02-141",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑FAC‑03-142",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "MAN‑COMP‑01-15",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑COMP‑02-151",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑COMP‑03-152",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑PLAN‑01-16",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑PLAN‑02-161",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑SIG‑01-17",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑SIG‑02-171",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 4,
+        "nivelNombre": "Nivel 4 - Documento gestionado",
+        "razon": "Tiene responsable y version, pero le falta trazabilidad temporal para auditoria (fecha/vigencia)."
+      },
+      {
+        "codigoDocumento": "MAN‑TI‑01-18",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑TI‑02-181",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑TI‑03-182",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑01-2",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑02-21",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑03-211",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑04-212",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑05-2121",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 4,
+        "nivelNombre": "Nivel 4 - Documento gestionado",
+        "razon": "Tiene responsable y version, pero le falta trazabilidad temporal para auditoria (fecha/vigencia)."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑06-2122",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 4,
+        "nivelNombre": "Nivel 4 - Documento gestionado",
+        "razon": "Tiene responsable y version, pero le falta trazabilidad temporal para auditoria (fecha/vigencia)."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑07-213",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑08-214",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑09-215",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑PE‑01-22",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑PE‑02-221",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑PE‑03-222",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑PE‑04-2211",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑PE‑05-2212",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑PE‑06-2213",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑10-23",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 5,
+        "nivelNombre": "Nivel 5 - Documento listo para auditoria",
+        "razon": "Cumple todos los criterios: identificado, controlado, gestionado y trazable en el tiempo."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑11-231",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑OP‑12-232",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑COM‑01-3",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 4,
+        "nivelNombre": "Nivel 4 - Documento gestionado",
+        "razon": "Tiene responsable y version, pero le falta trazabilidad temporal para auditoria (fecha/vigencia)."
+      },
+      {
+        "codigoDocumento": "MAN‑COM‑02-31",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑COM‑03-311",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑COM‑04-312",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 4,
+        "nivelNombre": "Nivel 4 - Documento gestionado",
+        "razon": "Tiene responsable y version, pero le falta trazabilidad temporal para auditoria (fecha/vigencia)."
+      },
+      {
+        "codigoDocumento": "MAN‑COM‑05-32",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑COM‑06-321",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑COM‑07-322",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑COM‑08-323",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑COM‑09-33",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑MKT‑01-4",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑MKT‑02-41",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑MKT‑03-411",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑MKT‑04-412",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 4,
+        "nivelNombre": "Nivel 4 - Documento gestionado",
+        "razon": "Tiene responsable y version, pero le falta trazabilidad temporal para auditoria (fecha/vigencia)."
+      },
+      {
+        "codigoDocumento": "MAN‑MKT‑05-413",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "MAN‑MKT‑06-414",
+        "origenHoja": "1 Manuales - MGD - Est",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "PRO-GEN-01-0",
+        "origenHoja": "2 Procesos",
+        "nivel": 2,
+        "nivelNombre": "Nivel 2 - Documento identificado",
+        "razon": "Tiene codigo unico y area asignada, pero no esta controlado (falta estado/proceso)."
+      },
+      {
+        "codigoDocumento": "PRO-DAF-01-1",
+        "origenHoja": "2 Procesos",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PRO-DO-01-2",
+        "origenHoja": "2 Procesos",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PRO-DC-01-3",
+        "origenHoja": "2 Procesos",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PRO-DMKD-01-4",
+        "origenHoja": "2 Procesos",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PRO-GD-01-5",
+        "origenHoja": "2 Procesos",
+        "nivel": 2,
+        "nivelNombre": "Nivel 2 - Documento identificado",
+        "razon": "Tiene codigo unico y area asignada, pero no esta controlado (falta estado/proceso)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PROD-CI-01-0A",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 2,
+        "nivelNombre": "Nivel 2 - Documento identificado",
+        "razon": "Tiene codigo unico y area asignada, pero no esta controlado (falta estado/proceso)."
+      },
+      {
+        "codigoDocumento": "PROD-CI-02-0A",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PROD-GD-01-12",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-GD-02-12",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-GD-03-12",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-GD-04-12",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-GD-05-12",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-GD-06-12",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-GD-07-12",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PROD-TS-01-13",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-TS-02-13",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-TS-03-13",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-TS-04-13",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PROD-FC-01-14",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-FC-02-14",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PROD-COMP-01-15",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-COMP-02-15",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-COMP-03-15",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-COMP-04-15",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-COMP-05-15",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 2,
+        "nivelNombre": "Nivel 2 - Documento identificado",
+        "razon": "Tiene codigo unico y area asignada, pero no esta controlado (falta estado/proceso)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PROD-FP-01-16",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 2,
+        "nivelNombre": "Nivel 2 - Documento identificado",
+        "razon": "Tiene codigo unico y area asignada, pero no esta controlado (falta estado/proceso)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PROD-PM-01-21",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 2,
+        "nivelNombre": "Nivel 2 - Documento identificado",
+        "razon": "Tiene codigo unico y area asignada, pero no esta controlado (falta estado/proceso)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PROD-PL-01-21",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 2,
+        "nivelNombre": "Nivel 2 - Documento identificado",
+        "razon": "Tiene codigo unico y area asignada, pero no esta controlado (falta estado/proceso)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 0,
+        "nivelNombre": "Nivel 0 - Registro incompleto",
+        "razon": "Documento sin nombre: no alcanza el nivel minimo (registro incompleto)."
+      },
+      {
+        "codigoDocumento": "PROD-GD-01-5",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PROD-GD-02-5",
+        "origenHoja": "3 Procedimientos - Nor",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "INS-AG-01-01",
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 2,
+        "nivelNombre": "Nivel 2 - Documento identificado",
+        "razon": "Tiene codigo unico y area asignada, pero no esta controlado (falta estado/proceso)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "4 Instructivos -Op",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-AG-01-01",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 2,
+        "nivelNombre": "Nivel 2 - Documento identificado",
+        "razon": "Tiene codigo unico y area asignada, pero no esta controlado (falta estado/proceso)."
+      },
+      {
+        "codigoDocumento": "MZ-CI-01-0A",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 2,
+        "nivelNombre": "Nivel 2 - Documento identificado",
+        "razon": "Tiene codigo unico y area asignada, pero no esta controlado (falta estado/proceso)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGA-01",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGA-02",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGO-02",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGO-04",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGO-06",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGO-07",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGO-08",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGO-09",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGO-10",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGO-17",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "FOR-LOGO-18",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "MZ-LOGA-01",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "MZ-LOGO-01",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "MZ-LOGO-02",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "MZ-SIG-07",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PRO-LOGA-01",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PRO-LOGO-01",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PRO-LOGO-02",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PRO-LOGO-04",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PRO-LOGO-05",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PRO-LOGO-07",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PRO-MAN-01",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PRO-PROY-01",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "PRO-PROY-01",
+        "origenHoja": "5 FOR y MZ - Ctrl",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      },
+      {
+        "codigoDocumento": "MAN-MGD-01",
+        "origenHoja": "6  Politicas",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "POL-SIG-01",
+        "origenHoja": "6  Politicas",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "POL-SIG-02",
+        "origenHoja": "6  Politicas",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": "POL-SIG-03",
+        "origenHoja": "6  Politicas",
+        "nivel": 3,
+        "nivelNombre": "Nivel 3 - Documento controlado",
+        "razon": "Tiene estado y proceso asociado, pero no esta plenamente gestionado (falta responsable/version)."
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "6  Politicas",
+        "nivel": 1,
+        "nivelNombre": "Nivel 1 - Documento minimo",
+        "razon": "Tiene nombre y tipo documental, pero le falta identificacion formal (codigo/area)."
+      }
+    ]
+  },
+  "hallazgosFuncionales": [
+    {
+      "categoria": "Modelo de datos: Area vs Cargo",
+      "tipoProblema": "Modelo documental",
+      "severidad": "Alto",
+      "titulo": "La columna 'Area' parece mezclar cargos con unidades organizacionales",
+      "detalle": "53 de 68 valores distintos de 'area' (77.9%) contienen palabras propias de un cargo/rol (ej. Gerente, Coordinador, Analista) en vez de una unidad organizacional. Esto sugiere que la columna del Excel se uso indistintamente para 'Area / Cargo', lo cual complicara construir un catalogo limpio de Areas.",
+      "evidencia": [
+        "Analista",
+        "Analista Administrativo",
+        "Analista Comercial",
+        "Analista Control de Trafico",
+        "Analista Licitaciones",
+        "Analista Mantenimiento",
+        "Analista Programador Logistico",
+        "Analista Proyectos Especiales",
+        "Analista RRHH",
+        "Analista SIG",
+        "Analista Seguridad y Control de Trafico",
+        "Analista de Costos",
+        "Analista de Facturación y Cartera",
+        "Analista de Operaciones",
+        "Analista de Planeacion"
+      ],
+      "recomendacionRelacionada": "Normalizar nombres de areas"
+    },
+    {
+      "categoria": "Catalogo de Estados",
+      "tipoProblema": "Catalogacion",
+      "severidad": "Medio",
+      "titulo": "Existen estados con nombres muy similares que podrian representar el mismo concepto",
+      "detalle": "Se detectaron 2 par(es) de estados con alta similitud textual (distintos del catalogo, no simples variantes de escritura). Antes de mapear los estados al PMO, conviene confirmar con el negocio si representan lo mismo.",
+      "evidencia": [
+        "'Borrador' ~ 'En Borrador' (similitud 0.84)",
+        "'Para revision directiva' ~ 'Para revison de Ing Ivon' (similitud 0.72)"
+      ],
+      "recomendacionRelacionada": "Mapear estados"
+    },
+    {
+      "categoria": "Procesos sin documentos asociados",
+      "tipoProblema": "Organizacional (detectable por los datos)",
+      "severidad": "Medio",
+      "titulo": "Existen procesos definidos que ningun documento referencia",
+      "detalle": "2 de 2 procesos definidos en la hoja de Procesos no aparecen como 'Proceso Asociado' en ningun manual, procedimiento, instructivo, formato o politica. Puede indicar procesos definidos formalmente pero sin documentacion operativa desarrollada aun.",
+      "evidencia": [
+        "Gobierno corporativo",
+        "Listado de radicacion de correspondencia"
+      ],
+      "recomendacionRelacionada": "Completar metadatos"
+    },
+    {
+      "categoria": "Responsables con baja cobertura",
+      "tipoProblema": "Organizacional (detectable por los datos)",
+      "severidad": "Bajo",
+      "titulo": "La mayoria de los responsables solo aparece en un documento",
+      "detalle": "44 de 67 responsables distintos (≥50%) estan vinculados a un unico documento. Esto puede ser normal en estructuras muy distribuidas, o puede indicar responsables capturados con variaciones de escritura que fragmentan al mismo responsable en varias entradas.",
+      "evidencia": [],
+      "recomendacionRelacionada": "Completar responsables"
+    },
+    {
+      "categoria": "Responsables sobrecargados",
+      "tipoProblema": "Organizacional (detectable por los datos)",
+      "severidad": "Alto",
+      "titulo": "Uno o mas responsables concentran una cantidad desproporcionada de documentos",
+      "detalle": "El promedio de documentos por responsable es 1.8. Se detectaron 5 responsable(s) muy por encima de ese promedio, lo que representa un riesgo de dependencia de una sola persona para mantener la biblioteca documental.",
+      "evidencia": [
+        "Gerencia General: 7 documentos",
+        "Director Adm. y Financiera: 7 documentos",
+        "Coordinador Operaciones: 6 documentos",
+        "Coordinador Proyectos: 6 documentos",
+        "Director Comercial: 5 documentos"
+      ],
+      "recomendacionRelacionada": "Completar responsables"
+    },
+    {
+      "categoria": "Tipos documentales poco utilizados",
+      "tipoProblema": "Organizacional (detectable por los datos)",
+      "severidad": "Bajo",
+      "titulo": "Algunos tipos documentales representan una fraccion minima del total",
+      "detalle": "Estos tipos documentales tienen muy pocos documentos respecto al total; vale la pena confirmar si es un tipo documental en construccion o si deberia fusionarse con otro.",
+      "evidencia": [
+        "PROCESO: 6 documentos",
+        "POLITICA: 5 documentos"
+      ],
+      "recomendacionRelacionada": "Completar metadatos"
+    },
+    {
+      "categoria": "Patron de codigo - FORMATO",
+      "tipoProblema": "Catalogacion",
+      "severidad": "Medio",
+      "titulo": "Los codigos de tipo FORMATO no siguen un prefijo consistente",
+      "detalle": "El prefijo predominante para FORMATO es 'FOR' (12 de 26 documentos), pero 14 codigo(s) (53.8%) usan un prefijo distinto.",
+      "evidencia": [
+        "MZ-CI-01-0A",
+        "MZ-LOGA-01",
+        "MZ-LOGO-01",
+        "MZ-LOGO-02",
+        "MZ-SIG-07",
+        "PRO-LOGA-01",
+        "PRO-LOGO-01",
+        "PRO-LOGO-02",
+        "PRO-LOGO-04",
+        "PRO-LOGO-05",
+        "PRO-LOGO-07",
+        "PRO-MAN-01",
+        "PRO-PROY-01",
+        "PRO-PROY-01"
+      ],
+      "recomendacionRelacionada": "Normalizar nombres de areas"
+    },
+    {
+      "categoria": "Codigos duplicados",
+      "tipoProblema": "Calidad de datos",
+      "severidad": "Critico",
+      "titulo": "Existen codigos de documento duplicados",
+      "detalle": "1 codigo(s) estan duplicados. Un codigo duplicado rompe la unicidad requerida para importar y para cualquier trazabilidad posterior del documento.",
+      "evidencia": [
+        "PRO-PROY-01 (2 apariciones)"
+      ],
+      "recomendacionRelacionada": "Corregir codigos duplicados"
+    },
+    {
+      "categoria": "Documentos sin codigo",
+      "tipoProblema": "Calidad de datos",
+      "severidad": "Alto",
+      "titulo": "Hay documentos sin codigo asignado",
+      "detalle": "177 de 300 documentos (59.0%) no tienen codigo. No podran importarse de forma trazable mientras no se les asigne uno.",
+      "evidencia": [],
+      "recomendacionRelacionada": "Corregir codigos duplicados"
+    },
+    {
+      "categoria": "Documentos sin responsable",
+      "tipoProblema": "Calidad de datos",
+      "severidad": "Alto",
+      "titulo": "Un porcentaje relevante de documentos no tiene responsable asignado",
+      "detalle": "239 de 300 documentos (79.7%) no tienen responsable de actualizacion ni de revision. Sin responsable, el PMO no puede operar el ciclo de vida del documento (quien lo actualiza, quien lo aprueba).",
+      "evidencia": [],
+      "recomendacionRelacionada": "Completar responsables"
+    },
+    {
+      "categoria": "Documentos sin estado",
+      "tipoProblema": "Calidad de datos",
+      "severidad": "Medio",
+      "titulo": "Hay documentos sin estado documental",
+      "detalle": "9 documentos no tienen estado registrado en el Excel.",
+      "evidencia": [],
+      "recomendacionRelacionada": "Mapear estados"
+    },
+    {
+      "categoria": "Variantes ortograficas en Areas",
+      "tipoProblema": "Catalogacion",
+      "severidad": "Bajo",
+      "titulo": "Existen variantes de escritura para el mismo valor en Areas",
+      "detalle": "Se detectaron 2 caso(s) donde el mismo concepto de areas esta escrito de mas de una forma (mayusculas, tildes, espacios), fragmentando el catalogo.",
+      "evidencia": [
+        "profesional-comercial-senior: Profesional Comercial (Senior), Profesional Comercial Senior",
+        "gestion-documental: Gestion Documental, Gestión Documental"
+      ],
+      "recomendacionRelacionada": "Normalizar nombres de areas"
+    }
+  ],
+  "matrizRiesgo": {
+    "resumen": {
+      "Critico": 1,
+      "Alto": 4,
+      "Medio": 4,
+      "Bajo": 3
+    },
+    "detalle": {
+      "Critico": [
+        {
+          "categoria": "Codigos duplicados",
+          "titulo": "Existen codigos de documento duplicados",
+          "tipoProblema": "Calidad de datos"
+        }
+      ],
+      "Alto": [
+        {
+          "categoria": "Modelo de datos: Area vs Cargo",
+          "titulo": "La columna 'Area' parece mezclar cargos con unidades organizacionales",
+          "tipoProblema": "Modelo documental"
+        },
+        {
+          "categoria": "Responsables sobrecargados",
+          "titulo": "Uno o mas responsables concentran una cantidad desproporcionada de documentos",
+          "tipoProblema": "Organizacional (detectable por los datos)"
+        },
+        {
+          "categoria": "Documentos sin codigo",
+          "titulo": "Hay documentos sin codigo asignado",
+          "tipoProblema": "Calidad de datos"
+        },
+        {
+          "categoria": "Documentos sin responsable",
+          "titulo": "Un porcentaje relevante de documentos no tiene responsable asignado",
+          "tipoProblema": "Calidad de datos"
+        }
+      ],
+      "Medio": [
+        {
+          "categoria": "Catalogo de Estados",
+          "titulo": "Existen estados con nombres muy similares que podrian representar el mismo concepto",
+          "tipoProblema": "Catalogacion"
+        },
+        {
+          "categoria": "Procesos sin documentos asociados",
+          "titulo": "Existen procesos definidos que ningun documento referencia",
+          "tipoProblema": "Organizacional (detectable por los datos)"
+        },
+        {
+          "categoria": "Patron de codigo - FORMATO",
+          "titulo": "Los codigos de tipo FORMATO no siguen un prefijo consistente",
+          "tipoProblema": "Catalogacion"
+        },
+        {
+          "categoria": "Documentos sin estado",
+          "titulo": "Hay documentos sin estado documental",
+          "tipoProblema": "Calidad de datos"
+        }
+      ],
+      "Bajo": [
+        {
+          "categoria": "Responsables con baja cobertura",
+          "titulo": "La mayoria de los responsables solo aparece en un documento",
+          "tipoProblema": "Organizacional (detectable por los datos)"
+        },
+        {
+          "categoria": "Tipos documentales poco utilizados",
+          "titulo": "Algunos tipos documentales representan una fraccion minima del total",
+          "tipoProblema": "Organizacional (detectable por los datos)"
+        },
+        {
+          "categoria": "Variantes ortograficas en Areas",
+          "titulo": "Existen variantes de escritura para el mismo valor en Areas",
+          "tipoProblema": "Catalogacion"
+        }
+      ]
+    }
+  },
+  "recomendaciones": [
+    {
+      "prioridad": 1,
+      "accion": "Corregir codigos duplicados",
+      "severidadMaxima": "Critico",
+      "hallazgosRelacionados": 2,
+      "tiposProblema": [
+        "Calidad de datos"
+      ]
+    },
+    {
+      "prioridad": 2,
+      "accion": "Completar responsables",
+      "severidadMaxima": "Alto",
+      "hallazgosRelacionados": 3,
+      "tiposProblema": [
+        "Calidad de datos",
+        "Organizacional (detectable por los datos)"
+      ]
+    },
+    {
+      "prioridad": 3,
+      "accion": "Normalizar nombres de areas",
+      "severidadMaxima": "Alto",
+      "hallazgosRelacionados": 3,
+      "tiposProblema": [
+        "Catalogacion",
+        "Modelo documental"
+      ]
+    },
+    {
+      "prioridad": 4,
+      "accion": "Mapear estados",
+      "severidadMaxima": "Medio",
+      "hallazgosRelacionados": 2,
+      "tiposProblema": [
+        "Calidad de datos",
+        "Catalogacion"
+      ]
+    },
+    {
+      "prioridad": 5,
+      "accion": "Completar metadatos",
+      "severidadMaxima": "Medio",
+      "hallazgosRelacionados": 2,
+      "tiposProblema": [
+        "Organizacional (detectable por los datos)"
+      ]
+    }
+  ]
+}

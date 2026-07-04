@@ -1,0 +1,4218 @@
+{
+  "metadata": {
+    "fechaGeneracion": "2026-07-04T02:07:05.424779+00:00",
+    "versionValidador": "validador-1.0.0",
+    "archivoAnalizado": "json-pmo.json"
+  },
+  "documentos": {
+    "totalDocumentos": 300,
+    "documentosSinCodigo": 177,
+    "documentosDuplicados": {
+      "totalCodigosDuplicados": 1,
+      "detalle": [
+        {
+          "codigoDocumento": "PRO-PROY-01",
+          "apariciones": 2
+        }
+      ]
+    },
+    "documentosSinNombre": 58,
+    "documentosSinVersion": 279,
+    "documentosSinFechas": 279,
+    "documentosSinTipoDocumental": 0
+  },
+  "areas": {
+    "totalOcurrencias": 255,
+    "areasDistintas": 66,
+    "areasVacias": 45,
+    "areasDuplicadasPorEscritura": [
+      {
+        "clave": "profesional-comercial-senior",
+        "variantes": [
+          "Profesional Comercial (Senior)",
+          "Profesional Comercial Senior"
+        ]
+      },
+      {
+        "clave": "gestion-documental",
+        "variantes": [
+          "Gestion Documental",
+          "Gestión Documental"
+        ]
+      }
+    ]
+  },
+  "procesos": {
+    "totalOcurrencias": 66,
+    "procesosDistintos": 28,
+    "procesosVacios": 234
+  },
+  "responsables": {
+    "responsablesDistintos": 67,
+    "documentosSinResponsable": 239,
+    "responsablesRepetidosPorEscritura": []
+  },
+  "estados": {
+    "estadosEncontrados": [],
+    "cantidadPorEstado": [],
+    "estadosVacios": 300
+  },
+  "tiposDocumentales": {
+    "cantidadPorTipo": [
+      {
+        "tipo": "FORMATO",
+        "cantidad": 85
+      },
+      {
+        "tipo": "PROCEDIMIENTO",
+        "cantidad": 82
+      },
+      {
+        "tipo": "MANUAL",
+        "cantidad": 61
+      },
+      {
+        "tipo": "INSTRUCTIVO",
+        "cantidad": 61
+      },
+      {
+        "tipo": "PROCESO",
+        "cantidad": 6
+      },
+      {
+        "tipo": "POLITICA",
+        "cantidad": 5
+      }
+    ],
+    "tiposDesconocidos": 0
+  },
+  "catalogos": {
+    "tiposDocumentales": {
+      "totalEntradas": 6,
+      "clavesRepetidas": [],
+      "clavesVacias": 0,
+      "valoresInconsistentes": []
+    },
+    "areas": {
+      "totalEntradas": 66,
+      "clavesRepetidas": [],
+      "clavesVacias": 0,
+      "valoresInconsistentes": [
+        {
+          "clave": "profesional-comercial-senior",
+          "variantes": [
+            "Profesional Comercial (Senior)",
+            "Profesional Comercial Senior"
+          ]
+        },
+        {
+          "clave": "gestion-documental",
+          "variantes": [
+            "Gestion Documental",
+            "Gestión Documental"
+          ]
+        }
+      ]
+    },
+    "codigosArea": {
+      "totalEntradas": 62,
+      "clavesRepetidas": [],
+      "clavesVacias": 0,
+      "valoresInconsistentes": [
+        {
+          "clave": "0-a",
+          "variantes": [
+            "0.A",
+            "0.a"
+          ]
+        },
+        {
+          "clave": "0-b",
+          "variantes": [
+            "0.B",
+            "0.b"
+          ]
+        },
+        {
+          "clave": "0-c",
+          "variantes": [
+            "0.C",
+            "0.c"
+          ]
+        }
+      ]
+    },
+    "procesos": {
+      "totalEntradas": 28,
+      "clavesRepetidas": [],
+      "clavesVacias": 0,
+      "valoresInconsistentes": []
+    },
+    "estados": {
+      "totalEntradas": 8,
+      "clavesRepetidas": [],
+      "clavesVacias": 0,
+      "valoresInconsistentes": []
+    },
+    "responsablesActualizacion": {
+      "totalEntradas": 60,
+      "clavesRepetidas": [],
+      "clavesVacias": 0,
+      "valoresInconsistentes": []
+    },
+    "responsablesRevision": {
+      "totalEntradas": 27,
+      "clavesRepetidas": [],
+      "clavesVacias": 0,
+      "valoresInconsistentes": []
+    }
+  },
+  "calidad": {
+    "calidadDocumentalPorcentaje": 40.33,
+    "clasificacion": "Requiere revision",
+    "documentosConMenorPuntaje": [
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "puntaje": 20.0,
+        "checksFallidos": [
+          "codigoPresente",
+          "codigoUnico",
+          "nombrePresente",
+          "versionPresente",
+          "procesoPresente",
+          "tieneResponsable",
+          "tieneFecha",
+          "estadoPresente"
+        ]
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "puntaje": 20.0,
+        "checksFallidos": [
+          "codigoPresente",
+          "codigoUnico",
+          "nombrePresente",
+          "versionPresente",
+          "procesoPresente",
+          "tieneResponsable",
+          "tieneFecha",
+          "estadoPresente"
+        ]
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "puntaje": 20.0,
+        "checksFallidos": [
+          "codigoPresente",
+          "codigoUnico",
+          "nombrePresente",
+          "versionPresente",
+          "procesoPresente",
+          "tieneResponsable",
+          "tieneFecha",
+          "estadoPresente"
+        ]
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "puntaje": 20.0,
+        "checksFallidos": [
+          "codigoPresente",
+          "codigoUnico",
+          "nombrePresente",
+          "versionPresente",
+          "procesoPresente",
+          "tieneResponsable",
+          "tieneFecha",
+          "estadoPresente"
+        ]
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "puntaje": 20.0,
+        "checksFallidos": [
+          "codigoPresente",
+          "codigoUnico",
+          "nombrePresente",
+          "versionPresente",
+          "procesoPresente",
+          "tieneResponsable",
+          "tieneFecha",
+          "estadoPresente"
+        ]
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "puntaje": 20.0,
+        "checksFallidos": [
+          "codigoPresente",
+          "codigoUnico",
+          "nombrePresente",
+          "versionPresente",
+          "procesoPresente",
+          "tieneResponsable",
+          "tieneFecha",
+          "estadoPresente"
+        ]
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "puntaje": 20.0,
+        "checksFallidos": [
+          "codigoPresente",
+          "codigoUnico",
+          "nombrePresente",
+          "versionPresente",
+          "procesoPresente",
+          "tieneResponsable",
+          "tieneFecha",
+          "estadoPresente"
+        ]
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "puntaje": 20.0,
+        "checksFallidos": [
+          "codigoPresente",
+          "codigoUnico",
+          "nombrePresente",
+          "versionPresente",
+          "procesoPresente",
+          "tieneResponsable",
+          "tieneFecha",
+          "estadoPresente"
+        ]
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "puntaje": 20.0,
+        "checksFallidos": [
+          "codigoPresente",
+          "codigoUnico",
+          "nombrePresente",
+          "versionPresente",
+          "procesoPresente",
+          "tieneResponsable",
+          "tieneFecha",
+          "estadoPresente"
+        ]
+      },
+      {
+        "codigoDocumento": null,
+        "origenHoja": "3 Procedimientos - Nor",
+        "puntaje": 20.0,
+        "checksFallidos": [
+          "codigoPresente",
+          "codigoUnico",
+          "nombrePresente",
+          "versionPresente",
+          "procesoPresente",
+          "tieneResponsable",
+          "tieneFecha",
+          "estadoPresente"
+        ]
+      }
+    ]
+  },
+  "detalleCalidadPorDocumento": [
+    {
+      "codigoDocumento": "MAN‑GG‑01-0",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑GG‑02-01",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑GG‑03-0A",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑GG‑03-0B",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑GER‑03-0C",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑DAF‑01-1",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑DAF‑02-11",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑GH‑01-12",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑GH‑02-121",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑GH‑03-122",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑GH‑04-123",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑GH‑05-124",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑TES‑01-13",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑TES‑02-131",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑TES‑03-132",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑FAC‑01-14",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑FAC‑02-141",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑FAC‑03-142",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 60.0,
+      "checksFallidos": [
+        "nombrePresente",
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COMP‑01-15",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COMP‑02-151",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COMP‑03-152",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑PLAN‑01-16",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑PLAN‑02-161",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑SIG‑01-17",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑SIG‑02-171",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑TI‑01-18",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑TI‑02-181",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑TI‑03-182",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑01-2",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑02-21",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑03-211",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑04-212",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑05-2121",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑06-2122",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑07-213",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑08-214",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑09-215",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑PE‑01-22",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑PE‑02-221",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑PE‑03-222",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑PE‑04-2211",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑PE‑05-2212",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑PE‑06-2213",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑10-23",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑11-231",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑OP‑12-232",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COM‑01-3",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COM‑02-31",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COM‑03-311",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COM‑04-312",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COM‑05-32",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COM‑06-321",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COM‑07-322",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COM‑08-323",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑COM‑09-33",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑MKT‑01-4",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑MKT‑02-41",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑MKT‑03-411",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑MKT‑04-412",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 90.0,
+      "checksFallidos": [
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑MKT‑05-413",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN‑MKT‑06-414",
+      "origenHoja": "1 Manuales - MGD - Est",
+      "puntaje": 70.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-GEN-01-0",
+      "origenHoja": "2 Procesos",
+      "puntaje": 50.0,
+      "checksFallidos": [
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-DAF-01-1",
+      "origenHoja": "2 Procesos",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-DO-01-2",
+      "origenHoja": "2 Procesos",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-DC-01-3",
+      "origenHoja": "2 Procesos",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-DMKD-01-4",
+      "origenHoja": "2 Procesos",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-GD-01-5",
+      "origenHoja": "2 Procesos",
+      "puntaje": 50.0,
+      "checksFallidos": [
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-CI-01-0A",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 50.0,
+      "checksFallidos": [
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-CI-02-0A",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-GD-01-12",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-GD-02-12",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-GD-03-12",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-GD-04-12",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-GD-05-12",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-GD-06-12",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-GD-07-12",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-TS-01-13",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-TS-02-13",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-TS-03-13",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-TS-04-13",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-FC-01-14",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-FC-02-14",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-COMP-01-15",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-COMP-02-15",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-COMP-03-15",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-COMP-04-15",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-COMP-05-15",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 50.0,
+      "checksFallidos": [
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-FP-01-16",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 50.0,
+      "checksFallidos": [
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-PM-01-21",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 50.0,
+      "checksFallidos": [
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-PL-01-21",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 50.0,
+      "checksFallidos": [
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 20.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "nombrePresente",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-GD-01-5",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PROD-GD-02-5",
+      "origenHoja": "3 Procedimientos - Nor",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "INS-AG-01-01",
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 50.0,
+      "checksFallidos": [
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "4 Instructivos -Op",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-AG-01-01",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 50.0,
+      "checksFallidos": [
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MZ-CI-01-0A",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 50.0,
+      "checksFallidos": [
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGA-01",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGA-02",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGO-02",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGO-04",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGO-06",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGO-07",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGO-08",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGO-09",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGO-10",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGO-17",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "FOR-LOGO-18",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MZ-LOGA-01",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MZ-LOGO-01",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MZ-LOGO-02",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MZ-SIG-07",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-LOGA-01",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-LOGO-01",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-LOGO-02",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-LOGO-04",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-LOGO-05",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-LOGO-07",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-MAN-01",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 40.0,
+      "checksFallidos": [
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-PROY-01",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoUnico",
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "PRO-PROY-01",
+      "origenHoja": "5 FOR y MZ - Ctrl",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoUnico",
+        "versionPresente",
+        "areaPresente",
+        "procesoPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "MAN-MGD-01",
+      "origenHoja": "6  Politicas",
+      "puntaje": 60.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "POL-SIG-01",
+      "origenHoja": "6  Politicas",
+      "puntaje": 60.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "POL-SIG-02",
+      "origenHoja": "6  Politicas",
+      "puntaje": 60.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": "POL-SIG-03",
+      "origenHoja": "6  Politicas",
+      "puntaje": 60.0,
+      "checksFallidos": [
+        "versionPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    },
+    {
+      "codigoDocumento": null,
+      "origenHoja": "6  Politicas",
+      "puntaje": 30.0,
+      "checksFallidos": [
+        "codigoPresente",
+        "codigoUnico",
+        "versionPresente",
+        "areaPresente",
+        "tieneResponsable",
+        "tieneFecha",
+        "estadoPresente"
+      ]
+    }
+  ]
+}
