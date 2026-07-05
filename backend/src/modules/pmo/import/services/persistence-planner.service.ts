@@ -42,6 +42,10 @@ export class PersistencePlannerService {
       });
     });
 
+    const createCount = operations.filter(op => op.type === 'CREATE_DOCUMENT').length;
+    const updateCount = operations.filter(op => op.type === 'UPDATE_DOCUMENT').length;
+    const skipCount = operations.filter(op => op.type === 'SKIP_DOCUMENT').length;
+
     return { operations };
   }
 }

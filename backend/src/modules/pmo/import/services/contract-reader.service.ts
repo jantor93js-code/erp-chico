@@ -13,7 +13,8 @@ export class ContractReaderService {
 
       if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
         try {
-          return JSON.parse(trimmed);
+          const parsed = JSON.parse(trimmed) as Record<string, unknown>;
+          return parsed;
         } catch {
           throw new BadRequestException('Contrato JSON inválido');
         }

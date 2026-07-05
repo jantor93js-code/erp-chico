@@ -14,6 +14,7 @@ export class PmoImportController {
   ) {}
 
   @Post('preview')
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   async preview(@Body() dto: ImportPreviewDto) {
     return this.importService.preview(dto);
   }

@@ -16,17 +16,12 @@ export class CreateDocumentExecutorService {
     const warnings: Array<string | ImportSessionError> = [];
 
     for (const operation of createOperations) {
+      const opStart = Date.now();
       try {
         const payload = operation.payload ?? {};
         await this.prisma.document.create({
           data: {
             codigo: operation.codigoDocumento,
-            // TODO:
-            // - estado
-            // - tipoDocumental
-            // - descripcion
-            // - codigoArea
-            // - fechas
             nombre: typeof payload['nombreDocumento'] === 'string' ? payload['nombreDocumento'] : '',
             version: typeof payload['version'] === 'string' ? payload['version'] : undefined,
             proceso: typeof payload['proceso'] === 'string' ? payload['proceso'] : undefined,
@@ -37,11 +32,42 @@ export class CreateDocumentExecutorService {
             activo: true,
           },
         });
+
         documentosCreados += 1;
         session.operacionesEjecutadas += 1;
+
+        // record operation success
+        try {
+          await (this.prisma as any).importOperation.create({
+            data: {
+              sessionId: session.id,
+              codigoDocumento: operation.codigoDocumento,
+              accion: 'CREATE',
+              resultado: 'SUCCESS',
+              duracionMs: Date.now() - opStart,
+            },
+          });
+        } catch {
+          // ignore audit persistence errors
+        }
       } catch (error) {
         const mensaje = `CREATE_DOCUMENT failed for ${operation.codigoDocumento}: ${error instanceof Error ? error.message : String(error)}`;
         errores.push({ codigoDocumento: operation.codigoDocumento, mensaje });
+
+        try {
+          await (this.prisma as any).importOperation.create({
+            data: {
+              sessionId: session.id,
+              codigoDocumento: operation.codigoDocumento,
+              accion: 'CREATE',
+              resultado: 'FAILED',
+              error: mensaje,
+              duracionMs: Date.now() - opStart,
+            },
+          });
+        } catch {
+          // ignore audit persistence errors
+        }
       }
     }
 

@@ -2,10 +2,6 @@ import { Module } from '@nestjs/common';
 import { PrismaModule } from '../../../prisma/prisma.module';
 import { PmoImportController } from './pmo-import.controller';
 import { PmoImportService } from './pmo-import.service';
-import { ImportPreviewService } from './import-preview.service';
-import { ImportRunService } from './import-run.service';
-import { ImportAuditService } from './import-audit.service';
-import { ImportJobRepository } from './repositories/import-job.repository';
 import { ContractReaderService } from './services/contract-reader.service';
 import { ContractValidatorService } from './services/contract-validator.service';
 import { StatisticsBuilderService } from './services/statistics-builder.service';
@@ -18,16 +14,13 @@ import { PersistencePlannerService } from './services/persistence-planner.servic
 import { ImportSessionService } from './services/import-session.service';
 import { CreateDocumentExecutorService } from './services/create-document-executor.service';
 import { ImportApplicationService } from './services/import-application.service';
+import { UpdateDocumentExecutorService } from './services/update-document-executor.service';
 
 @Module({
   imports: [PrismaModule],
   controllers: [PmoImportController],
   providers: [
     PmoImportService,
-    ImportPreviewService,
-    ImportRunService,
-    ImportAuditService,
-    ImportJobRepository,
     ContractReaderService,
     ContractValidatorService,
     StatisticsBuilderService,
@@ -39,6 +32,7 @@ import { ImportApplicationService } from './services/import-application.service'
     PersistencePlannerService,
     ImportSessionService,
     CreateDocumentExecutorService,
+    UpdateDocumentExecutorService,
     ImportApplicationService,
   ],
   exports: [PmoImportService, SynchronizationEngineService, ImportApplicationService],

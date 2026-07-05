@@ -17,8 +17,7 @@ export class DatabaseSnapshotProviderService {
     ]);
 
     const codigosArea = areas.map(area => ({ id: area.id, codigo: area.codigo }));
-
-    return {
+    const snapshot = {
       documentos,
       areas,
       procesos,
@@ -27,5 +26,7 @@ export class DatabaseSnapshotProviderService {
       tiposDocumentales,
       codigosArea,
     };
+
+    return snapshot;
   }
 }

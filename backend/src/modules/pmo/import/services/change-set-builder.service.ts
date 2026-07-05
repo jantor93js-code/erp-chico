@@ -43,7 +43,7 @@ export class ChangeSetBuilderService {
       }
     });
 
-    return {
+    const result = {
       nuevos,
       sinCambios,
       actualizados,
@@ -57,5 +57,7 @@ export class ChangeSetBuilderService {
         totalSinCodigo: sinCodigo.length,
       },
     };
+
+    return result;
   }
 }
