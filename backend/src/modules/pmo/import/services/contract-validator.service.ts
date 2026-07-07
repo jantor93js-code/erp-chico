@@ -3,6 +3,15 @@ import { PmoImportContract } from '../interfaces/pmo-import-contract.interface';
 
 export class ContractValidatorService {
   validate(contract: unknown): ContractValidationResult {
+    console.log('========== CONTRACT VALIDATOR ==========');
+    console.log('Documentos:', (contract as any)?.documentos?.length ?? 0);
+
+    const docs = (contract as any)?.documentos ?? [];
+    const pro = docs.filter((d: any) => d?.codigoDocumento === 'PRO-PROY-01');
+
+    console.log('PRO-PROY-01:', pro.length);
+    console.log(JSON.stringify(pro, null, 2));
+
     const errors: string[] = [];
     const warnings: string[] = [];
 
@@ -65,6 +74,28 @@ export class ContractValidatorService {
 
     if (hasDocumentos && !Array.isArray(documentos)) {
       errors.push('documentos must be an array');
+    }
+
+    if (Array.isArray(documentos)) {
+      const seenCodes = new Map<string, { hoja?: string; fila?: number; nombre?: string }>();
+      for (const documento of documentos) {
+        const codigoDocumento = typeof documento?.codigoDocumento === 'string' ? documento.codigoDocumento : undefined;
+        if (!codigoDocumento) {
+          continue;
+        }
+
+        const existing = seenCodes.get(codigoDocumento);
+        if (existing) {
+          errors.push(`Duplicate codigoDocumento: ${codigoDocumento}\nDocumento 1:\nHoja: ${existing.hoja ?? '-'}\nFila: ${existing.fila ?? '-'}\nNombre: ${existing.nombre ?? '-'}`);
+          errors.push(`Documento 2:\nHoja: ${typeof (documento as { hojaOrigen?: string } | undefined)?.hojaOrigen === 'string' ? (documento as { hojaOrigen?: string }).hojaOrigen : '-'}\nFila: ${typeof (documento as { filaOrigen?: number } | undefined)?.filaOrigen === 'number' ? (documento as { filaOrigen?: number }).filaOrigen : '-'}\nNombre: ${typeof (documento as { nombreDocumento?: string } | undefined)?.nombreDocumento === 'string' ? (documento as { nombreDocumento?: string }).nombreDocumento : '-'}`);
+        } else {
+          seenCodes.set(codigoDocumento, {
+            hoja: typeof (documento as { hojaOrigen?: string } | undefined)?.hojaOrigen === 'string' ? (documento as { hojaOrigen?: string }).hojaOrigen : undefined,
+            fila: typeof (documento as { filaOrigen?: number } | undefined)?.filaOrigen === 'number' ? (documento as { filaOrigen?: number }).filaOrigen : undefined,
+            nombre: typeof (documento as { nombreDocumento?: string } | undefined)?.nombreDocumento === 'string' ? (documento as { nombreDocumento?: string }).nombreDocumento : undefined,
+          });
+        }
+      }
     }
 
     const totalDocumentos = Array.isArray(documentos) ? documentos.length : 0;

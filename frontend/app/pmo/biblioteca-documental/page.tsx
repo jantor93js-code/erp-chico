@@ -19,6 +19,7 @@ import { areasService } from "@/services/areasService";
 import { processesService } from "@/services/processesService";
 import { documentTypesService } from "@/services/documentTypesService";
 import { documentStatusesService } from "@/services/documentStatusesService";
+import { buildBibliotecaDocumentalDashboard } from "@/src/lib/bibliotecaDocumentalDashboard";
 
 type DocumentItem = {
   id: string;
@@ -32,8 +33,11 @@ type DocumentItem = {
   area?: string;
   areaId?: string;
   codigoDependencia?: string;
+  estado?: string;
   estadoDocumental?: string;
+  estadoDocumentalNombre?: string;
   estadoDocumentalId?: string;
+  estadoDocumentalRef?: { id: string; codigo: string; nombre: string };
   vigencia?: string;
   responsableActualizacion?: string;
   responsableRevision?: string;
@@ -154,21 +158,16 @@ export default function BibliotecaDocumentalPage() {
     resetImportState();
   };
 
-  const orderedEstadoData = (dashboardMetrics?.byEstado || []).slice().sort((a, b) => {
-    const order = ['Borrador', 'Estructuración', 'Revisión Técnica', 'Revisión Directiva', 'Aprobado'];
-    const aEstado = a.estado || '';
-    const bEstado = b.estado || '';
-    const aIndex = order.indexOf(aEstado);
-    const bIndex = order.indexOf(bEstado);
-    if (aEstado === 'Sin iniciar' && bEstado !== 'Sin iniciar') return 1;
-    if (bEstado === 'Sin iniciar' && aEstado !== 'Sin iniciar') return -1;
-    if (aIndex === -1 && bIndex === -1) return aEstado.localeCompare(bEstado);
-    if (aIndex === -1) return 1;
-    if (bIndex === -1) return -1;
-    return aIndex - bIndex;
-  });
+  const dashboardData = useMemo(() => {
+    return buildBibliotecaDocumentalDashboard(documents);
+  }, [documents]);
 
-  const manualPolicyTotal = (dashboardMetrics?.manuals || 0) + (dashboardMetrics?.policies || 0);
+  const documentStateChartData = useMemo(() => {
+    return dashboardData.orderedEstadoData;
+  }, [dashboardData]);
+
+  const tipoDistribution = dashboardData.tipoDistribution;
+  const areaDistribution = dashboardData.areaDistribution;
   const [showAllProcesses, setShowAllProcesses] = useState(false);
   // Start collapsed per user's request
   const [showVisualAnalysis, setShowVisualAnalysis] = useState(false);
@@ -251,12 +250,12 @@ export default function BibliotecaDocumentalPage() {
       />
 
       {dashboardMetrics && showVisualAnalysis && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6 px-8 pt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 px-8 pt-6">
           <div className="rounded-2xl border border-slate-200 bg-white p-4">
-            <h4 className="text-sm font-semibold mb-2">Documentos por estado</h4>
+            <h4 className="text-sm font-semibold mb-2">Documentos por estado documental</h4>
             <div style={{ height: 200 }}>
               <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={orderedEstadoData}>
+                <BarChart data={documentStateChartData}>
                   <XAxis dataKey="estado" tick={{ fill: '#475569', fontSize: 12 }} />
                   <YAxis tick={{ fill: '#475569', fontSize: 12 }} axisLine={false} tickLine={false} />
                   <Tooltip cursor={{ fill: 'rgba(15,23,42,0.04)' }} />
@@ -266,23 +265,31 @@ export default function BibliotecaDocumentalPage() {
             </div>
           </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
-            <h4 className="text-sm font-semibold mb-2">Manual vs Política</h4>
-            <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <div className="flex items-center justify-between gap-3 text-sm text-slate-600">
-                <span>Manuales</span>
-                <span className="font-semibold text-slate-900">{dashboardMetrics.manuals || 0}</span>
-              </div>
-              <div className="mt-3 h-3 overflow-hidden rounded-full bg-slate-100">
-                <div
-                  className="h-full rounded-full bg-amber-500"
-                  style={{ width: `${manualPolicyTotal ? ((dashboardMetrics.manuals || 0) / manualPolicyTotal) * 100 : 0}%` }}
-                />
-              </div>
-              <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
-                <span>{dashboardMetrics.manuals || 0} Manual</span>
-                <span>{dashboardMetrics.policies || 0} Política</span>
-              </div>
+          <div className="rounded-2xl border border-slate-200 bg-white p-4">
+            <h4 className="text-sm font-semibold mb-2">División por Área</h4>
+            <div style={{ height: 200 }}>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart layout="vertical" data={areaDistribution} margin={{ left: 100, right: 8, top: 8, bottom: 8 }}>
+                  <XAxis type="number" tick={{ fill: '#64748b', fontSize: 12 }} />
+                  <YAxis type="category" dataKey="area" width={95} tick={{ fill: '#475569', fontSize: 11 }} />
+                  <Tooltip cursor={{ fill: 'rgba(15,23,42,0.04)' }} />
+                  <Bar dataKey="count" fill="#8B5CF6" radius={[0, 8, 8, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-4">
+            <h4 className="text-sm font-semibold mb-2">Distribución por Tipo de Documento</h4>
+            <div style={{ height: 200 }}>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart layout="vertical" data={tipoDistribution} margin={{ left: 80, right: 8, top: 8, bottom: 8 }}>
+                  <XAxis type="number" tick={{ fill: '#64748b', fontSize: 12 }} />
+                  <YAxis type="category" dataKey="tipo" width={75} tick={{ fill: '#475569', fontSize: 11 }} />
+                  <Tooltip cursor={{ fill: 'rgba(15,23,42,0.04)' }} />
+                  <Bar dataKey="count" fill="#6B7280" radius={[0, 8, 8, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </div>
 
@@ -317,10 +324,11 @@ export default function BibliotecaDocumentalPage() {
           areas={areas}
           processes={processes}
           documentTypes={documentTypes}
-            documentStatuses={documentStatuses}
-            showVisualAnalysis={showVisualAnalysis}
+          documentStatuses={documentStatuses}
+          showVisualAnalysis={showVisualAnalysis}
           onRefresh={loadData}
           loading={loading}
+          dashboardMetrics={dashboardMetrics}
         />
       </div>
 

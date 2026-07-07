@@ -10,6 +10,9 @@ export class ChangeSetBuilderService {
   constructor(private readonly documentComparer: DocumentComparerService) {}
 
   build(contract: PmoImportContract, snapshot: DatabaseSnapshot): ImportChangeSet {
+    console.log('========== CHANGESET ==========');
+    console.log('Contrato documentos:', contract.documentos.length);
+
     const codigoToDocumento = new Map<string, Document>();
     snapshot.documentos.forEach(doc => {
       if (doc.codigo) {
@@ -37,6 +40,11 @@ export class ChangeSetBuilderService {
 
       const differences = this.documentComparer.compare(doc, documentoBD);
       if (differences.length === 0) {
+        console.log('NO CHANGE:', codigoDocumento);
+        console.log('código', codigoDocumento);
+        console.log('nombre', doc.nombreDocumento);
+        console.log('resultado del comparador', differences);
+        console.log('motivo de la clasificación', 'sin diferencias');
         sinCambios.push({ codigoDocumento, contratoDocumento: doc, documentoBD });
       } else {
         actualizados.push({ codigoDocumento, contratoDocumento: doc, documentoBD, differences });
@@ -57,6 +65,15 @@ export class ChangeSetBuilderService {
         totalSinCodigo: sinCodigo.length,
       },
     };
+
+    console.log('RESUMEN CHANGESET');
+    console.dir(result.resumen, { depth: null });
+    console.log('NUEVOS');
+    console.log(result.nuevos.length);
+    console.log('ACTUALIZADOS');
+    console.log(result.actualizados.length);
+    console.log('SIN CAMBIOS');
+    console.log(result.sinCambios.length);
 
     return result;
   }

@@ -46,6 +46,23 @@ export class PersistencePlannerService {
     const updateCount = operations.filter(op => op.type === 'UPDATE_DOCUMENT').length;
     const skipCount = operations.filter(op => op.type === 'SKIP_DOCUMENT').length;
 
+    console.log('PLAN TOTAL');
+    console.log(operations.length);
+    console.log(
+      operations.reduce((acc, op) => {
+        acc[op.type] = (acc[op.type] || 0) + 1;
+        return acc;
+      }, {}),
+    );
+
+    console.log('PLAN TOTAL', operations.length);
+    console.log(
+      operations.reduce((acc, op) => {
+        acc[op.type] = (acc[op.type] || 0) + 1;
+        return acc;
+      }, {}),
+    );
+
     return { operations };
   }
 }

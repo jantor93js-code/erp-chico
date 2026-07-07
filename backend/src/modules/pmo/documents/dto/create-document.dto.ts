@@ -29,6 +29,14 @@ export class CreateDocumentDto {
   @IsString()
   estadoDocumental?: string;
 
+  @IsOptional()
+  @IsString()
+  estado?: string;
+
+  @IsOptional()
+  @IsString()
+  vigencia?: string;
+
   @IsNotEmpty()
   @IsString()
   responsableActualizacion: string;

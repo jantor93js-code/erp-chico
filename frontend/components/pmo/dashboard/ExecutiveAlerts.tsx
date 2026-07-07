@@ -15,8 +15,8 @@ export type ExecutiveAlertsProps = {
 const riskItems = [
   {
     key: 'vencidos' as const,
-    label: 'Vencidos',
-    description: 'Documentos vencidos que requieren atención inmediata.',
+    label: 'No vigentes',
+    description: 'Documentos no vigentes que requieren atención inmediata.',
     severityClass: 'badge--red',
   },
   {

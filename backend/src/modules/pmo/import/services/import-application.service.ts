@@ -27,6 +27,15 @@ export class ImportApplicationService {
 
   async preview(source: string | object, tenantId: string, usuario: string): Promise<ImportPreviewResponse> {
     const contract = await this.contractReader.read(source);
+    console.log('========== IMPORT APPLICATION ==========');
+    console.log('Documentos:', (contract as any)?.documentos?.length ?? 0);
+
+    const docs = (contract as any)?.documentos ?? [];
+    const pro = docs.filter((d: any) => d?.codigoDocumento === 'PRO-PROY-01');
+
+    console.log('PRO-PROY-01:', pro.length);
+    console.log(JSON.stringify(pro, null, 2));
+
     const validationResult = this.contractValidator.validate(contract);
     const totalOperaciones = Array.isArray((contract as { documentos?: unknown[] }).documentos)
       ? (contract as { documentos: unknown[] }).documentos.length
@@ -49,26 +58,9 @@ export class ImportApplicationService {
 
     const changeSet = this.changeSetBuilder.build(contract as Parameters<ChangeSetBuilderService['build']>[0], snapshot);
 
+    console.log('ANTES DEL PLANNER');
     const persistencePlan = this.persistencePlanner.plan(changeSet);
-
-    // Persist session to DB for audit/history using same session id
-    await (this.prisma as any).importSession.create({
-      data: {
-        id: runningSession.id,
-        tenantId,
-        usuario,
-        archivoOrigen: typeof source === 'string' ? source : 'inline-json',
-        estado: runningSession.estado as any,
-        fechaInicio: new Date(runningSession.fechaInicio),
-        totalOperaciones,
-        operacionesEjecutadas: runningSession.operacionesEjecutadas,
-        totalNuevos: changeSet.resumen.totalNuevos,
-        totalActualizados: changeSet.resumen.totalActualizados,
-        totalSinCambios: changeSet.resumen.totalSinCambios,
-        totalErrores: validationResult.errors.length,
-        totalWarnings: validationResult.warnings.length,
-      },
-    });
+    console.log('DESPUES DEL PLANNER');
 
     return {
       session: runningSession,
@@ -78,13 +70,47 @@ export class ImportApplicationService {
   }
 
   async execute(source: string | object, tenantId: string, usuario: string): Promise<ImportExecutionResult> {
+    console.log('================================');
+    console.log('IMPORT EXECUTE');
+    console.log(new Date().toISOString());
+    console.log('================================');
+
     const previewResult = await this.preview(source, tenantId, usuario);
     const { changeSet, persistencePlan, session: runningSession } = previewResult;
 
+    console.log('CHANGESET');
+    console.dir(changeSet, { depth: null });
+
+    console.log('RESUMEN');
+    console.dir(changeSet.resumen, { depth: null });
+
+    console.log('ANTES DEL PLANNER');
+
+    console.log('DESPUES DEL PLANNER');
+    console.log('OPERACIONES DEL PLAN');
+    console.dir(persistencePlan.operations, { depth: null });
+    console.log('PLAN OPERATIONS', persistencePlan.operations.length);
+    console.log('PLAN OPERATIONS TYPES', persistencePlan.operations.reduce((acc, op) => {
+      acc[op.type] = (acc[op.type] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>));
+    console.log('FIRST 10 UPDATE_OPERATIONS', persistencePlan.operations.filter(op => op.type === 'UPDATE_DOCUMENT').slice(0, 10).map(op => ({ type: op.type, codigoDocumento: op.codigoDocumento, differences: (op.payload as any)?.differences })));
+
+    console.log('====================================');
+    console.log('IMPORT -> UPDATE EXECUTOR');
+    console.log('====================================');
+    console.log('updateDocumentExecutor.execute count:', persistencePlan.operations.length);
+    console.log('first 5 operations:');
+    console.dir(persistencePlan.operations.slice(0, 5), { depth: null });
+    console.log('first 5 operation types and codigoDocumento:');
+    console.dir(persistencePlan.operations.slice(0, 5).map(op => ({ type: op.type, codigoDocumento: op.codigoDocumento, differences: (op.payload as any)?.differences })), { depth: null });
+
     const startedAt = Date.now();
     const createExecution = await this.createDocumentExecutor.execute(persistencePlan, runningSession);
+    console.log(createExecution.result);
 
     const updateExecution = await this.updateDocumentExecutor.execute(persistencePlan, runningSession);
+    console.log(updateExecution.result);
 
     const completedSession = updateExecution.session;
     if (createExecution.result.documentosFallidos > 0 || updateExecution.result.documentosFallidos > 0) {
@@ -102,19 +128,6 @@ export class ImportApplicationService {
       errores: [...createExecution.result.errores, ...updateExecution.result.errores],
       warnings: [...createExecution.result.warnings, ...updateExecution.result.warnings],
     };
-
-    // Update persisted session with execution outcome
-    await (this.prisma as any).importSession.update({
-      where: { id: runningSession.id },
-      data: {
-        estado: completedSession.estado as any,
-        fechaFin: new Date(),
-        duracionMs: Date.now() - startedAt,
-        operacionesEjecutadas: completedSession.operacionesEjecutadas,
-        totalErrores: combinedExecutionResult.documentosFallidos,
-        totalWarnings: (combinedExecutionResult.warnings ?? []).length,
-      },
-    });
 
     return {
       session: completedSession,

@@ -14,6 +14,15 @@ export class ContractReaderService {
       if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
         try {
           const parsed = JSON.parse(trimmed) as Record<string, unknown>;
+          console.log('========== CONTRACT READER ==========');
+          console.log('Documentos:', (parsed as any)?.documentos?.length ?? 0);
+
+          const docs = (parsed as any)?.documentos ?? [];
+          const pro = docs.filter((d: any) => d?.codigoDocumento === 'PRO-PROY-01');
+
+          console.log('PRO-PROY-01:', pro.length);
+          console.log(JSON.stringify(pro, null, 2));
+
           return parsed;
         } catch {
           throw new BadRequestException('Contrato JSON inválido');
@@ -23,7 +32,17 @@ export class ContractReaderService {
       try {
         const content = await fs.readFile(filePathOrJson, 'utf-8');
         try {
-          return JSON.parse(content);
+          const parsed = JSON.parse(content);
+          console.log('========== CONTRACT READER ==========');
+          console.log('Documentos:', (parsed as any)?.documentos?.length ?? 0);
+
+          const docs = (parsed as any)?.documentos ?? [];
+          const pro = docs.filter((d: any) => d?.codigoDocumento === 'PRO-PROY-01');
+
+          console.log('PRO-PROY-01:', pro.length);
+          console.log(JSON.stringify(pro, null, 2));
+
+          return parsed;
         } catch {
           throw new BadRequestException('Contrato JSON inválido');
         }
@@ -31,6 +50,15 @@ export class ContractReaderService {
         throw new BadRequestException('Contrato inválido');
       }
     }
+
+    console.log('========== CONTRACT READER ==========');
+    console.log('Documentos:', (filePathOrJson as any)?.documentos?.length ?? 0);
+
+    const docs = (filePathOrJson as any)?.documentos ?? [];
+    const pro = docs.filter((d: any) => d?.codigoDocumento === 'PRO-PROY-01');
+
+    console.log('PRO-PROY-01:', pro.length);
+    console.log(JSON.stringify(pro, null, 2));
 
     return filePathOrJson;
   }

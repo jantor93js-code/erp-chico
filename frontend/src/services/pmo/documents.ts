@@ -11,8 +11,10 @@ type DocumentPayload = {
   version?: string;
   responsableActualizacion?: string;
   responsableRevision?: string;
+  estado?: string;
   estadoDocumentalId?: string;
   estadoDocumental?: string;
+  vigencia?: string;
   fechaCreacion?: string;
   fechaRevision?: string;
   observaciones?: string;

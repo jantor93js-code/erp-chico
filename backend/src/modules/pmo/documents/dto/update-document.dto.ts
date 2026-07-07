@@ -39,6 +39,14 @@ export class UpdateDocumentDto {
 
   @IsOptional()
   @IsString()
+  estado?: string;
+
+  @IsOptional()
+  @IsString()
+  vigencia?: string;
+
+  @IsOptional()
+  @IsString()
   version?: string;
 
   @IsOptional()

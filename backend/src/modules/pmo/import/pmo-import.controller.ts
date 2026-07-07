@@ -16,7 +16,23 @@ export class PmoImportController {
   @Post('preview')
   @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   async preview(@Body() dto: ImportPreviewDto) {
-    return this.importService.preview(dto);
+    try {
+      console.log('========== CONTROLLER ==========');
+      console.log('Documentos:', (dto.source as any)?.documentos?.length ?? 0);
+
+      const docs = (dto.source as any)?.documentos ?? [];
+      const pro = docs.filter((d: any) => d?.codigoDocumento === 'PRO-PROY-01');
+
+      console.log('PRO-PROY-01:', pro.length);
+      console.log(JSON.stringify(pro, null, 2));
+
+      return this.importService.preview(dto);
+    } catch (error) {
+      console.error('========== PMO IMPORT ERROR ==========');
+      console.error(error);
+      console.error(error?.stack);
+      throw error;
+    }
   }
 
   @Post('run')
@@ -34,7 +50,10 @@ export class PmoImportController {
         throw error;
       }
 
-      throw new InternalServerErrorException('Error inesperado al ejecutar la importación PMO');
+      console.error('========== PMO IMPORT ERROR ==========');
+      console.error(error);
+      console.error(error?.stack);
+      throw error;
     }
   }
 

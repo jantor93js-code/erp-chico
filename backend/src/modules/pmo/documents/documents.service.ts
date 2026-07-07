@@ -67,37 +67,36 @@ export class DocumentsService {
     throw new BadRequestException('Formato de archivo no soportado. Usa JSON o Excel.');
   }
 
+  private normalizeVigencia(value?: string | null): 'VIGENTE' | 'NO_VIGENTE' | undefined {
+    const normalized = String(value || '').trim().toUpperCase();
+    if (normalized === 'VIGENTE' || normalized === 'NO_VIGENTE') {
+      return normalized;
+    }
+    return undefined;
+  }
+
   private computeVigencyFields(item: any) {
     const now = new Date();
     const fechaRevision = item.fechaRevision instanceof Date ? item.fechaRevision : item.fechaRevision ? new Date(item.fechaRevision) : undefined;
     let daysRemaining: number | null = null;
     let estadoVigencia: string | null = null;
-    if (fechaRevision) {
+
+    const explicitVigencia = this.normalizeVigencia(item.vigencia || item.estadoVigencia);
+    if (explicitVigencia) {
+      estadoVigencia = explicitVigencia;
+    } else if (fechaRevision) {
       const diff = Math.ceil((fechaRevision.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
       daysRemaining = diff;
-      if (diff < 0) estadoVigencia = 'VENCIDO';
-      else if (diff <= 30) estadoVigencia = 'PROXIMO_VENCER';
+      if (diff < 0) estadoVigencia = 'NO_VIGENTE';
+      else if (diff <= 30) estadoVigencia = 'VIGENTE';
       else estadoVigencia = 'VIGENTE';
-    }
-
-    // If there's no fechaRevision, infer vigency from estadoDocumental enum when possible
-    if (!fechaRevision) {
-      const enumEstado = String(item.estadoDocumental || '').toUpperCase();
-      if (enumEstado === 'VIGENTE') {
-        estadoVigencia = estadoVigencia || 'VIGENTE';
-      } else if (enumEstado === 'ARCHIVADO' || enumEstado === 'OBSOLETO') {
-        estadoVigencia = estadoVigencia || 'VENCIDO';
-      } else if (!estadoVigencia) {
-        estadoVigencia = null;
-      }
     }
 
     return {
       nextReview: fechaRevision || null,
       daysRemaining,
       estadoVigencia,
-      // also expose `vigencia` key for frontend compatibility
-      vigencia: estadoVigencia || undefined,
+      vigencia: explicitVigencia || estadoVigencia || undefined,
     };
   }
 
@@ -613,7 +612,7 @@ export class DocumentsService {
       data.estadoDocumental = dto.estadoDocumental;
     }
 
-    return this.prisma.document.create({
+    const createdDocument = await this.prisma.document.create({
       data,
       include: {
         cliente: true,
@@ -626,6 +625,11 @@ export class DocumentsService {
         estadoDocumentalRef: true,
       } as any,
     });
+
+    return {
+      ...createdDocument,
+      vigencia: this.normalizeVigencia(dto.vigencia),
+    };
   }
 
   async findAll(activo?: string) {
@@ -669,6 +673,8 @@ export class DocumentsService {
   }
 
   async update(id: string, dto: UpdateDocumentDto) {
+    console.log("UPDATE DTO", dto);
+    
     await this.findOne(id);
 
     const data: any = {
@@ -742,20 +748,34 @@ export class DocumentsService {
       data.estadoDocumental = dto.estadoDocumental;
     }
 
-    return this.prisma.document.update({
-      where: { id },
-      data,
-      include: {
-        cliente: true,
-        programa: true,
-        iniciativa: true,
-        proyecto: true,
-        areaRef: true,
-        processRef: true,
-        tipoRef: true,
-        estadoDocumentalRef: true,
-      } as any,
-    });
+    console.log("UPDATE DATA", data);
+    console.log("PRISMA UPDATE", { where: { id }, data });
+
+    try {
+      const updatedDocument = await this.prisma.document.update({
+        where: { id },
+        data,
+        include: {
+          cliente: true,
+          programa: true,
+          iniciativa: true,
+          proyecto: true,
+          areaRef: true,
+          processRef: true,
+          tipoRef: true,
+          estadoDocumentalRef: true,
+        } as any,
+      });
+      
+      console.log("UPDATED DOCUMENT", updatedDocument);
+      return {
+        ...updatedDocument,
+        vigencia: this.normalizeVigencia(dto.vigencia),
+      };
+    } catch (error) {
+      console.error("PRISMA UPDATE ERROR", error);
+      throw error;
+    }
   }
 
   async getDashboardMetrics() {

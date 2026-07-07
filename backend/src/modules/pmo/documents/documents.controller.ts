@@ -61,6 +61,8 @@ export class DocumentsController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateDocumentDto) {
+    console.log("PATCH ID", id);
+    console.log("PATCH DTO", dto);
     return this.service.update(id, dto);
   }
 

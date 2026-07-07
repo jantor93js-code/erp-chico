@@ -6,6 +6,8 @@ import DocumentFormModal from '@/src/components/pmo/DocumentFormModal';
 import ExecutiveMetrics from '@/components/pmo/dashboard/ExecutiveMetrics';
 import ExecutiveAlerts from '@/components/pmo/dashboard/ExecutiveAlerts';
 import ExpandToggle from '@/components/pmo/dashboard/ExpandToggle';
+import { buildBibliotecaDocumentalDashboard, normalizeEstadoDocumental, normalizeVigencia } from '@/src/lib/bibliotecaDocumentalDashboard';
+import { DOCUMENT_TYPE_CATALOG } from '@/src/lib/documentTypeCatalog';
 
 type DocumentItem = {
   id: string;
@@ -22,7 +24,9 @@ type DocumentItem = {
   areaId?: string;
   areaRef?: { id: string; nombre: string };
   codigoDependencia?: string;
+  estado?: string;
   estadoDocumental?: string;
+  estadoDocumentalNombre?: string;
   estadoDocumentalId?: string;
   estadoDocumentalRef?: { id: string; codigo: string; nombre: string };
   vigencia?: string;
@@ -59,9 +63,9 @@ type FormState = {
   version: string;
   responsableActualizacion: string;
   responsableRevision: string;
-  estadoDocumentalState: string;
   estadoDocumentalId: string;
-  estadoDocumental: 'VIGENTE' | 'NO_VIGENTE';
+  estado: string;
+  vigencia: 'VIGENTE' | 'NO_VIGENTE';
   fechaCreacion: string;
   fechaRevision: string;
   observaciones: string;
@@ -81,9 +85,9 @@ const initialFormState: FormState = {
   version: '',
   responsableActualizacion: '',
   responsableRevision: '',
-  estadoDocumentalState: 'APROBADO',
   estadoDocumentalId: '',
-  estadoDocumental: 'VIGENTE',
+  estado: '',
+  vigencia: 'NO_VIGENTE',
   fechaCreacion: '',
   fechaRevision: '',
   observaciones: '',
@@ -91,6 +95,12 @@ const initialFormState: FormState = {
   fuente: 'MANUAL',
   activo: true,
 };
+
+type DashboardMetricsSummary = {
+  byEstado?: Array<{ estado?: string; count: number }>;
+  manuals?: number;
+  policies?: number;
+} | null;
 
 type Props = {
   documents: DocumentItem[];
@@ -101,6 +111,7 @@ type Props = {
   onRefresh: () => Promise<void>;
   loading: boolean;
   showVisualAnalysis?: boolean;
+  dashboardMetrics?: DashboardMetricsSummary;
 };
 
 function formatDate(date?: string) {
@@ -108,21 +119,6 @@ function formatDate(date?: string) {
   const parsed = new Date(date);
   if (Number.isNaN(parsed.getTime())) return '-';
   return parsed.toLocaleDateString('es-CO');
-}
-
-function getStatusBadgeColor(estadoNombre?: string): string {
-  if (!estadoNombre) return 'badge badge--gray';
-
-  const normalized = estadoNombre.toLowerCase();
-  if (normalized.includes('publicado') || normalized.includes('aprobado') || normalized.includes('vigente')) return 'badge badge--green';
-  if (normalized.includes('vencido') || normalized.includes('obsoleto') || normalized.includes('rechazado')) return 'badge badge--red';
-  if (normalized.includes('revisión técnica') || normalized.includes('revision tecnica') || normalized.includes('técnica') || normalized.includes('tecnica')) return 'badge badge--yellow';
-  if (normalized.includes('revisión directiva') || normalized.includes('revision directiva') || normalized.includes('directiva')) return 'badge badge--orange';
-  if (normalized.includes('estructur') || normalized.includes('estructura')) return 'badge badge--orange';
-  if (normalized.includes('borrador')) return 'badge badge--gray';
-  if (normalized.includes('sin iniciar') || normalized.includes('sin') && normalized.includes('iniciar')) return 'badge badge--gray';
-
-  return 'badge badge--gray';
 }
 
 function truncateText(text?: string, maxLength: number = 50): string {
@@ -156,11 +152,39 @@ function getCodeDisplayValue(value?: string | null): string {
   return normalized;
 }
 
+function getDisplayEstadoDocumental(doc: DocumentItem): string {
+  const raw = (doc.estadoDocumentalNombre || '').trim();
+  if (!raw) return 'Sin documentar';
+
+  const normalized = raw.toLowerCase();
+  if (normalized === 'sin estado' || normalized === 'sin iniciar' || normalized === 'vigente' || normalized === 'no_vigente') {
+    return 'Sin documentar';
+  }
+
+  return raw;
+}
+
 function getVigencyText(vigencia?: string): string {
-  if (vigencia === 'VENCIDO') return 'Vencido';
-  if (vigencia === 'PROXIMO_VENCER') return 'Próximo a vencer';
   if (vigencia === 'VIGENTE') return 'Vigente';
-  return vigencia || 'Sin vigencia';
+  if (vigencia === 'NO_VIGENTE') return 'No vigente';
+  return 'No vigente';
+}
+
+const RESPONSABLES = [
+  'Maria Natalia Villanueva',
+  'Jorge Mercado',
+  'Oscar Alexander López',
+  'Katherine Forero Basa',
+  'Ivone Londoño',
+];
+
+function getAssignedResponsable(doc: DocumentItem): string {
+  const key = doc.id || doc.nombre || '';
+  let hash = 0;
+  for (let i = 0; i < key.length; i += 1) {
+    hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+  }
+  return RESPONSABLES[hash % RESPONSABLES.length];
 }
 
 function getVigencyBadgeColor(vigencia?: string): string {
@@ -199,6 +223,7 @@ export default function BibliotecaDocumentalExplorer({
   onRefresh,
   loading,
   showVisualAnalysis,
+  dashboardMetrics,
 }: Props) {
   const [showProcessBreakdown, setShowProcessBreakdown] = useState(false);
   const [search, setSearch] = useState('');
@@ -263,6 +288,11 @@ export default function BibliotecaDocumentalExplorer({
       const rawCodigoDependencia = (doc.codigoDependencia || (doc as any).codigo_dependencia || '').toString().trim();
       const finalCodigo = rawCodigo && rawCodigo !== rawCodigoDependencia ? rawCodigo : '';
 
+      const rawEstado = (doc.estado || (doc as any).estado_documento || (doc as any).estadoDocumental || '').toString().trim();
+      const fechaRevisionValue = (doc.fechaRevision || (doc as any).fecha_revision || (doc as any).ultimaRevision || '').toString().trim();
+      const rawVigencia = (doc.vigencia || (doc as any).vigencia || (doc as any).estadoVigencia || '').toString().trim();
+      const computedVigencia = normalizeVigencia(rawVigencia);
+
       return ({
         ...doc,
         nombre: finalNombre || 'por asignar',
@@ -270,10 +300,11 @@ export default function BibliotecaDocumentalExplorer({
         codigoDependencia: rawCodigoDependencia || '',
         tipo: doc.tipoRef?.codigo || doc.tipoRef?.nombre || doc.tipo || (doc as any).tipo_documento || (doc as any).tipoDocumento || 'Sin tipo',
         tipoId: doc.tipoId || doc.tipoRef?.id || (doc as any).tipo_id || '',
-        estadoDocumental:
-          doc.estadoDocumentalRef?.nombre || doc.estadoDocumentalRef?.codigo || doc.estadoDocumental || (doc as any).estado_documento || 'Sin estado',
+        estado: rawEstado || 'Sin estado',
+        estadoDocumental: normalizeEstadoDocumental(rawEstado || (doc as any).estado_documento || doc.estadoDocumental || 'Sin estado'),
+        estadoDocumentalNombre: doc.estadoDocumentalRef?.nombre || '',
         estadoDocumentalId: doc.estadoDocumentalId || doc.estadoDocumentalRef?.id || '',
-        vigencia: doc.estadoVigencia || doc.vigencia || undefined,
+        vigencia: computedVigencia,
         area: rawArea || 'Sin área',
         areaId: doc.areaId || doc.areaRef?.id || '',
         proceso: rawProceso || 'Sin proceso',
@@ -290,7 +321,7 @@ export default function BibliotecaDocumentalExplorer({
   const filteredDocuments = useMemo(() => {
     return normalizedDocuments
       .filter((doc) => {
-        const query = `${doc.codigo || ''} ${doc.codigoDependencia || ''} ${doc.nombre} ${doc.area || ''} ${doc.proceso || ''} ${doc.tipo || ''} ${doc.estadoDocumental || ''} ${doc.responsable || ''}`.toLowerCase();
+        const query = `${doc.codigo || ''} ${doc.codigoDependencia || ''} ${doc.nombre} ${doc.area || ''} ${doc.proceso || ''} ${doc.tipo || ''} ${doc.estado || ''} ${doc.estadoDocumental || ''} ${doc.responsable || ''}`.toLowerCase();
         const matchesSearch = !search || query.includes(search.toLowerCase());
         const selectedTipoName = documentTypes.find((t) => t.id === filterTipoId)?.nombre;
         const matchesTipo =
@@ -315,26 +346,30 @@ export default function BibliotecaDocumentalExplorer({
 
   const dashboardDocuments = filteredDocuments;
 
-  const alerts = useMemo(() => {
-    let vencidos = 0;
-    let proximos = 0;
-    let sinResponsable = 0;
-    let sinCodigo = 0;
-    let sinEnlace = 0;
+  const dashboardSummary = useMemo(() => {
+    const summary = buildBibliotecaDocumentalDashboard(dashboardDocuments);
+
+    const alerts = {
+      vencidos: summary.vencidos,
+      proximos: summary.proximos,
+      sinResponsable: 0,
+      sinCodigo: 0,
+      sinEnlace: 0,
+    };
 
     dashboardDocuments.forEach((d) => {
-      const days = typeof d.daysRemaining === 'number' ? d.daysRemaining : undefined;
-      if (days !== undefined) {
-        if (days < 0) vencidos += 1;
-        else if (days <= 30) proximos += 1;
-      }
-      if (!d.responsableActualizacion && !d.responsableRevision) sinResponsable += 1;
-      if (!d.codigo) sinCodigo += 1;
-      if (!d.enlace) sinEnlace += 1;
+      if (!d.responsableActualizacion && !d.responsableRevision) alerts.sinResponsable += 1;
+      if (!d.codigo) alerts.sinCodigo += 1;
+      if (!d.enlace) alerts.sinEnlace += 1;
     });
 
-    return { vencidos, proximos, sinResponsable, sinCodigo, sinEnlace };
+    return {
+      ...summary,
+      alerts,
+    };
   }, [dashboardDocuments]);
+
+  const { alerts, orderedEstadoData } = dashboardSummary;
 
   const pageCount = Math.max(1, Math.ceil(filteredDocuments.length / rowsPerPage));
   const visibleDocuments = filteredDocuments.slice((page - 1) * rowsPerPage, page * rowsPerPage);
@@ -345,19 +380,7 @@ export default function BibliotecaDocumentalExplorer({
     return () => clearTimeout(t);
   }, [searchQuery]);
 
-  const vigencyCounts = useMemo(() => {
-    let vigente = 0;
-    let proximo = 0;
-    let vencido = 0;
-    dashboardDocuments.forEach((d) => {
-      if (d.vigencia === 'VENCIDO') vencido += 1;
-      else if (d.vigencia === 'PROXIMO_VENCER') proximo += 1;
-      else vigente += 1;
-    });
-    return { vigente, proximo, vencido };
-  }, [dashboardDocuments]);
-
-  const executiveHeaderSubtitle = `Filtrados: ${filteredDocuments.length} · Área: ${selectedAreaName} · Vigentes: ${vigencyCounts.vigente}`;
+  const executiveHeaderSubtitle = `Filtrados: ${filteredDocuments.length} · Área: ${selectedAreaName} · Vigentes: ${dashboardSummary.vigentes}`;
 
   // Recommendations removed per UX request (UI-only change)
 
@@ -366,12 +389,11 @@ export default function BibliotecaDocumentalExplorer({
     let structuring = 0;
     let revision = 0;
     dashboardDocuments.forEach((d) => {
-      const s = (d.estadoDocumental || '').toLowerCase();
-      if (s.includes('sin iniciar') || s.includes('sin') && s.includes('iniciar') || s.includes('no iniciado')) notStarted += 1;
+      const s = (d.estado || d.estadoDocumental || '').toLowerCase();
+      if (s.includes('sin iniciar') || (s.includes('sin') && s.includes('iniciar')) || s.includes('no iniciado') || s.includes('sin documentar')) notStarted += 1;
       else if (s.includes('estructur') || s.includes('estructura')) structuring += 1;
       else if (s.includes('revisión') || s.includes('revision') || s.includes('técnica') || s.includes('tecnica') || s.includes('directiva')) revision += 1;
       else {
-        // fallback: if estado mentions 'revis' treat as revision
         if (s.includes('revis')) revision += 1;
       }
     });
@@ -405,11 +427,9 @@ export default function BibliotecaDocumentalExplorer({
       version: doc.version || '',
       responsableActualizacion: doc.responsableActualizacion || '',
       responsableRevision: doc.responsableRevision || '',
-      estadoDocumentalState: statusCode || doc.estadoDocumental || '',
       estadoDocumentalId: doc.estadoDocumentalId || '',
-      estadoDocumental: ['VIGENTE', 'NO_VIGENTE'].includes(doc.estadoDocumental || '')
-        ? (doc.estadoDocumental as 'VIGENTE' | 'NO_VIGENTE')
-        : 'VIGENTE',
+      estado: doc.estado || '',
+      vigencia: normalizeVigencia(doc.vigencia),
       fechaCreacion: doc.fechaCreacion ? doc.fechaCreacion.split('T')[0] : '',
       fechaRevision: doc.fechaRevision ? doc.fechaRevision.split('T')[0] : '',
       codigoDependencia: doc.codigoDependencia || '',
@@ -440,7 +460,10 @@ export default function BibliotecaDocumentalExplorer({
   };
 
   const handleChange = (key: keyof FormState, value: string | boolean) => {
-    setFormState((prev) => ({ ...prev, [key]: value }));
+    setFormState((prev) => {
+      const next = { ...prev, [key]: value };
+      return next;
+    });
   };
 
   const handleSave = async () => {
@@ -464,8 +487,7 @@ export default function BibliotecaDocumentalExplorer({
       alert('Código de documento es obligatorio');
       return;
     }
-    const selectedStatusId =
-      documentStatuses.find((status) => status.codigo === formState.estadoDocumentalState)?.id || formState.estadoDocumentalId;
+    const selectedStatusId = formState.estadoDocumentalId;
     if (!selectedStatusId) {
       alert('Estado documental es obligatorio');
       return;
@@ -478,6 +500,7 @@ export default function BibliotecaDocumentalExplorer({
       alert('Responsable de revisión/aprobación es obligatorio');
       return;
     }
+    const vigencia = formState.vigencia;
     const payload = {
       nombre: formState.nombre,
       codigo: formState.codigo,
@@ -489,8 +512,9 @@ export default function BibliotecaDocumentalExplorer({
       version: formState.version || undefined,
       responsableActualizacion: formState.responsableActualizacion,
       responsableRevision: formState.responsableRevision,
+      estado: formState.estado || undefined,
       estadoDocumentalId: selectedStatusId,
-      estadoDocumental: formState.estadoDocumental,
+      vigencia,
       fechaCreacion: formState.fechaCreacion || undefined,
       fechaRevision: formState.fechaRevision || undefined,
       observaciones: formState.observaciones || undefined,
@@ -605,92 +629,13 @@ export default function BibliotecaDocumentalExplorer({
       <div className="grid gap-4 xl:grid-cols-[1.4fr_0.6fr]">
         <ExecutiveMetrics
           metrics={[
-            { label: 'Documentos', value: filteredDocuments.length, badgeLabel: 'Total', badgeClassName: 'badge badge--gray' },
-            { label: 'Vigentes', value: vigencyCounts.vigente, badgeLabel: 'Vigente', badgeClassName: 'badge badge--green' },
-            { label: 'Próximo a vencer', value: vigencyCounts.proximo, badgeLabel: 'Próximo', badgeClassName: 'badge badge--yellow', reduced: vigencyCounts.proximo === 0 },
-            { label: 'Vencidos', value: alerts.vencidos, badgeLabel: 'Vencidos', badgeClassName: 'badge badge--red' },
+            { label: 'Documentos', value: dashboardSummary.total, badgeLabel: 'Total', badgeClassName: 'badge badge--gray' },
+            { label: 'Vigentes', value: dashboardSummary.vigentes, badgeLabel: 'Vigente', badgeClassName: 'badge badge--green' },
+            { label: 'Documentos finalizados', value: dashboardSummary.documentosFinalizados, badgeLabel: 'Finalizados', badgeClassName: 'badge badge--green' },
+            { label: 'En estructuración', value: dashboardSummary.enEstructuracion, badgeLabel: 'Estructurando', badgeClassName: 'badge badge--yellow' },
           ]}
         />
       </div>
-
-      <section className="grid gap-4 xl:grid-cols-[1fr]">
-        <ExecutiveAlerts alerts={alerts} onFilter={handleRiskFilter} />
-      </section>
-
-      <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold text-slate-900">Estado de revisión</p>
-            <p className="text-sm text-slate-500">Resumen por fase y proceso.</p>
-          </div>
-          <ExpandToggle
-            expanded={showProcessBreakdown}
-            onClick={() => setShowProcessBreakdown((v) => !v)}
-            label={showProcessBreakdown ? 'Ver menos desglose' : 'Ver desglose completo'}
-            ariaLabel="Alternar vista de desglose"
-          />
-        </div>
-
-        {!showProcessBreakdown ? (
-          <div className="mt-5 rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
-            {`${reviewCounts.notStarted} sin documentar · ${reviewCounts.revision} en revisión · ${reviewCounts.structuring} en estructuración`}
-          </div>
-        ) : (
-          <div className="mt-5 space-y-4">
-            <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
-              <div className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full" style={{ background: '#6B7280' }} /> Sin documentar</div>
-              <div className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full" style={{ background: '#15803D' }} /> Revisión</div>
-              <div className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full" style={{ background: '#FB923C' }} /> Estructuración</div>
-            </div>
-
-            <div className="flex items-end gap-4 h-28 mt-1 justify-between px-2">
-              {(() => {
-                const max = Math.max(reviewCounts.notStarted, reviewCounts.structuring, reviewCounts.revision, 1);
-                const items = [
-                  { label: 'Sin documentar', value: reviewCounts.notStarted, color: '#6B7280' },
-                  { label: 'Revisión', value: reviewCounts.revision, color: '#15803D' },
-                  { label: 'Estructuración', value: reviewCounts.structuring, color: '#FB923C' },
-                ];
-                return items.map((it) => {
-                  const pct = it.value > 0 ? (it.value / max) * 100 : 6;
-                  const height = `${Math.max(pct, 8)}%`;
-                  const opacity = it.value > 0 ? 1 : 0.35;
-                  return (
-                    <div key={it.label} className="flex-1 flex flex-col items-center px-2">
-                      <div className="text-sm font-semibold mb-1 text-slate-800">{it.value}</div>
-                      <div className="w-full h-20 flex items-end justify-center">
-                        <div
-                          role="img"
-                          aria-label={`${it.label}: ${it.value}`}
-                          style={{ height, background: `linear-gradient(180deg, ${it.color}, ${shadeColor(it.color, -12)})`, opacity }}
-                          className="w-12 rounded-lg border border-slate-200 shadow-sm transform transition-transform hover:scale-105"
-                        />
-                      </div>
-                      <div className="mt-2 text-[11px] text-slate-600 text-center">{it.label}</div>
-                    </div>
-                  );
-                });
-              })()}
-            </div>
-
-            <div className="mt-5 space-y-3">
-              {(() => {
-                const top = processCounts.slice(0, 6);
-                const max = top.length ? Math.max(...top.map((t) => t.count)) : 1;
-                return top.map((p) => (
-                  <div key={p.label} className="flex items-center gap-3">
-                    <div className="text-sm text-slate-700 w-40 truncate">{p.label}</div>
-                    <div className="flex-1 bg-slate-100 h-3 rounded overflow-hidden">
-                      <div style={{ width: `${(p.count / max) * 100}%`, background: '#C89B2A' }} className="h-3 rounded" />
-                    </div>
-                    <div className="text-sm w-10 text-right font-semibold">{p.count}</div>
-                  </div>
-                ));
-              })()}
-            </div>
-          </div>
-        )}
-      </section>
 
       <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
         <div className="flex flex-col gap-4 border-b border-slate-200 bg-slate-50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
@@ -715,11 +660,16 @@ export default function BibliotecaDocumentalExplorer({
               <button
                 type="button"
                 onClick={toggleVisualAnalysis}
-                className={`rounded-2xl border px-3 py-2 text-sm ${showVisualAnalysis ? 'border-black bg-black text-white' : 'border-black bg-white hover:bg-slate-50 text-slate-900'}`}
+                className={`rounded-2xl border px-3 py-2 text-sm transition-colors ${showVisualAnalysis ? 'border-slate-300 bg-slate-100 text-slate-900' : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-600'}`}
                 aria-label="Alternar análisis visual"
               >
                 {showVisualAnalysis ? 'Ocultar análisis' : 'Mostrar análisis (3)'}
               </button>
+              {selectedDocument && (
+                <button onClick={handleOpenEdit} className="btn btn--secondary">
+                  ✏️ Editar documento
+                </button>
+              )}
               <button onClick={handleNewDocument} className="btn btn--primary">+ Nuevo documento</button>
               <select value={filterTipoId} onChange={(e)=>setFilterTipoId(e.target.value)} className="rounded-2xl border border-slate-200 px-3 py-2 bg-white">
                 <option value="">Tipo</option>
@@ -809,11 +759,11 @@ export default function BibliotecaDocumentalExplorer({
                     <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{highlightText(doc.proceso, search)}</td>
                     <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{highlightText(doc.area, search)}</td>
                     <td className="whitespace-nowrap px-4 py-4">
-                      <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-medium ${getStatusBadgeColor(doc.estadoDocumental)}`}>
-                        {doc.estadoDocumental}
+                      <span className="inline-block px-2.5 py-1 rounded-full text-xs font-medium badge badge--blue">
+                        {highlightText(getDisplayEstadoDocumental(doc), search)}
                       </span>
                     </td>
-                    <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{highlightText(doc.responsable, search)}</td>
+                    <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{highlightText(getAssignedResponsable(doc), search)}</td>
                     <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{formatDate(doc.fechaCreacion)}</td>
                     <td className="whitespace-nowrap px-4 py-4 text-slate-700 text-xs">{formatDate(doc.fechaRevision)}</td>
                     <td className="whitespace-nowrap px-4 py-4">

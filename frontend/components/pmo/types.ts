@@ -9,8 +9,10 @@ export type DocumentItem = {
   procesoId?: string;
   area?: string;
   areaId?: string;
+  estado?: string;
   estadoDocumental?: string;
   estadoDocumentalId?: string;
+  estadoDocumentalRef?: { id: string; codigo?: string; nombre?: string };
   vigencia?: string;
   responsableActualizacion?: string;
   responsableRevision?: string;
@@ -28,7 +30,7 @@ export type DocumentItem = {
 export type AreaItem = { id: string; nombre?: string };
 export type ProcessItem = { id: string; nombre?: string };
 export type DocumentTypeItem = { id: string; nombre?: string };
-export type DocumentStatusItem = { id: string; nombre?: string };
+export type DocumentStatusItem = { id: string; nombre?: string; codigo?: string };
 
 export type FormState = {
   nombre: string;
@@ -41,8 +43,9 @@ export type FormState = {
   version: string;
   responsableActualizacion: string;
   responsableRevision: string;
-  estadoDocumentalState: string;
-  estadoDocumental: 'VIGENTE' | 'NO_VIGENTE';
+  estadoDocumentalId: string;
+  estado: string;
+  vigencia: 'VIGENTE' | 'NO_VIGENTE';
   fechaCreacion: string;
   fechaRevision: string;
   observaciones: string;

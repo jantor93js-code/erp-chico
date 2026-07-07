@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { DOCUMENT_TYPE_CATALOG } from '@/src/lib/documentTypeCatalog';
 
 type DocumentItem = {
   id: string;
@@ -17,9 +18,11 @@ type DocumentItem = {
   area?: string;
   areaId?: string;
   areaRef?: { id: string; nombre: string };
+  estado?: string;
   estadoDocumental?: string;
   estadoDocumentalId?: string;
   estadoDocumentalRef?: { id: string; codigo: string; nombre: string };
+  vigencia?: string;
   responsableId?: string;
   responsable?: string;
   responsableCargo?: string;
@@ -50,8 +53,9 @@ type FormState = {
   version: string;
   responsableActualizacion: string;
   responsableRevision: string;
-  estadoDocumentalState: string;
-  estadoDocumental: 'VIGENTE' | 'NO_VIGENTE';
+  estadoDocumentalId: string;
+  estado: string;
+  vigencia: 'VIGENTE' | 'NO_VIGENTE';
   fechaCreacion: string;
   fechaRevision: string;
   observaciones: string;
@@ -106,7 +110,7 @@ export default function DocumentFormModal({
     }
   };
 
-  const estadoDocumentalOptions = documentStatuses.map((s) => ({ value: s.codigo || s.nombre, label: s.nombre || s.codigo }));
+  const estadoDocumentalOptions = documentStatuses.map((s) => ({ value: s.id, label: s.nombre || s.codigo }));
 
   const initialResponsable = formState.responsableActualizacion || formState.responsableRevision || '';
 
@@ -269,8 +273,8 @@ export default function DocumentFormModal({
             <label className="space-y-2 text-sm text-slate-700">
               <span className="font-medium">Estado *</span>
               <select
-                value={formState.estadoDocumentalState}
-                onChange={(e) => onFormChange('estadoDocumentalState', e.target.value)}
+                value={formState.estadoDocumentalId}
+                onChange={(e) => onFormChange('estadoDocumentalId', e.target.value)}
                 className="w-full rounded-2xl border border-slate-300 px-4 py-3 focus:border-[#C89B2A] focus:outline-none"
               >
                 <option value="">Seleccione estado</option>
@@ -356,10 +360,20 @@ export default function DocumentFormModal({
             </label>
 
             <label className="space-y-2 text-sm text-slate-700">
+              <span className="font-medium">Estado fuente</span>
+              <input
+                value={formState.estado}
+                onChange={(e) => onFormChange('estado', e.target.value)}
+                placeholder="Ej: Publicado, Archivado, Vigente"
+                className="w-full rounded-2xl border border-slate-300 px-4 py-3 focus:border-[#C89B2A] focus:outline-none"
+              />
+            </label>
+
+            <label className="space-y-2 text-sm text-slate-700">
               <span className="font-medium">Vigencia *</span>
               <select
-                value={formState.estadoDocumental}
-                onChange={(e) => onFormChange('estadoDocumental', e.target.value as 'VIGENTE' | 'NO_VIGENTE')}
+                value={formState.vigencia}
+                onChange={(e) => onFormChange('vigencia', e.target.value as 'VIGENTE' | 'NO_VIGENTE')}
                 className="w-full rounded-2xl border border-slate-300 px-4 py-3 focus:border-[#C89B2A] focus:outline-none"
               >
                 <option value="VIGENTE">Vigente</option>
