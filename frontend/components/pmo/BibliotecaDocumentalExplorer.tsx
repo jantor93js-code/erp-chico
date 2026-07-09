@@ -170,6 +170,22 @@ function getVigencyText(vigencia?: string): string {
   return 'No vigente';
 }
 
+function normalizeCatalogLabel(value?: string | null): string {
+  return (value || '')
+    .toString()
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+function findCatalogIdByName<T extends { id: string; nombre?: string; codigo?: string }>(items: T[], value?: string | null): string {
+  const normalizedValue = normalizeCatalogLabel(value);
+  if (!normalizedValue) return '';
+  const match = items.find((item) => normalizeCatalogLabel(item.nombre || item.codigo) === normalizedValue);
+  return match?.id || '';
+}
+
 const RESPONSABLES = [
   'Maria Natalia Villanueva',
   'Jorge Mercado',
@@ -318,12 +334,39 @@ export default function BibliotecaDocumentalExplorer({
     });
   }, [documents]);
 
+  const filterDocumentTypes = useMemo(() => {
+    const options = new Map<string, { id: string; nombre: string; codigo?: string }>();
+
+    const addOption = (id: string | undefined, nombre: string | undefined, codigo?: string) => {
+      const normalizedName = (nombre || codigo || '').toString().trim();
+      if (!normalizedName) return;
+      const normalizedKey = normalizedName.toLowerCase();
+      if (!options.has(normalizedKey)) {
+        options.set(normalizedKey, {
+          id: id || `type:${normalizedKey}`,
+          nombre: normalizedName,
+          codigo,
+        });
+      }
+    };
+
+    documentTypes.forEach((type) => {
+      addOption(type.id, type.nombre || type.codigo, type.codigo);
+    });
+
+    normalizedDocuments.forEach((doc) => {
+      addOption(doc.tipoId, doc.tipo, doc.tipoRef?.codigo || doc.tipoRef?.nombre);
+    });
+
+    return Array.from(options.values()).sort((a, b) => a.nombre.localeCompare(b.nombre));
+  }, [documentTypes, normalizedDocuments]);
+
   const filteredDocuments = useMemo(() => {
     return normalizedDocuments
       .filter((doc) => {
         const query = `${doc.codigo || ''} ${doc.codigoDependencia || ''} ${doc.nombre} ${doc.area || ''} ${doc.proceso || ''} ${doc.tipo || ''} ${doc.estado || ''} ${doc.estadoDocumental || ''} ${doc.responsable || ''}`.toLowerCase();
         const matchesSearch = !search || query.includes(search.toLowerCase());
-        const selectedTipoName = documentTypes.find((t) => t.id === filterTipoId)?.nombre;
+        const selectedTipoName = filterDocumentTypes.find((t) => t.id === filterTipoId)?.nombre;
         const matchesTipo =
           !filterTipoId ||
           doc.tipoId === filterTipoId ||
@@ -414,20 +457,25 @@ export default function BibliotecaDocumentalExplorer({
     : null;
 
   const handleSelectDocument = (doc: DocumentItem) => {
-    const statusCode = documentStatuses.find((status) => status.id === doc.estadoDocumentalId)?.codigo;
+    const resolvedAreaId = doc.areaId || findCatalogIdByName(areas, doc.area || doc.areaRef?.nombre);
+    const resolvedProcessId = doc.procesoId || findCatalogIdByName(processes, doc.proceso || doc.processRef?.nombre);
+    const resolvedTypeId = doc.tipoId || findCatalogIdByName(documentTypes, doc.tipo || doc.tipoRef?.nombre || doc.tipoRef?.codigo);
+    const resolvedStatusId = doc.estadoDocumentalId || findCatalogIdByName(documentStatuses, doc.estadoDocumentalNombre || doc.estadoDocumental || doc.estadoDocumentalRef?.nombre || doc.estadoDocumentalRef?.codigo);
+    const resolvedResponsible = doc.responsableActualizacion || doc.responsableRevision || doc.responsable || '';
+
     setSelectedDocumentId(doc.id);
     setEditingDocument(doc);
     setFormState({
       nombre: doc.nombre || '',
       codigo: doc.codigo || '',
       descripcion: doc.descripcion || '',
-      tipoId: doc.tipoId || '',
-      procesoId: doc.procesoId || '',
-      areaId: doc.areaId || '',
+      tipoId: resolvedTypeId,
+      procesoId: resolvedProcessId,
+      areaId: resolvedAreaId,
       version: doc.version || '',
-      responsableActualizacion: doc.responsableActualizacion || '',
-      responsableRevision: doc.responsableRevision || '',
-      estadoDocumentalId: doc.estadoDocumentalId || '',
+      responsableActualizacion: resolvedResponsible,
+      responsableRevision: resolvedResponsible,
+      estadoDocumentalId: resolvedStatusId,
       estado: doc.estado || '',
       vigencia: normalizeVigencia(doc.vigencia),
       fechaCreacion: doc.fechaCreacion ? doc.fechaCreacion.split('T')[0] : '',
@@ -501,26 +549,27 @@ export default function BibliotecaDocumentalExplorer({
       return;
     }
     const vigencia = formState.vigencia;
+    const currentDocument = editingDocument ?? selectedDocument;
     const payload = {
-      nombre: formState.nombre,
-      codigo: formState.codigo,
-      codigoDependencia: formState.codigoDependencia || undefined,
-      descripcion: formState.descripcion || undefined,
-      tipoId: formState.tipoId,
-      procesoId: formState.procesoId,
-      areaId: formState.areaId,
-      version: formState.version || undefined,
-      responsableActualizacion: formState.responsableActualizacion,
-      responsableRevision: formState.responsableRevision,
-      estado: formState.estado || undefined,
-      estadoDocumentalId: selectedStatusId,
-      vigencia,
-      fechaCreacion: formState.fechaCreacion || undefined,
-      fechaRevision: formState.fechaRevision || undefined,
-      observaciones: formState.observaciones || undefined,
-      enlace: formState.enlace || undefined,
-      fuente: formState.fuente || 'MANUAL',
-      activo: formState.activo,
+      nombre: formState.nombre.trim(),
+      codigo: formState.codigo.trim() || currentDocument?.codigo || undefined,
+      codigoDependencia: formState.codigoDependencia || currentDocument?.codigoDependencia || undefined,
+      descripcion: formState.descripcion || currentDocument?.descripcion || undefined,
+      tipoId: formState.tipoId || currentDocument?.tipoId || undefined,
+      procesoId: formState.procesoId || currentDocument?.procesoId || undefined,
+      areaId: formState.areaId || currentDocument?.areaId || undefined,
+      version: formState.version || currentDocument?.version || undefined,
+      responsableActualizacion: formState.responsableActualizacion || currentDocument?.responsableActualizacion || undefined,
+      responsableRevision: formState.responsableRevision || currentDocument?.responsableRevision || undefined,
+      estado: formState.estado || currentDocument?.estado || undefined,
+      estadoDocumentalId: selectedStatusId || currentDocument?.estadoDocumentalId || undefined,
+      vigencia: vigencia || currentDocument?.vigencia || 'NO_VIGENTE',
+      fechaCreacion: formState.fechaCreacion || currentDocument?.fechaCreacion || undefined,
+      fechaRevision: formState.fechaRevision || currentDocument?.fechaRevision || undefined,
+      observaciones: formState.observaciones || currentDocument?.observaciones || undefined,
+      enlace: formState.enlace || currentDocument?.enlace || undefined,
+      fuente: formState.fuente || currentDocument?.fuente || 'MANUAL',
+      activo: formState.activo ?? currentDocument?.activo ?? true,
     };
 
     setSaving(true);
@@ -673,7 +722,9 @@ export default function BibliotecaDocumentalExplorer({
               <button onClick={handleNewDocument} className="btn btn--primary">+ Nuevo documento</button>
               <select value={filterTipoId} onChange={(e)=>setFilterTipoId(e.target.value)} className="rounded-2xl border border-slate-200 px-3 py-2 bg-white">
                 <option value="">Tipo</option>
-                {documentTypes.map(t=> <option key={t.id} value={t.id}>{t.nombre}</option>)}
+                {filterDocumentTypes.map((t) => (
+                  <option key={t.id} value={t.id}>{t.nombre}</option>
+                ))}
               </select>
               <select value={filterEstadoId} onChange={(e)=>setFilterEstadoId(e.target.value)} className="rounded-2xl border border-slate-200 px-3 py-2 bg-white">
                 <option value="">Estado</option>
@@ -692,7 +743,7 @@ export default function BibliotecaDocumentalExplorer({
           <div className="flex flex-wrap items-center gap-2 px-6 py-3 text-sm text-slate-600">
             <span className="font-semibold">Filtros activos:</span>
             {search && <span className="badge badge--gray">Buscar: {search}</span>}
-            {filterTipoId && <span className="badge badge--blue">Tipo: {documentTypes.find((t) => t.id === filterTipoId)?.nombre || filterTipoId}</span>}
+            {filterTipoId && <span className="badge badge--blue">Tipo: {filterDocumentTypes.find((t) => t.id === filterTipoId)?.nombre || filterTipoId}</span>}
             {filterEstadoId && <span className="badge badge--blue">Estado: {documentStatuses.find((s) => s.id === filterEstadoId)?.nombre || filterEstadoId}</span>}
             {filterAreaId && <span className="badge badge--blue">Área: {areas.find((a) => a.id === filterAreaId)?.nombre || filterAreaId}</span>}
           </div>

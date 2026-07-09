@@ -25,6 +25,8 @@ type DocumentItem = {
   vigencia?: string;
   responsableId?: string;
   responsable?: string;
+  responsableActualizacion?: string;
+  responsableRevision?: string;
   responsableCargo?: string;
   responsableUsuario?: { id: string; nombre?: string; role?: { nombre?: string; slug?: string } };
   version?: string;
@@ -112,7 +114,7 @@ export default function DocumentFormModal({
 
   const estadoDocumentalOptions = documentStatuses.map((s) => ({ value: s.id, label: s.nombre || s.codigo }));
 
-  const initialResponsable = formState.responsableActualizacion || formState.responsableRevision || '';
+  const initialResponsable = formState.responsableActualizacion || formState.responsableRevision || selectedDocument?.responsableActualizacion || selectedDocument?.responsableRevision || selectedDocument?.responsable || selectedDocument?.responsableUsuario?.nombre || '';
 
   const handleResponsableChange = (value: string) => {
     // Keep backward compatibility: set both fields to the same responsable
